@@ -12,7 +12,8 @@ par = struct(...
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
  'var_output',1,... % the variable which should be plotted
-'output',@output... % problem-specific output routine (defined below)
+'output',@output,... % problem-specific output routine (defined below)
+'save_during',true ... % should we save during the computation
 );
 
 par.t_plot = false;
@@ -59,7 +60,7 @@ title('density variation');
 grid on;
 hold on;
     
-% working on inflow boundaries
+% working on inflow boundaries, we consider vacum boundary conditions
 function f = bc_inhomo(B,bc_id)
     switch bc_id
         % boundary at x = x_start
