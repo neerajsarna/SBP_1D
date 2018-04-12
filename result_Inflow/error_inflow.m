@@ -22,7 +22,9 @@ counter = 1;
 for i = 4:30
     output_filename = strcat('inflow_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
     output_filename = strcat(output_filename,num2str(i),'.txt');
+    
     result{counter} = dlmread(output_filename,'\t');
+    
     counter = counter + 1;
 end
 
