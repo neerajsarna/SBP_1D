@@ -1,4 +1,4 @@
-clear all;
+function solve_inflow(neqn)
 
 par = struct(...
 'name','1D Advection',... % name of example
@@ -16,12 +16,10 @@ par = struct(...
 );
 
 par.t_plot = false;
-par.n = 150;
+par.n = 50;
 
-nEqn = 4:2:30;
+par.n_eqn = neqn;
 
-for j = nEqn
-    par.n_eqn = j; 
     
     
 % we need the boundary matrix and the penalty matrix for both the
@@ -49,17 +47,13 @@ end
 
 result = solver(par);
 
+output_filename = strcinflow_tend_'+num2str(par.t_end);
+
 plot(result(1).X,result(1).sol,'-o');
 title('density variation');
 grid on;
 hold on;
     
-end
-
-
-
-
-
 % working on inflow boundaries
 function f = bc_inhomo(B,bc_id)
     switch bc_id
@@ -98,11 +92,10 @@ function[filenames] = dvlp_filenames(nEqn)
 
 filenames = struct;
 
-filenames.B = strcat("generic_1D/system_matrices1D/BInflow_1D_",num2str(nEqn));
+filenames.B = strcat("system_matrices1D/Binflow_1D_",num2str(nEqn));
 filenames.B = strcat(filenames.B,".txt");
 
-filenames.Ax = strcat("generic_1D/system_matrices1D/A1_1D_",num2str(nEqn));
+filenames.Ax = strcat("system_matrices1D/A1_1D_",num2str(nEqn));
 filenames.Ax = strcat(filenames.Ax,".txt");
 end
-
-
+end

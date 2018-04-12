@@ -213,10 +213,10 @@ while t < par.t_end
     t = t + par.dt;
     cputime(1) = cputime(1) + toc;
     
-    if mod(step_count,50) == 0
+    if mod(step_count,10) == 0
         disp('time: neqn: ');
         disp(t);
-        disp(par.n_eqn);
+        disp(n_eqn);
     end
     
     tic
