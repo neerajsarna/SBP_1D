@@ -50,7 +50,7 @@ end
 
 result = solver(par);
 
-output_filename = strcat('result_Inflow_new/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat('result_Inflow/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
 write_result(result,output_filename);
 
