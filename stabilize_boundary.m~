@@ -1,0 +1,17 @@
+function BStable = stabilize_boundary(Ax,B)
+n_eqn = size(Ax,2);
+
+id_odd = 2:2:n_eqn;
+id_even = 1:2:n_eqn;
+
+% remove the highest order even moment
+id_even = id_even(1:length(id_odd));
+
+hatAoe = A(id_odd,id_even);
+
+% Onsager matrix
+R = -B(:,id_even)/hatAoe;
+
+BStable = B;
+BStable(:)
+end

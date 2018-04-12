@@ -33,6 +33,9 @@ filenames = dvlp_filenames(par.n_eqn);
 % we develop the system data
 [par.Ax,par.B{2}] = get_system_data(filenames);
 
+% stabilise the boundary conditions, was slow in mathematica
+par.B{2} = stabilize_boundary(par.Ax,par.B{2});
+
 % develop the boundary matrix at ID2 or x=0
 par.B{1} = dvlp_B_ID1(par.B{2});
 
@@ -47,14 +50,14 @@ end
 
 result = solver(par);
 
-output_filename = strcat('result_Inflow/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat('result_Inflow_new/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
 write_result(result,output_filename);
 
-% plot(result(1).X,result(1).sol,'-o');
-% title('density variation');
-% grid on;
-% hold on;
+plot(result(1).X,result(1).sol,'-o');
+title('density variation');
+grid on;
+hold on;
     
 % working on inflow boundaries
 function f = bc_inhomo(B,bc_id)

@@ -29,7 +29,7 @@ end
 errorTot = [];
 
 % computing the error 
-for i = 1 : num_samples-1
+for i = 1:num_samples-1
     
     % num rows we need to extract from the higher order moment solution
     num_rows = size(result{i},1);
