@@ -1,0 +1,182 @@
+Sender: LSF System <lsfadmin@linuxbmc0332>
+Subject: Job 42493448[12]: <MATLAB_ARRAY[4-30]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[4-30]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Thu Apr 12 15:06:11 2018
+Job was executed on host(s) <linuxbmc0332>, in queue <normal>, as user <ns179556> in cluster <rcc> at Thu Apr 12 15:06:17 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Thu Apr 12 15:06:17 2018
+Terminated at Thu Apr 12 15:06:48 2018
+Results reported at Thu Apr 12 15:06:48 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[4-30]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_inflow_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 150
+ 
+### Request memory you need for your job in MB
+#BSUB -M 8000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_$LSB_JOBINDEX.log <<EOF
+run solve_inflow($LSB_JOBINDEX);
+quit();
+EOFi
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   25.13 sec.
+    Max Memory :                                 770 MB
+    Average Memory :                             137.00 MB
+    Total Requested Memory :                     8000.00 MB
+    Delta Memory :                               7230.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                8
+    Run time :                                   31 sec.
+    Turnaround time :                            37 sec.
+
+The output (if any) follows:
+
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2017b
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.13077
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: 
+    0.0151
+
+    12
+
+time: neqn: 
+    0.0303
+
+    12
+
+time: neqn: 
+    0.0454
+
+    12
+
+time: neqn: 
+    0.0606
+
+    12
+
+time: neqn: 
+    0.0757
+
+    12
+
+time: neqn: 
+    0.0909
+
+    12
+
+time: neqn: 
+    0.1060
+
+    12
+
+time: neqn: 
+    0.1212
+
+    12
+
+time: neqn: 
+    0.1363
+
+    12
+
+time: neqn: 
+    0.1515
+
+    12
+
+time: neqn: 
+    0.1666
+
+    12
+
+time: neqn: 
+    0.1818
+
+    12
+
+time: neqn: 
+    0.1969
+
+    12
+
+time: neqn: 
+    0.2121
+
+    12
+
+time: neqn: 
+    0.2272
+
+    12
+
+time: neqn: 
+    0.2424
+
+    12
+
+time: neqn: 
+    0.2575
+
+    12
+
+time: neqn: 
+    0.2727
+
+    12
+
+time: neqn: 
+    0.2878
+
+    12
+
+991 time steps
+CPU-times
+ advection:           7.43s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:>> 

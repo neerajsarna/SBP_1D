@@ -1,0 +1,182 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: 
+    0.0089
+
+    28
+
+time: neqn: 
+    0.0179
+
+    28
+
+time: neqn: 
+    0.0268
+
+    28
+
+time: neqn: 
+    0.0358
+
+    28
+
+time: neqn: 
+    0.0447
+
+    28
+
+time: neqn: 
+    0.0536
+
+    28
+
+time: neqn: 
+    0.0626
+
+    28
+
+time: neqn: 
+    0.0715
+
+    28
+
+time: neqn: 
+    0.0805
+
+    28
+
+time: neqn: 
+    0.0894
+
+    28
+
+time: neqn: 
+    0.0983
+
+    28
+
+time: neqn: 
+    0.1073
+
+    28
+
+time: neqn: 
+    0.1162
+
+    28
+
+time: neqn: 
+    0.1252
+
+    28
+
+time: neqn: 
+    0.1341
+
+    28
+
+time: neqn: 
+    0.1430
+
+    28
+
+time: neqn: 
+    0.1520
+
+    28
+
+time: neqn: 
+    0.1609
+
+    28
+
+time: neqn: 
+    0.1699
+
+    28
+
+time: neqn: 
+    0.1788
+
+    28
+
+time: neqn: 
+    0.1877
+
+    28
+
+time: neqn: 
+    0.1967
+
+    28
+
+time: neqn: 
+    0.2056
+
+    28
+
+time: neqn: 
+    0.2145
+
+    28
+
+time: neqn: 
+    0.2235
+
+    28
+
+time: neqn: 
+    0.2324
+
+    28
+
+time: neqn: 
+    0.2414
+
+    28
+
+time: neqn: 
+    0.2503
+
+    28
+
+time: neqn: 
+    0.2592
+
+    28
+
+time: neqn: 
+    0.2682
+
+    28
+
+time: neqn: 
+    0.2771
+
+    28
+
+time: neqn: 
+    0.2861
+
+    28
+
+time: neqn: 
+    0.2950
+
+    28
+
+1678 time steps
+CPU-times
+ advection:          46.24s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:
