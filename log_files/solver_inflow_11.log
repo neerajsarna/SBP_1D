@@ -100,7 +100,7 @@ time: neqn:
 
 934 time steps
 CPU-times
- advection:           6.37s  100%
+ advection:           6.30s  100%
 plotting:            0.00s    0%
 CPU-times
  advection:           0.00s    0%

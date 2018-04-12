@@ -1,13 +1,13 @@
-Sender: LSF System <lsfadmin@linuxbmc0332>
-Subject: Job 42493448[12]: <MATLAB_ARRAY[4-30]> in cluster <rcc> Done
+Sender: LSF System <lsfadmin@linuxbmc0326>
+Subject: Job 42496973[12]: <MATLAB_ARRAY[4-15]> in cluster <rcc> Done
 
-Job <MATLAB_ARRAY[4-30]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Thu Apr 12 15:06:11 2018
-Job was executed on host(s) <linuxbmc0332>, in queue <normal>, as user <ns179556> in cluster <rcc> at Thu Apr 12 15:06:17 2018
+Job <MATLAB_ARRAY[4-15]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Thu Apr 12 18:10:23 2018
+Job was executed on host(s) <linuxbmc0326>, in queue <normal>, as user <ns179556> in cluster <rcc> at Thu Apr 12 18:10:27 2018
 </home/ns179556> was used as the home directory.
 </home/ns179556/SBP_1D> was used as the working directory.
-Started at Thu Apr 12 15:06:17 2018
-Terminated at Thu Apr 12 15:06:48 2018
-Results reported at Thu Apr 12 15:06:48 2018
+Started at Thu Apr 12 18:10:27 2018
+Terminated at Thu Apr 12 18:11:00 2018
+Results reported at Thu Apr 12 18:11:00 2018
 
 Your job looked like:
 
@@ -16,7 +16,7 @@ Your job looked like:
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[4-30]"
+#BSUB -J "MATLAB_ARRAY[4-15]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_inflow_%I
@@ -49,25 +49,33 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   25.13 sec.
-    Max Memory :                                 770 MB
-    Average Memory :                             137.00 MB
+    CPU time :                                   24.25 sec.
+    Max Memory :                                 822 MB
+    Average Memory :                             193.00 MB
     Total Requested Memory :                     8000.00 MB
-    Delta Memory :                               7230.00 MB
+    Delta Memory :                               7178.00 MB
     Max Swap :                                   -
     Max Processes :                              5
     Max Threads :                                8
-    Run time :                                   31 sec.
+    Run time :                                   33 sec.
     Turnaround time :                            37 sec.
 
 The output (if any) follows:
 
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
 (OK) Loading MISC environment
 (WW) Matlab affects the shell environment. Other programs may have become unusable.
 (WW) Use another terminal for any program other than matlab!
 (OK) Loading matlab 2017b
 Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
-Opening log file:  /home/ns179556/java.log.13077
+Opening log file:  /home/ns179556/java.log.25390
 
                             < M A T L A B (R) >
                   Copyright 1984-2017 The MathWorks, Inc.
@@ -176,6 +184,207 @@ time: neqn:
 991 time steps
 CPU-times
  advection:           7.43s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:{Error using dlmwrite (line 116)
+Cannot open file result_Inflow_new/inflow_tend_0.3_points_150_neqn_12.txt.
+
+Error in write_result (line 2)
+dlmwrite(filename,result(1).X','delimiter','\t','precision',10);
+
+Error in solve_inflow (line 55)
+write_result(result,output_filename);
+
+Error in run (line 91)
+evalin('caller', strcat(script, ';'));
+} 
+>> Sender: LSF System <lsfadmin@linuxbmc0351>
+Subject: Job 42496999[12]: <MATLAB_ARRAY[4-15]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[4-15]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Thu Apr 12 18:13:20 2018
+Job was executed on host(s) <linuxbmc0351>, in queue <normal>, as user <ns179556> in cluster <rcc> at Thu Apr 12 18:13:25 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Thu Apr 12 18:13:25 2018
+Terminated at Thu Apr 12 18:14:16 2018
+Results reported at Thu Apr 12 18:14:16 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[4-15]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_inflow_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 150
+ 
+### Request memory you need for your job in MB
+#BSUB -M 8000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_$LSB_JOBINDEX.log <<EOF
+run solve_inflow($LSB_JOBINDEX);
+quit();
+EOFi
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   36.38 sec.
+    Max Memory :                                 909 MB
+    Average Memory :                             445.00 MB
+    Total Requested Memory :                     8000.00 MB
+    Delta Memory :                               7091.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                50
+    Run time :                                   50 sec.
+    Turnaround time :                            56 sec.
+
+The output (if any) follows:
+
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2017b
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.17675
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: 
+    0.0151
+
+    12
+
+time: neqn: 
+    0.0303
+
+    12
+
+time: neqn: 
+    0.0454
+
+    12
+
+time: neqn: 
+    0.0606
+
+    12
+
+time: neqn: 
+    0.0757
+
+    12
+
+time: neqn: 
+    0.0909
+
+    12
+
+time: neqn: 
+    0.1060
+
+    12
+
+time: neqn: 
+    0.1212
+
+    12
+
+time: neqn: 
+    0.1363
+
+    12
+
+time: neqn: 
+    0.1515
+
+    12
+
+time: neqn: 
+    0.1666
+
+    12
+
+time: neqn: 
+    0.1818
+
+    12
+
+time: neqn: 
+    0.1969
+
+    12
+
+time: neqn: 
+    0.2121
+
+    12
+
+time: neqn: 
+    0.2272
+
+    12
+
+time: neqn: 
+    0.2424
+
+    12
+
+time: neqn: 
+    0.2575
+
+    12
+
+time: neqn: 
+    0.2727
+
+    12
+
+time: neqn: 
+    0.2878
+
+    12
+
+991 time steps
+CPU-times
+ advection:           8.84s  100%
 plotting:            0.00s    0%
 CPU-times
  advection:           0.00s    0%
