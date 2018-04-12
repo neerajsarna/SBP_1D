@@ -17,7 +17,7 @@ par = struct(...
 
 par.t_plot = false;
 
-par.n = 150;
+par.n = 300;
 
 par.n_eqn = neqn;
 
