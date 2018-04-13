@@ -229,12 +229,14 @@ while t < par.t_end
         drawnow;
     end
     
-    if par.save_during && mod(step_count,100) == 0
+    % option to save the data during time step, required for convergence
+    % studies
+    if par.save_during && mod(step_count,500) == 0
         output = struct('X',X, ...
                         'sol',U, ...
                         'P',PX, ...
                         'h',h);
-        output_filename = strcat('result_Inflow/result_Reference/inflow_t_',num2str(t),'_points_',num2str(par.n),'_neqn_');
+        output_filename = strcat('result_wall/result_Reference/inflow_t_',num2str(t),'_points_',num2str(par.n),'_neqn_');
         output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
         write_result(output,output_filename);
     end
