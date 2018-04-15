@@ -1,6 +1,6 @@
 function output = solver(par)
 
-if ~isfiled(par,'save_during'), par.save_during = false; end % default value of save during the computation
+if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
 if ~isfield(par,'ic'),       par.ic = @zero; end% Default: no init. cond.
 
