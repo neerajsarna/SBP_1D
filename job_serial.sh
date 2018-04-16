@@ -9,10 +9,10 @@
 ### Request the time you need for execution in minutes
 ### The format for the parameter is: [hour:]minute,
 ### that means for 80 minutes you could also use this: 1:20
-#BSUB -W 150
+#BSUB -W 300
  
 ### Request memory you need for your job in MB
-#BSUB -M 2000
+#BSUB -M 4000
  
 ### Change to the work directory
 cd /home/ns179556/SBP_1D/
