@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[199]"
+#BSUB -J "MATLAB_ARRAY[5,15,25,35,45,6,16,26,36,46,100]"
  
 ### File / path where STDOUT will be written, the %J is the job id
-#BSUB -o log_files/solving_inflow_%I
+#BSUB -o log_files/solving_wall_%I
  
 ### Request the time you need for execution in minutes
 ### The format for the parameter is: [hour:]minute,
@@ -23,7 +23,7 @@ module load matlab
  
  
 # start non-interactive batch job
-matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_$LSB_JOBINDEX.log <<EOF
-run solve_inflow($LSB_JOBINDEX);
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_wall_$LSB_JOBINDEX.log <<EOF
+run solve_wall_specular($LSB_JOBINDEX);
 quit();
 EOFi

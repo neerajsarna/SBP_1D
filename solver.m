@@ -238,7 +238,7 @@ while t < par.t_end
                         'P',PX, ...
                         'h',h);
 
-        output_filename = strcat('result_Inflow/result_Reference/inflow_t_',num2str(t),'_points_',num2str(par.n),'_neqn_');
+        output_filename = strcat('result_wall_specular/result_Reference/inflow_t_',num2str(t),'_points_',num2str(par.n),'_neqn_');
         output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
         write_result(output,output_filename);
     end

@@ -37,7 +37,7 @@ end
     result{counter+1} = dlmread(output_filename,'\t');
     
 
-    output_filename = strcat('result_Reference/inflow_t_0.22912','_points_',num2str(n),'_neqn_');
+    output_filename = strcat('inflow_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
     output_filename = strcat(output_filename,num2str(199),'.txt');
     
     result{counter} = dlmread(output_filename,'\t');
@@ -117,7 +117,7 @@ diff_norm_Odd = diff_norm_Odd * 100;
 diff_norm_Even = diff_norm_Even * 100;
 
 figure(5)
-loglog(odd_var(199),diff_norm_Odd,'-o',even_var(199),diff_norm_Even,'-o','MarkerSize',3);
+loglog(odd_var(199),diff_norm_Odd,'-o',even_var(199),diff_norm_Even,'-o',even_var(199),3,'-v','MarkerSize',3);
 %loglog(odd_var(199),norm_Odd_f_199,'-o',odd_var(199),norm_Odd_f_200(1:length(odd_var(199))),'-o','MarkerSize',3);
 
 
