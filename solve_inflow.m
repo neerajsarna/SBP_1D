@@ -19,7 +19,7 @@ par = struct(...
 
 par.t_plot = false;
 
-par.n = 100;
+par.n = 300;
 
 par.n_eqn = neqn;
 
@@ -106,17 +106,22 @@ filenames.Ax = strcat("system_matrices1D/A1_1D_",num2str(nEqn));
 filenames.Ax = strcat(filenames.Ax,".txt");
 end
 
+% storage of data during time steps becomes expensive, therefore, we only
+% focus storing the norms at different times
 function compute_during(U,weight,k_RK,PX,DX,t)
-norm_f = sqrt(cell2mat(cellfun(@(a) a'*PX*a,U,'Un',0)))';
-norm_dx_f = sqrt(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U,'Un',0)))';
+norm_f = sqrt(cell2mat(cellfun(@(a) a'*PX*a,U,'Un',0)));
+norm_dx_f = sqrt(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U,'Un',0)));
 
 n_eqn = length(U);
+
 norm_dt_f = zeros(1,n_eqn);
 % number of RK steps
 num_step = length(weight);
 
+% loop over all the components
 for i = 1 : n_eqn
     temp = zeros(size(DX,1),1);
+    % time derivative of the i-th component at all the points
 for j = 1 : num_step
     temp = temp + weight(j) * k_RK{j}{i};
 end
@@ -127,6 +132,6 @@ filename = strcat('result_Inflow/result_Reference_temp/inflow_t_',num2str(t), ..
                 '_points_',num2str(size(DX,2)),'_neqn_',num2str(length(U)),'.txt');
 
 dlmwrite(filename,norm_f,'delimiter','\t','precision',10);
-dlmwrite(filename,norm_dx_f,'delimiter','-append','\t','precision',10);
-dlmwrite(filename,norm_dt_f,'delimiter','-append','\t','precision',10);
+dlmwrite(filename,norm_dx_f,'delimiter','\t','-append','precision',10);
+dlmwrite(filename,norm_dt_f,'delimiter','\t','-append','precision',10);
 end
