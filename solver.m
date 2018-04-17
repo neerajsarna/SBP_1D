@@ -232,15 +232,10 @@ while t < par.t_end
     
     % option to save the data during time step, required for convergence
     % studies
-    if par.save_during && mod(step_count,500) == 0
-        output = struct('X',X, ...
-                        'sol',U, ...
-                        'P',PX, ...
-                        'h',h);
-
-        output_filename = strcat('result_wall_specular/result_Reference/inflow_t_',num2str(t),'_points_',num2str(par.n),'_neqn_');
-        output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-        write_result(output,output_filename);
+    if par.save_during && mod(step_count,100) == 0
+        % we compute the norms of the different features of the solution
+        par.compute_during(U,weight,k_RK,PX,DX,t);
+       
     end
     
     cputime(2) = cputime(2) + toc;

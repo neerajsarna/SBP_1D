@@ -13,12 +13,13 @@ par = struct(...
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
  'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
-'save_during',true ... % should we save during the computation
+'save_during',true, ... % should we save during the computation
+'compute_during', @compute_during ...
 );
 
 par.t_plot = false;
 
-par.n = 300;
+par.n = 100;
 
 par.n_eqn = neqn;
 
@@ -51,15 +52,14 @@ end
 
 result = solver(par);
 
-output_filename = strcat('result_Inflow/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-write_result(result,output_filename);
+% output_filename = strcat('result_Inflow/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
+% write_result(result,output_filename);
 
-plot(result(1).X,result(1).sol,'-o');
-title('density variation');
-grid on;
-hold on;
-    
+
+end
+
+
 % working on inflow boundaries, we consider vacum boundary conditions
 function f = bc_inhomo(B,bc_id)
     switch bc_id
@@ -105,4 +105,28 @@ filenames.B = strcat(filenames.B,".txt");
 filenames.Ax = strcat("system_matrices1D/A1_1D_",num2str(nEqn));
 filenames.Ax = strcat(filenames.Ax,".txt");
 end
+
+function compute_during(U,weight,k_RK,PX,DX,t)
+norm_f = sqrt(cell2mat(cellfun(@(a) a'*PX*a,U,'Un',0)))';
+norm_dx_f = sqrt(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U,'Un',0)))';
+
+n_eqn = length(U);
+norm_dt_f = zeros(1,n_eqn);
+% number of RK steps
+num_step = length(weight);
+
+for i = 1 : n_eqn
+    temp = zeros(size(DX,1),1);
+for j = 1 : num_step
+    temp = temp + weight(j) * k_RK{j}{i};
+end
+    norm_dt_f(i) = sqrt(temp'*PX*temp);
+end
+
+filename = strcat('result_Inflow/result_Reference_temp/inflow_t_',num2str(t), ...
+                '_points_',num2str(size(DX,2)),'_neqn_',num2str(length(U)),'.txt');
+
+dlmwrite(filename,norm_f,'delimiter','\t','precision',10);
+dlmwrite(filename,norm_dx_f,'delimiter','-append','\t','precision',10);
+dlmwrite(filename,norm_dt_f,'delimiter','-append','\t','precision',10);
 end

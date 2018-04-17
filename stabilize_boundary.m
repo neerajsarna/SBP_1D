@@ -13,6 +13,13 @@ hatAoe = Ax(id_odd,Trun_id_even);
 % Onsager matrix, ignored the minus
 R = -B(:,Trun_id_even) * inv(hatAoe);
 
+D = eig(R);
+
+if ~isempty(find(D <0, 1))
+    error('Onsager matrix not spd');
+end
+    
+    
 BStable = B;
 
 % change all the even variables

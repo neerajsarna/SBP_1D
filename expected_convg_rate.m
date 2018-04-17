@@ -4,7 +4,7 @@
 % 2. t_end = end time at which we do the computations
 % 3. n = number of grid points along the spatial domain
 % 4. foldername = folder in which the results are
-function expected_rate = expected_convg_rate(n_eqn,t_end,n,foldername,filename)
+function [expected_rate,loc_truncate] = expected_convg_rate(n_eqn,n_eqn2,t_end,n,foldername,filename)
 
 
 % look for all the files 
@@ -59,19 +59,37 @@ for i = 1 : n_eqn
     value_dt_f = cell2mat(cellfun(@(a) a(i),norm_dt_f,'Un',0));
     value_dx_f = cell2mat(cellfun(@(a) a(i),norm_dx_f,'Un',0));
     
-%     int_f(i) = trapz(t_values,value_f);
-%     int_dx_f(i) = trapz(t_values,value_dx_f);
-%     int_dt_f(i) = trapz(t_values,value_dt_f);
-
-    int_f(i) = int_Riemann(t_values,value_f);
-    int_dx_f(i) = int_Riemann(t_values,value_dx_f);
-    int_dt_f(i) = int_Riemann(t_values,value_dt_f);
+    int_f(i) = trapz(t_values,value_f);
+    int_dx_f(i) = trapz(t_values,value_dx_f);
+    int_dt_f(i) = trapz(t_values,value_dt_f);
 end
+
+%% we also extract the reference solution at t = 0.3
+output_filename = strcat(foldername,'/',filename,'_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
+output_filename = strcat(output_filename,num2str(n_eqn),'.txt');
+    
+result_final = dlmread(output_filename,'\t');
+result_final = result_final(2:end,:)';
+
+% solution corresponding to the second reference
+output_filename = strcat(foldername,'/',filename,'_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
+output_filename = strcat(output_filename,num2str(n_eqn2),'.txt');
+
+result_final_2 = dlmread(output_filename,'\t');
+result_final_2 = result_final_2(2:end,:)';
+
+norm_final = sqrt(dot(result_final,P*result_final,1));
+
 % 
 % % plot the variation in norm f
 % 
-id_odd = odd_var(n_eqn);
-id_even = even_var(n_eqn);
+loc_truncate = find_truncate(result_final,result_final_2,P,D);
+
+id_odd = odd_var(loc_truncate);
+id_even = even_var(loc_truncate);
+
+id_odd_full = odd_var(n_eqn);
+id_even_full = even_var(n_eqn);
 
 %% polyfit for f
 [P_Odd_f,y_Odd_f] = polyfit_linear(log(id_odd),log(int_f(id_odd)));
@@ -87,10 +105,13 @@ id_even = even_var(n_eqn);
 [P_Odd_dt_f,y_Odd_dt_f] = polyfit_linear(log(id_odd),log(int_dt_f(id_odd)));
 [P_Even_dt_f,y_Even_dt_f] = polyfit_linear(log(id_even),log(int_dt_f(id_even)));
 
+%% polyfit for f at t = t_end
+[P_Odd_f_final,y_Odd_f_final] = polyfit_linear(log(id_odd),log(norm_final(id_odd)));
+[P_Even_f_final,y_Even_f_final] = polyfit_linear(log(id_even),log(norm_final(id_even)));
 % 
 %% plotting for f
 figure(1)
-loglog(id_odd,int_f(id_odd),'-o',id_even,int_f(id_even),'-o',id_odd,exp(y_Odd_f),'r-*',...
+loglog(id_odd_full,int_f(id_odd_full),'-o',id_even_full,int_f(id_even_full),'-o',id_odd,exp(y_Odd_f),'r-*',...
                 id_even,exp(y_Even_f),'k-*',...
                     'MarkerSize',3);
 legend('odd moments','even moments','linear fit odd','linear fit even');
@@ -100,7 +121,7 @@ grid on;
 % 
 %% plotting for dt f
 figure(2)
-loglog(id_odd,int_dt_f(id_odd),'-o',id_even,int_dt_f(id_even),'-o',id_odd,exp(y_Odd_dt_f),'r-*',...
+loglog(id_odd_full,int_dt_f(id_odd_full),'-o',id_even_full,int_dt_f(id_even_full),'-o',id_odd,exp(y_Odd_dt_f),'r-*',...
                 id_even,exp(y_Even_dt_f),'k-*',...
                     'MarkerSize',3);
 legend('odd moments','even moments','linear fit odd','linear fit even');
@@ -110,7 +131,7 @@ grid on;
 % 
  %% plotting for dx f
 figure(3)
-loglog(id_odd,int_dx_f(id_odd),'-o',id_even,int_dx_f(id_even),'-o',id_odd,exp(y_Odd_dx_f),'r-*',...
+loglog(id_odd_full,int_dx_f(id_odd_full),'-o',id_even_full,int_dx_f(id_even_full),'-o',id_odd,exp(y_Odd_dx_f),'r-*',...
                 id_even,exp(y_Even_dx_f),'k-*',...
                     'MarkerSize',3);
 legend('odd moments','even moments','linear fit odd','linear fit even');
@@ -118,20 +139,10 @@ xlim([1 n_eqn]);
 title('norm int dx f');
 grid on;
 % 
-%% we also extract the reference solution at t = 0.3
-output_filename = strcat(foldername,'/',filename,'_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
-output_filename = strcat(output_filename,num2str(i),'.txt');
-    
-result_final = dlmread(output_filename,'\t');
-result_final = result_final(2:end,:)';
 
-norm_final = sqrt(dot(result_final,P*result_final,1));
-
-[P_Odd_f_final,y_Odd_f_final] = polyfit_linear(log(id_odd),log(norm_final(id_odd)));
-[P_Even_f_final,y_Even_f_final] = polyfit_linear(log(id_even),log(norm_final(id_even)));
-
+%% plotting for f at t = t_end
 figure(4)
-loglog(id_odd,norm_final(id_odd),'-o',id_even,norm_final(id_even),'-o',id_odd,exp(y_Odd_f_final),'r-*',...
+loglog(id_odd_full,norm_final(id_odd_full),'-o',id_even_full,norm_final(id_even_full),'-o',id_odd,exp(y_Odd_f_final),'r-*',...
                 id_even,exp(y_Even_f_final),'k-*',...
                     'MarkerSize',3);
 legend('odd moments','even moments','linear fit odd','linear fit even');
@@ -183,5 +194,21 @@ end
 function f = int_Riemann(x,y)
  dx = [x(1) diff(x)'];
  f = sum(dx.*y);
+end
+
+function f = find_truncate(result,result_2,P,D)
+
+cutoff_per = 5;
+norm1 = sqrt(dot(result,P*result,1));
+norm2 = sqrt(dot(result_2,P*result_2,1));
+
+norm1_dx = sqrt(dot(D * result,P* D * result,1));
+norm2_dx = sqrt(dot(D * result_2,P* D * result_2,1));
+
+min_dim = min(length(norm1),length(norm2));
+diff1 = abs(norm1(1:min_dim)-norm2(1:min_dim))*100./norm1(1:min_dim);
+diff1_dx = abs(norm1_dx(1:min_dim)-norm2_dx(1:min_dim))*100./norm1_dx(1:min_dim);
+
+f = min(find(diff1 > cutoff_per,1),find(diff1_dx > cutoff_per,1));
 end
 
