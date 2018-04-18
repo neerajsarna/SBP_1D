@@ -1,4 +1,4 @@
-function output = solver(par)
+function output = solver_DVM(par)
 
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
@@ -190,13 +190,19 @@ while t < par.t_end
 %             disp('velocity norm');
 %             disp(norm(UTemp{2},2));
             
+            density = par.compute_density(UTemp,par.Ax,par.all_w);
+            velocity = par.compute_velocity(UTemp,par.Ax,par.all_w);
+            alpha2 = par.compute_alpha2(UTemp,par.Ax,par.all_w);
+            
             for i = 1 : par.n_eqn
                 
                 % multiplication of the derivatives and the system matrices
                 W = -sumcell(dxU(Ix{i}),par.Ax(i,Ix{i}));
                                     
-                k_RK{RK}{i} = (W + force{i} + bc_values{i} + Prod{i}.*UTemp{i});
+                k_RK{RK}{i} = (W + force{i} + bc_values{i});
                 
+                % adding relaxation
+                k_RK{RK}{i} = k_RK{RK}{i} + (-UTemp{i}+par.compute_fM(par.Ax,density,velocity,alpha2,i))/par.Kn;
                 if RK ~= 4
                     UTemp{i} = U{i} + k_RK{RK}{i} * dt_temp(RK + 1);
                 end
@@ -224,9 +230,13 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        plot(X,U{par.var_output},'-o');
+        var_plot = par.compute_density(U,par.Ax,par.all_w);
+        %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
+        %plot(diag(par.Ax),var_plot,'-o');
+        plot(X,var_plot,'-o');
+        %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
-        ylim([-1 1]);        
+        ylim([0 0.1]);        
         drawnow;
     end
     
@@ -275,4 +285,5 @@ for j = 1:length(w)
 end
 
 end
+
 
