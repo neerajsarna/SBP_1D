@@ -1,0 +1,1150 @@
+Sender: LSF System <lsfadmin@linuxbcsc67>
+Subject: Job 42556378[100]: <MATLAB_ARRAY[100]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[100]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Tue Apr 17 20:00:37 2018
+Job was executed on host(s) <linuxbcsc67>, in queue <normal>, as user <ns179556> in cluster <rcc> at Tue Apr 17 20:00:50 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Tue Apr 17 20:00:50 2018
+Terminated at Tue Apr 17 20:02:01 2018
+Results reported at Tue Apr 17 20:02:01 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[100]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_inflow_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 300
+ 
+### Request memory you need for your job in MB
+#BSUB -M 4000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_$LSB_JOBINDEX.log <<EOF
+run solve_inflow($LSB_JOBINDEX);
+quit();
+EOFi
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   63.91 sec.
+    Max Memory :                                 830 MB
+    Average Memory :                             559.33 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               3170.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                56
+    Run time :                                   87 sec.
+    Turnaround time :                            84 sec.
+
+The output (if any) follows:
+
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2017b
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.33475
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: 
+    0.0022
+
+   100
+
+    50
+
+time: neqn: 
+    0.0044
+
+   100
+
+   100
+
+{Error using dlmwrite (line 116)
+Cannot open file
+result_Inflow/result_Reference_temp/inflow_t_0.0043953_points_301_neqn_100.txt.
+
+Error in solve_inflow>compute_during (line 134)
+dlmwrite(filename,norm_f,'delimiter','\t','precision',10);
+
+Error in solver (line 237)
+        par.compute_during(U,weight,k_RK,PX,DX,t);
+
+Error in solve_inflow (line 53)
+result = solver(par);
+
+Error in run (line 91)
+evalin('caller', strcat(script, ';'));
+} 
+>> 
+Sender: LSF System <lsfadmin@linuxbcsc67>
+Subject: Job 42556394[100]: <MATLAB_ARRAY[100]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[100]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Tue Apr 17 20:03:16 2018
+Job was executed on host(s) <linuxbcsc67>, in queue <normal>, as user <ns179556> in cluster <rcc> at Tue Apr 17 20:03:27 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Tue Apr 17 20:03:27 2018
+Terminated at Tue Apr 17 20:37:35 2018
+Results reported at Tue Apr 17 20:37:35 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[100]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_inflow_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 300
+ 
+### Request memory you need for your job in MB
+#BSUB -M 4000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_$LSB_JOBINDEX.log <<EOF
+run solve_inflow($LSB_JOBINDEX);
+quit();
+EOFi
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2050.69 sec.
+    Max Memory :                                 877 MB
+    Average Memory :                             862.48 MB
+    Total Requested Memory :                     4000.00 MB
+    Delta Memory :                               3123.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                55
+    Run time :                                   2072 sec.
+    Turnaround time :                            2059 sec.
+
+The output (if any) follows:
+
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2017b
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.35839
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: 
+    0.0022
+
+   100
+
+    50
+
+time: neqn: 
+    0.0044
+
+   100
+
+   100
+
+time: neqn: 
+    0.0066
+
+   100
+
+   150
+
+time: neqn: 
+    0.0088
+
+   100
+
+   200
+
+time: neqn: 
+    0.0110
+
+   100
+
+   250
+
+time: neqn: 
+    0.0132
+
+   100
+
+   300
+
+time: neqn: 
+    0.0154
+
+   100
+
+   350
+
+time: neqn: 
+    0.0176
+
+   100
+
+   400
+
+time: neqn: 
+    0.0198
+
+   100
+
+   450
+
+time: neqn: 
+    0.0220
+
+   100
+
+   500
+
+time: neqn: 
+    0.0242
+
+   100
+
+   550
+
+time: neqn: 
+    0.0264
+
+   100
+
+   600
+
+time: neqn: 
+    0.0286
+
+   100
+
+   650
+
+time: neqn: 
+    0.0308
+
+   100
+
+   700
+
+time: neqn: 
+    0.0330
+
+   100
+
+   750
+
+time: neqn: 
+    0.0352
+
+   100
+
+   800
+
+time: neqn: 
+    0.0374
+
+   100
+
+   850
+
+time: neqn: 
+    0.0396
+
+   100
+
+   900
+
+time: neqn: 
+    0.0418
+
+   100
+
+   950
+
+time: neqn: 
+    0.0440
+
+   100
+
+        1000
+
+time: neqn: 
+    0.0462
+
+   100
+
+        1050
+
+time: neqn: 
+    0.0483
+
+   100
+
+        1100
+
+time: neqn: 
+    0.0505
+
+   100
+
+        1150
+
+time: neqn: 
+    0.0527
+
+   100
+
+        1200
+
+time: neqn: 
+    0.0549
+
+   100
+
+        1250
+
+time: neqn: 
+    0.0571
+
+   100
+
+        1300
+
+time: neqn: 
+    0.0593
+
+   100
+
+        1350
+
+time: neqn: 
+    0.0615
+
+   100
+
+        1400
+
+time: neqn: 
+    0.0637
+
+   100
+
+        1450
+
+time: neqn: 
+    0.0659
+
+   100
+
+        1500
+
+time: neqn: 
+    0.0681
+
+   100
+
+        1550
+
+time: neqn: 
+    0.0703
+
+   100
+
+        1600
+
+time: neqn: 
+    0.0725
+
+   100
+
+        1650
+
+time: neqn: 
+    0.0747
+
+   100
+
+        1700
+
+time: neqn: 
+    0.0769
+
+   100
+
+        1750
+
+time: neqn: 
+    0.0791
+
+   100
+
+        1800
+
+time: neqn: 
+    0.0813
+
+   100
+
+        1850
+
+time: neqn: 
+    0.0835
+
+   100
+
+        1900
+
+time: neqn: 
+    0.0857
+
+   100
+
+        1950
+
+time: neqn: 
+    0.0879
+
+   100
+
+        2000
+
+time: neqn: 
+    0.0901
+
+   100
+
+        2050
+
+time: neqn: 
+    0.0923
+
+   100
+
+        2100
+
+time: neqn: 
+    0.0945
+
+   100
+
+        2150
+
+time: neqn: 
+    0.0967
+
+   100
+
+        2200
+
+time: neqn: 
+    0.0989
+
+   100
+
+        2250
+
+time: neqn: 
+    0.1011
+
+   100
+
+        2300
+
+time: neqn: 
+    0.1033
+
+   100
+
+        2350
+
+time: neqn: 
+    0.1055
+
+   100
+
+        2400
+
+time: neqn: 
+    0.1077
+
+   100
+
+        2450
+
+time: neqn: 
+    0.1099
+
+   100
+
+        2500
+
+time: neqn: 
+    0.1121
+
+   100
+
+        2550
+
+time: neqn: 
+    0.1143
+
+   100
+
+        2600
+
+time: neqn: 
+    0.1165
+
+   100
+
+        2650
+
+time: neqn: 
+    0.1187
+
+   100
+
+        2700
+
+time: neqn: 
+    0.1209
+
+   100
+
+        2750
+
+time: neqn: 
+    0.1231
+
+   100
+
+        2800
+
+time: neqn: 
+    0.1253
+
+   100
+
+        2850
+
+time: neqn: 
+    0.1275
+
+   100
+
+        2900
+
+time: neqn: 
+    0.1297
+
+   100
+
+        2950
+
+time: neqn: 
+    0.1319
+
+   100
+
+        3000
+
+time: neqn: 
+    0.1341
+
+   100
+
+        3050
+
+time: neqn: 
+    0.1363
+
+   100
+
+        3100
+
+time: neqn: 
+    0.1385
+
+   100
+
+        3150
+
+time: neqn: 
+    0.1406
+
+   100
+
+        3200
+
+time: neqn: 
+    0.1428
+
+   100
+
+        3250
+
+time: neqn: 
+    0.1450
+
+   100
+
+        3300
+
+time: neqn: 
+    0.1472
+
+   100
+
+        3350
+
+time: neqn: 
+    0.1494
+
+   100
+
+        3400
+
+time: neqn: 
+    0.1516
+
+   100
+
+        3450
+
+time: neqn: 
+    0.1538
+
+   100
+
+        3500
+
+time: neqn: 
+    0.1560
+
+   100
+
+        3550
+
+time: neqn: 
+    0.1582
+
+   100
+
+        3600
+
+time: neqn: 
+    0.1604
+
+   100
+
+        3650
+
+time: neqn: 
+    0.1626
+
+   100
+
+        3700
+
+time: neqn: 
+    0.1648
+
+   100
+
+        3750
+
+time: neqn: 
+    0.1670
+
+   100
+
+        3800
+
+time: neqn: 
+    0.1692
+
+   100
+
+        3850
+
+time: neqn: 
+    0.1714
+
+   100
+
+        3900
+
+time: neqn: 
+    0.1736
+
+   100
+
+        3950
+
+time: neqn: 
+    0.1758
+
+   100
+
+        4000
+
+time: neqn: 
+    0.1780
+
+   100
+
+        4050
+
+time: neqn: 
+    0.1802
+
+   100
+
+        4100
+
+time: neqn: 
+    0.1824
+
+   100
+
+        4150
+
+time: neqn: 
+    0.1846
+
+   100
+
+        4200
+
+time: neqn: 
+    0.1868
+
+   100
+
+        4250
+
+time: neqn: 
+    0.1890
+
+   100
+
+        4300
+
+time: neqn: 
+    0.1912
+
+   100
+
+        4350
+
+time: neqn: 
+    0.1934
+
+   100
+
+        4400
+
+time: neqn: 
+    0.1956
+
+   100
+
+        4450
+
+time: neqn: 
+    0.1978
+
+   100
+
+        4500
+
+time: neqn: 
+    0.2000
+
+   100
+
+        4550
+
+time: neqn: 
+    0.2022
+
+   100
+
+        4600
+
+time: neqn: 
+    0.2044
+
+   100
+
+        4650
+
+time: neqn: 
+    0.2066
+
+   100
+
+        4700
+
+time: neqn: 
+    0.2088
+
+   100
+
+        4750
+
+time: neqn: 
+    0.2110
+
+   100
+
+        4800
+
+time: neqn: 
+    0.2132
+
+   100
+
+        4850
+
+time: neqn: 
+    0.2154
+
+   100
+
+        4900
+
+time: neqn: 
+    0.2176
+
+   100
+
+        4950
+
+time: neqn: 
+    0.2198
+
+   100
+
+        5000
+
+time: neqn: 
+    0.2220
+
+   100
+
+        5050
+
+time: neqn: 
+    0.2242
+
+   100
+
+        5100
+
+time: neqn: 
+    0.2264
+
+   100
+
+        5150
+
+time: neqn: 
+    0.2286
+
+   100
+
+        5200
+
+time: neqn: 
+    0.2308
+
+   100
+
+        5250
+
+time: neqn: 
+    0.2330
+
+   100
+
+        5300
+
+time: neqn: 
+    0.2351
+
+   100
+
+        5350
+
+time: neqn: 
+    0.2373
+
+   100
+
+        5400
+
+time: neqn: 
+    0.2395
+
+   100
+
+        5450
+
+time: neqn: 
+    0.2417
+
+   100
+
+        5500
+
+time: neqn: 
+    0.2439
+
+   100
+
+        5550
+
+time: neqn: 
+    0.2461
+
+   100
+
+        5600
+
+time: neqn: 
+    0.2483
+
+   100
+
+        5650
+
+time: neqn: 
+    0.2505
+
+   100
+
+        5700
+
+time: neqn: 
+    0.2527
+
+   100
+
+        5750
+
+time: neqn: 
+    0.2549
+
+   100
+
+        5800
+
+time: neqn: 
+    0.2571
+
+   100
+
+        5850
+
+time: neqn: 
+    0.2593
+
+   100
+
+        5900
+
+time: neqn: 
+    0.2615
+
+   100
+
+        5950
+
+time: neqn: 
+    0.2637
+
+   100
+
+        6000
+
+time: neqn: 
+    0.2659
+
+   100
+
+        6050
+
+time: neqn: 
+    0.2681
+
+   100
+
+        6100
+
+time: neqn: 
+    0.2703
+
+   100
+
+        6150
+
+time: neqn: 
+    0.2725
+
+   100
+
+        6200
+
+time: neqn: 
+    0.2747
+
+   100
+
+        6250
+
+time: neqn: 
+    0.2769
+
+   100
+
+        6300
+
+time: neqn: 
+    0.2791
+
+   100
+
+        6350
+
+time: neqn: 
+    0.2813
+
+   100
+
+        6400
+
+time: neqn: 
+    0.2835
+
+   100
+
+        6450
+
+time: neqn: 
+    0.2857
+
+   100
+
+        6500
+
+time: neqn: 
+    0.2879
+
+   100
+
+        6550
+
+time: neqn: 
+    0.2901
+
+   100
+
+        6600
+
+time: neqn: 
+    0.2923
+
+   100
+
+        6650
+
+time: neqn: 
+    0.2945
+
+   100
+
+        6700
+
+time: neqn: 
+    0.2967
+
+   100
+
+        6750
+
+time: neqn: 
+    0.2989
+
+   100
+
+        6800
+
+6826 time steps
+CPU-times
+ advection:        2004.20s  100%
+plotting:            4.29s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:>> 
