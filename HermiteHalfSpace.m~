@@ -1,0 +1,20 @@
+function f = HermiteHalfSpace(m,n)
+
+if m == n
+    f = 0.5;
+end
+
+if mod((m-n),2)==0 && m~=n
+    f = 0;
+end
+
+if mod((m-n),2) ~= 0
+  fact1 = sqrt(factorial(m)/(factorial(n) * 2 * pi));  
+  if m > n
+      fact2 = 
+  else
+      fact2 = 0;
+  end
+end
+
+end
