@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[100]"
+#BSUB -J "MATLAB_ARRAY[200]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_inflow_%I
@@ -26,4 +26,4 @@ module load matlab
 matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_$LSB_JOBINDEX.log <<EOF
 run solve_inflow($LSB_JOBINDEX);
 quit();
-EOFi
+EOF

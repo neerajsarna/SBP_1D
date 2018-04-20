@@ -234,7 +234,7 @@ while t < par.t_end
     % studies
     if par.save_during && mod(step_count,100) == 0
         % we compute the norms of the different features of the solution
-        capargs(par.compute_during,U,weight,k_RK,PX,DX,t);
+        par.compute_during(U,weight,k_RK,PX,DX,t);
        
     end
     

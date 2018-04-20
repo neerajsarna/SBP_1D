@@ -27,7 +27,7 @@ par.t_plot = false;
 par.n_eqn = 2 * nc;
 %par.n_eqn =nc;
 
-par.n = 50;
+par.n = 300;
 %[temp_x,temp_w] = gauss_quadrature(nc,-5,5);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-5,0);
 [par.x_p,par.w_p] = gauss_quadrature(nc,0,5);
