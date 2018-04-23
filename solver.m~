@@ -1,11 +1,5 @@
 function output = solver(par)
 
-if par.save_during 
-    if ~isfield(par,'compute_during')
-        error('no routine added for computing during computation');
-    end
-end
-
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
 if ~isfield(par,'ic'),       par.ic = @zero; end% Default: no init. cond.
@@ -212,9 +206,8 @@ while t < par.t_end
                 
                 % explicit production terms
                 if par.prod_explicit
-                    if i > 3
-                        k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}))/par.Kn;
-                    end
+                    
+                    k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}));
                 else
                     k_RK{RK}{i} = k_RK{RK}{i} + Prod{i}.*UTemp{i};
                 end
@@ -255,10 +248,9 @@ while t < par.t_end
     % option to save the data during time step, required for convergence
     % studies
     if par.save_during && mod(step_count,100) == 0
-        
         % we compute the norms of the different features of the solution
-        par.compute_during(U,weight,k_RK,PX,DX,t);
-        
+        capargs(par.compute_during,U,weight,k_RK,PX,DX,t);
+       
     end
     
     cputime(2) = cputime(2) + toc;

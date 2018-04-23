@@ -1,3 +1,4 @@
+% manufactured solution for the 1D moment system
 clear all;
 
 par = struct(...
