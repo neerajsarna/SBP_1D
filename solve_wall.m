@@ -6,20 +6,20 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
- 'CFL',4.0,...      % the crude cfl number
+ 't_end',3.0,... % the end time of the computation
+ 'CFL',2.0,...   % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
- 'var_output',2,... % the variable which should be plotted
+ 'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
 'save_during',false ... % should we save during the computation
 );
 
 % we don't plot
-par.t_plot = false;
+par.t_plot = true;
 
-par.n = 300;
+par.n = 100;
 
 par.n_eqn = neqn;
 
@@ -55,9 +55,9 @@ end
 
 result = solver(par);
 
-output_filename = strcat('result_wall/wall_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-write_result(result,output_filename);
+% output_filename = strcat('result_wall/wall_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
+% write_result(result,output_filename);
 
 % plot(result(1).X,result(1).sol,'-o');
 % title('density variation');
@@ -93,9 +93,9 @@ Kn = 0.1;
 f = zeros(length(x),1);
 
 % anything above temperature has to be relaxed
-if id > 3
-    f = -1/Kn * ones(length(x),1);
-end
+% if id > 3
+%     f = -1/Kn * ones(length(x),1);
+% end
 
 end
 

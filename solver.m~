@@ -107,9 +107,9 @@ t = 0; step_count = 0;
 
 % needed for norm computation
 t_Old = 0;
-int_f = zeros(1,par.n_eqn);
+int_f = 0;
 int_dx_f = zeros(1,par.n_eqn);
-int_dt_f = zeros(1,par.n_eqn);
+int_dt_f = 0;
 
 
 for j = par.source_ind     
@@ -278,7 +278,7 @@ end
 
 % write down the norms of f and it's derivatives into a file
 if par.save_during
-    par.save_norms(int_f,int_dx_f,int_dt_f,par.n);
+    par.save_norms(int_f,int_dx_f,int_dt_f);
 end
 
 fprintf('%0.0f time steps\n',step_count)           % Display test
