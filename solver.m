@@ -1,7 +1,7 @@
 function output = solver(par)
 
 if par.save_during 
-    if ~isfield(par,'compute_during')
+    if ~isfield(par,'compute_during') && ~isfield(par,'save_during')
         error('no routine added for computing during computation');
     end
 end
@@ -104,6 +104,12 @@ end
 %% Time Loop
 cputime = zeros(1,3);
 t = 0; step_count = 0;
+
+% needed for norm computation
+t_Old = 0;
+int_f = zeros(1,par.n_eqn);
+int_dx_f = zeros(1,par.n_eqn);
+int_dt_f = zeros(1,par.n_eqn);
 
 
 for j = par.source_ind     
@@ -257,11 +263,22 @@ while t < par.t_end
     if par.save_during && mod(step_count,100) == 0
         
         % we compute the norms of the different features of the solution
-        par.compute_during(U,weight,k_RK,PX,DX,t);
+        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(U,weight,k_RK,PX,DX,t,t_Old);
+        
+        int_f = temp_int_f + int_f;
+        int_dx_f = temp_int_dx_f + int_dx_f;
+        int_dt_f = temp_int_dt_f + int_dt_f;
+        
+        t_Old = t;
         
     end
     
     cputime(2) = cputime(2) + toc;
+end
+
+% write down the norms of f and it's derivatives into a file
+if par.save_during
+    par.save_norms(int_f,int_dx_f,int_dt_f,par.n);
 end
 
 fprintf('%0.0f time steps\n',step_count)           % Display test

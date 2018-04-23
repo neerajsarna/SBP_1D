@@ -1,5 +1,11 @@
 function output = solver(par)
 
+if par.save_during 
+    if ~isfield(par,'compute_during') && ~isfield(par,'save_during')
+        error('no routine added for computing during computation');
+    end
+end
+
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
 if ~isfield(par,'ic'),       par.ic = @zero; end% Default: no init. cond.
@@ -98,6 +104,12 @@ end
 %% Time Loop
 cputime = zeros(1,3);
 t = 0; step_count = 0;
+
+% needed for norm computation
+t_Old = 0;
+int_f = 0;
+int_dx_f = zeros(1,par.n_eqn);
+int_dt_f = 0;
 
 
 for j = par.source_ind     
@@ -206,8 +218,9 @@ while t < par.t_end
                 
                 % explicit production terms
                 if par.prod_explicit
-                    
-                    k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}));
+                    if i > 3
+                        k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}))/par.Kn;
+                    end
                 else
                     k_RK{RK}{i} = k_RK{RK}{i} + Prod{i}.*UTemp{i};
                 end
@@ -248,12 +261,24 @@ while t < par.t_end
     % option to save the data during time step, required for convergence
     % studies
     if par.save_during && mod(step_count,100) == 0
+        
         % we compute the norms of the different features of the solution
-        capargs(par.compute_during,U,weight,k_RK,PX,DX,t);
-       
+        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(U,weight,k_RK,PX,DX,t,t_Old);
+        
+        int_f = temp_int_f + int_f;
+        int_dx_f = temp_int_dx_f + int_dx_f;
+        int_dt_f = temp_int_dt_f + int_dt_f;
+        
+        t_Old = t;
+        
     end
     
     cputime(2) = cputime(2) + toc;
+end
+
+% write down the norms of f and it's derivatives into a file
+if par.save_during
+    par.save_norms(int_f,int_dx_f,int_dt_f);
 end
 
 fprintf('%0.0f time steps\n',step_count)           % Display test

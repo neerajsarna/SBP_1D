@@ -7,14 +7,15 @@ par = struct(...
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
  't_end',0.3,... % the end time of the computation
- 'CFL',4.0,...      % the crude cfl number
+ 'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
  'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
 'save_during',true, ... % should we save during the computation
-'compute_during', @compute_during ...
+'compute_during', @compute_during, ...
+'save_norms', @save_norms ...
 );
 
 par.t_plot = false;
@@ -108,7 +109,64 @@ end
 
 % storage of data during time steps becomes expensive, therefore, we only
 % focus storing the norms at different times
-function compute_during(U,weight,k_RK,PX,DX,t)
+% function compute_during(U,weight,k_RK,PX,DX,t)
+% norm_f = sqrt(cell2mat(cellfun(@(a) a'*PX*a,U,'Un',0)));
+% norm_dx_f = sqrt(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U,'Un',0)));
+% 
+% n_eqn = length(U);
+% 
+% norm_dt_f = zeros(1,n_eqn);
+% % number of RK steps
+% num_step = length(weight);
+% 
+% % loop over all the components
+% for i = 1 : n_eqn
+%     temp = zeros(size(DX,1),1);
+%     % time derivative of the i-th component at all the points
+% for j = 1 : num_step
+%     temp = temp + weight(j) * k_RK{j}{i};
+% end
+%     norm_dt_f(i) = sqrt(temp'*PX*temp);
+% end
+% 
+% filename = strcat('result_Inflow/result_Reference_temp/inflow_t_',num2str(t), ...
+%                 '_points_',num2str(size(DX,2)),'_neqn_',num2str(length(U)),'.txt');
+% 
+% dlmwrite(filename,norm_f,'delimiter','\t','precision',10);
+% dlmwrite(filename,norm_dx_f,'delimiter','\t','-append','precision',10);
+% dlmwrite(filename,norm_dt_f,'delimiter','\t','-append','precision',10);
+% end
+
+% function compute_during(U,weight,k_RK,PX,DX,t)
+% norm_f = sqrt(cell2mat(cellfun(@(a) a'*PX*a,U,'Un',0)));
+% norm_dx_f = sqrt(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U,'Un',0)));
+% 
+% n_eqn = length(U);
+% 
+% norm_dt_f = zeros(1,n_eqn);
+% % number of RK steps
+% num_step = length(weight);
+% 
+% % loop over all the components
+% for i = 1 : n_eqn
+%     temp = zeros(size(DX,1),1);
+%     % time derivative of the i-th component at all the points
+% for j = 1 : num_step
+%     temp = temp + weight(j) * k_RK{j}{i};
+% end
+%     norm_dt_f(i) = sqrt(temp'*PX*temp);
+% end
+% 
+% filename = strcat('result_Inflow/result_Reference_temp/inflow_t_',num2str(t), ...
+%                 '_points_',num2str(size(DX,2)),'_neqn_',num2str(length(U)),'.txt');
+% 
+% dlmwrite(filename,norm_f,'delimiter','\t','precision',10);
+% dlmwrite(filename,norm_dx_f,'delimiter','\t','-append','precision',10);
+% dlmwrite(filename,norm_dt_f,'delimiter','\t','-append','precision',10);
+% end
+
+
+function [int_f,int_dx_f,int_dt_f] = compute_during(U,weight,k_RK,PX,DX,t,t_Old)
 norm_f = sqrt(cell2mat(cellfun(@(a) a'*PX*a,U,'Un',0)));
 norm_dx_f = sqrt(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U,'Un',0)));
 
@@ -128,10 +186,18 @@ end
     norm_dt_f(i) = sqrt(temp'*PX*temp);
 end
 
-filename = strcat('result_Inflow/result_Reference_temp/inflow_t_',num2str(t), ...
-                '_points_',num2str(size(DX,2)),'_neqn_',num2str(length(U)),'.txt');
+% we perform the integral here itself 
+% using the midpoint rule
+int_f = norm_f * (t-t_Old);
+int_dx_f = norm_dx_f * (t-t_Old);
+int_dt_f = norm_dt_f * (t-t_Old);
+end
 
-dlmwrite(filename,norm_f,'delimiter','\t','precision',10);
-dlmwrite(filename,norm_dx_f,'delimiter','\t','-append','precision',10);
-dlmwrite(filename,norm_dt_f,'delimiter','\t','-append','precision',10);
+function save_norms(int_f,int_dx_f,int_dt_f,n)
+filename = strcat('result_Inflow/result_Reference_temp/inflow_norms', ...
+                '_points_',num2str(n),'_neqn_',num2str(length(int_f)),'.txt');
+
+dlmwrite(filename,int_f,'delimiter','\t','precision',10);
+dlmwrite(filename,int_dx_f,'delimiter','\t','-append','precision',10);
+dlmwrite(filename,int_dt_f,'delimiter','\t','-append','precision',10);
 end
