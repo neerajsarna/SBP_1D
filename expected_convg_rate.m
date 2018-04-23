@@ -91,6 +91,9 @@ id_even = even_var(loc_truncate);
 id_odd_full = odd_var(n_eqn);
 id_even_full = even_var(n_eqn);
 
+id_odd = id_odd_full;
+id_even = id_even_full;
+
 %% polyfit for f
 [P_Odd_f,y_Odd_f] = polyfit_linear(log(id_odd),log(int_f(id_odd)));
 [P_Even_f,y_Even_f] = polyfit_linear(log(id_even),log(int_f(id_even)));

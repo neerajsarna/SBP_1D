@@ -8,7 +8,7 @@ function [expected_rate,loc_truncate] = expected_convg_rate_temp(n_eqn,t_end,n,f
 
 
 % look for all the files 
-dir_name = strcat(foldername,'/result_Reference_temp/*_',num2str(n_eqn),'.txt');
+dir_name = strcat(foldername,'/result_Reference_temp/inflow_t_*_',num2str(n_eqn),'.txt');
 files = dir(dir_name);
 
 % the time values at which the solution has been stored
