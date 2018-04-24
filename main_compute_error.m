@@ -1,6 +1,7 @@
+
 clear all;
 
-M_values = 4:1:50;
+M_values = 4:1:40;
 grid_points = 300;
 n_ref = 200;
 n_ref2 = 199;

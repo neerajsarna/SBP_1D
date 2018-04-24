@@ -1,5 +1,8 @@
 function [convg_rate,expected_rate] = compute_error(M_values,n,n_ref,n_ref2,t_end,filename,foldername)
+    
+
     num_samples = length(M_values);
+    
     result = cell(num_samples,1);
     
 % loop over all the systems 
@@ -16,7 +19,7 @@ for i = 1:num_samples
     
 end    
     % we need the P matrix for computing the integrals
-    [D,P,InvP] = sbp_traditional_2(delta_x,n);
+    [~,P,~] = sbp_traditional_2(delta_x,n);
     
     
 %% read the reference solutions

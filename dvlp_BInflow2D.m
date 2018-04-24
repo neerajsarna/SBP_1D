@@ -1,7 +1,6 @@
 function B = dvlp_BInflow2D(M)
 
 [id_Odd,id_Even] = get_id_Odd(M);
-%Aoe = sparse(Ax(id_Odd,id_Even));
 
 n_odd = sum(cell2mat(cellfun(@(a) length(a),id_Odd,'Un',0)));
 n_even = sum(cell2mat(cellfun(@(a) length(a),id_Even,'Un',0)));
@@ -14,10 +13,8 @@ for i = 0 : M
     [all_idx{i+1},~,~] = IDX_Full(i);
 end
 
+% idx of the Even and the odd Functions
 all_idx_Even = cellfun(@(a) a(rem(a(:,1),2)==0,:),all_idx,'Un',0);
-
-% we need to ignore the zeroth order moment while counting the odd
-% variables
 all_idx_Odd = cellfun(@(a) a(rem(a(:,1),2)~=0,:),all_idx(1:end),'Un',0);
 
 %% develop the matrices for 1D

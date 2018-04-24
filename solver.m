@@ -6,6 +6,8 @@ if par.save_during
     end
 end
 
+if ~isfield(par,'M'), par.M = par.n_eqn; end
+
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
 if ~isfield(par,'ic'),       par.ic = @zero; end% Default: no init. cond.
@@ -107,9 +109,14 @@ t = 0; step_count = 0;
 
 % needed for norm computation
 t_Old = 0;
-int_f = zeros(1,par.n_eqn);
-int_dx_f = zeros(1,par.n_eqn);
-int_dt_f = zeros(1,par.n_eqn);
+
+% int_f = zeros(1,par.n_eqn);
+% int_dx_f = zeros(1,par.n_eqn);
+% int_dt_f = zeros(1,par.n_eqn);
+
+int_f = zeros(1,2  * (par.M + 1));
+int_dx_f = zeros(1,2  * (par.M + 1));
+int_dt_f = zeros(1,2  * (par.M + 1));
 
 
 for j = par.source_ind     
@@ -133,6 +140,7 @@ end
 
 
 while t < par.t_end
+    
     
     if t+par.dt > par.t_end
         par.dt = par.t_end-t;
@@ -218,9 +226,9 @@ while t < par.t_end
                 
                 % explicit production terms
                 if par.prod_explicit
-                    if i > 3
+                    %if i > 3
                         k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}))/par.Kn;
-                    end
+                    %end
                 else
                     k_RK{RK}{i} = k_RK{RK}{i} + Prod{i}.*UTemp{i};
                 end
@@ -241,7 +249,7 @@ while t < par.t_end
     step_count = step_count + 1;
     t = t + par.dt;
     cputime(1) = cputime(1) + toc;
-    
+      
     if mod(step_count,50) == 0
         disp('time: neqn: ');
         disp(t);
@@ -263,7 +271,10 @@ while t < par.t_end
     if par.save_during && mod(step_count,100) == 0
         
         % we compute the norms of the different features of the solution
-        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(U,weight,k_RK,PX,DX,t,t_Old);
+        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(...
+                                                U,weight,k_RK,PX,DX,t,t_Old, ...
+                                                par.idx_trun,par.idx_trun_odd,par.idx_trun_even);
+       
         
         int_f = temp_int_f + int_f;
         int_dx_f = temp_int_dx_f + int_dx_f;
@@ -278,7 +289,7 @@ end
 
 % write down the norms of f and it's derivatives into a file
 if par.save_during
-    par.save_norms(int_f,int_dx_f,int_dt_f,par.n);
+    par.save_norms(int_f,int_dx_f,int_dt_f,par.n,par.M);
 end
 
 fprintf('%0.0f time steps\n',step_count)           % Display test
@@ -296,7 +307,9 @@ end
 function z = capargs(fct,varargin)
 % Call function fct with as many arguments as it requires (at least 1),
 % and ignore further arguments.
+
 narg = max(nargin(fct),1);
+
 z = fct(varargin{1:narg});
 
 end

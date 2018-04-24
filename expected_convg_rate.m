@@ -7,62 +7,21 @@
 function [expected_rate,loc_truncate] = expected_convg_rate(n_eqn,n_eqn2,t_end,n,foldername,filename)
 
 
-% look for all the files 
-dir_name = strcat(foldername,'/result_Reference/*_',num2str(n_eqn),'.txt');
-files = dir(dir_name);
+% filename of the file which contains all the norms 
+norms_filename = strcat(foldername,'/result_Reference/',filename,'_norms_points_',num2str(n),'_neqn_',...
+                            num2str(n_eqn),'.txt');
 
-% the time values at which the solution has been stored
-t_values = zeros(length(files),1);
-result = cell(length(files),1);
+result = dlmread(norms_filename,'\t');
 
-    for i = 1 : length(files)
-        % we need to include additional details to avoid confusion
-        temp_filename = strcat(foldername,'/result_Reference/',files(i).name);
-        result{i} = dlmread(temp_filename,'\t');
-    
-        delta_x = result{i}(1,2)-result{i}(1,1);
-        % we ignore the first row which contains the locations of the points
-        result{i} = result{i}(2:end,:)';
-    
-        % extract the time at which the data has been taken
-        t_values(i) =str2double(extractAfter(extractBefore(files(i).name,'_points'),'t_'));
-    end
+int_f = result(1,:);
+int_dx_f = result(2,:);
+int_dt_f = result(3,:);
 
-
-%% we need to sort to ensure that t_values always increases
-[t_values,temp_idx] = sort(t_values);
-
-for i = 1 : length(temp_idx)
-    result{i} = result{temp_idx(i)};
-end
+delta_x = 1/n;
 
 % % we need the P matrix for computing the error
-[D,P,InvP] = sbp_traditional_2(delta_x,n);
+[D,P,~] = sbp_traditional_2(delta_x,n);
 
-result_dt = compute_dt_f(result,t_values);
-% 
-% % compute the time derivatives and the x derivatives
-% the problem is that we have dt_f only for length(files)-1 points
-for i = 1:length(files)
-    norm_f{i} = sqrt(dot(result{i},P*result{i},1));
-    norm_dx_f{i} = sqrt(dot(D*result{i},P*D * result{i},1));
-    norm_dt_f{i} = sqrt(dot(result_dt{i},P*result_dt{i},1));
-end
-% 
-% % compute the integrals in time 
-int_f = zeros(1,n_eqn);
-int_dx_f = zeros(1,n_eqn);
-int_dt_f = zeros(1,n_eqn);
-% 
-for i = 1 : n_eqn
-    value_f = cell2mat(cellfun(@(a) a(i),norm_f,'Un',0));
-    value_dt_f = cell2mat(cellfun(@(a) a(i),norm_dt_f,'Un',0));
-    value_dx_f = cell2mat(cellfun(@(a) a(i),norm_dx_f,'Un',0));
-    
-    int_f(i) = trapz(t_values,value_f);
-    int_dx_f(i) = trapz(t_values,value_dx_f);
-    int_dt_f(i) = trapz(t_values,value_dt_f);
-end
 
 %% we also extract the reference solution at t = 0.3
 output_filename = strcat(foldername,'/',filename,'_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
@@ -91,9 +50,6 @@ id_even = even_var(loc_truncate);
 id_odd_full = odd_var(n_eqn);
 id_even_full = even_var(n_eqn);
 
-id_odd = id_odd_full;
-id_even = id_even_full;
-
 %% polyfit for f
 [P_Odd_f,y_Odd_f] = polyfit_linear(log(id_odd),log(int_f(id_odd)));
 [P_Even_f,y_Even_f] = polyfit_linear(log(id_even),log(int_f(id_even)));
@@ -111,6 +67,8 @@ id_even = id_even_full;
 %% polyfit for f at t = t_end
 [P_Odd_f_final,y_Odd_f_final] = polyfit_linear(log(id_odd),log(norm_final(id_odd)));
 [P_Even_f_final,y_Even_f_final] = polyfit_linear(log(id_even),log(norm_final(id_even)));
+
+
 % 
 %% plotting for f
 figure(1)
@@ -165,6 +123,7 @@ T = table(quantities,even_Order,odd_Order,reduction);
 disp(T);
 disp('EXPECTED RATE');
 disp(expected_rate);
+
 end
 
 function id_odd = odd_var(M)
@@ -175,33 +134,16 @@ function id_even = even_var(M)
 id_even = 1:2:M;
 end
 
-function dt_f = compute_dt_f(data,t_value)
-    dt_f = cell(length(data),1);
-
-    % we compute dt_f by simple forward Euler
-    for i = 1 : length(data)-1
-        dt_f{i} = (data{i+1}-data{i})/(t_value(i+1)-t_value(i));
-    end
-    
-    % for the last entry we use Backward Euler
-    dt_f{end} = (data{end}-data{end-1})/(t_value(end)-t_value(end-1));
-end
-
 % returns the polyfit with a linear fit and the corresponding y function
 function [P,yfit] = polyfit_linear(x,y)
 P = polyfit(x,y,1);
 yfit = P(1) * x + P(2);
 end
 
-% integrate using forward Riemann sum
-function f = int_Riemann(x,y)
- dx = [x(1) diff(x)'];
- f = sum(dx.*y);
-end
-
 function f = find_truncate(result,result_2,P,D)
 
 cutoff_per = 5;
+
 norm1 = sqrt(dot(result,P*result,1));
 norm2 = sqrt(dot(result_2,P*result_2,1));
 
