@@ -1,4 +1,4 @@
-function output = solver(par)
+function output = solver_steady_state(par)
 
 if par.save_during 
     if ~isfield(par,'compute_during') && ~isfield(par,'save_during')
@@ -7,6 +7,8 @@ if par.save_during
 end
 
 if ~isfield(par,'M'), par.M = par.n_eqn; end
+
+if ~isfield(par,'steady_state'), par.steady_state = false; end % default value of save during the computation
 
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
@@ -138,15 +140,14 @@ if ~par.prod_explicit
     end
 end
 
+% residual from the steady state
+residual = 100 * ones(length(X),1);
 
-while t < par.t_end
+while norm(residual) > 10^(-8) || step_count < 150
     
+   
     
-    if t+par.dt > par.t_end
-        par.dt = par.t_end-t;
-    end
-    
-    
+    residual = 0 * ones(length(X),1);
     
     % the ode sytem can be written as U_t = Op.
     % RK = 4 implementation
@@ -228,9 +229,7 @@ while t < par.t_end
                 
                 % explicit production terms
                 if par.prod_explicit
-                    %if i > 3
                         k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}))/par.Kn;
-                    %end
                 else
                     k_RK{RK}{i} = k_RK{RK}{i} + Prod{i}.*UTemp{i};
                 end
@@ -245,7 +244,10 @@ while t < par.t_end
     for RK = 1 : 4
         for i = 1 : par.n_eqn
             U{i} = U{i} + weight(RK) * k_RK{RK}{i} * par.dt;
-           
+            
+            if par.steady_state
+                residual = residual + weight(RK) * k_RK{RK}{i};
+            end
         end
     end
     
@@ -254,16 +256,17 @@ while t < par.t_end
     cputime(1) = cputime(1) + toc;
       
     if mod(step_count,50) == 0
-        disp('time: neqn: residual ');
+        disp('time: neqn: step count: residual: ');
         disp(t);
         disp(par.n_eqn);
         disp(step_count);
+        disp(norm(residual));
     end
     
     tic
     
     if par.t_plot
-        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
+        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o',X,par.exact_theta(X),'-o');
         xlim(par.ax);
         ylim([-1 1]);        
         drawnow;
