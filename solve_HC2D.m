@@ -137,7 +137,7 @@ shift = 0;
 for i = 0 : M
     
     if i > 0
-        shift = size(idx_trun{i},1);
+        shift = shift + size(idx_trun{i},1);
     end
     
     id_odd = 2*i+2;
