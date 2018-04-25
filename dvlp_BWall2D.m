@@ -1,6 +1,6 @@
 function B = dvlp_BWall2D(M)
 
-BInflow = get_BInflow2D(M);
+BInflow = dvlp_BInflow2D(M);
 
 eqW = BInflow(1,:)/BInflow(1,1);
 

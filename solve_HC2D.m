@@ -1,11 +1,12 @@
-function solve_inflow2D(M)
+% the heat conduction problem
+function solve_HC2D(M)
 
 par = struct(...
 'name','Inflow2D',... % name of example
 'ic',@ic,... % initial conditions
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
+ 't_end',1.0,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -15,7 +16,8 @@ par = struct(...
 'save_during',false, ... % should we save during the computation
 'compute_during', @compute_during, ...
 'save_norms', @save_norms, ... % routine for computing and saving the norm
-'prod_explicit',true ... % whether we provide an explicit expression for production term or not
+'prod_explicit',true, ... % whether we provide an explicit expression for production term or not
+'steady_state',true ...
 );
 
 par.M = M;
@@ -38,7 +40,7 @@ par.B = cell(par.num_bc,1);
 par.penalty = cell(par.num_bc,1);
 
 % first we develop the matrices
-par.B{2} = dvlp_BInflow2D(M);
+par.B{2} = dvlp_BWall2D(M);
 par.Ax = dvlp_Ax2D(M);
 par.P = dvlp_Prod2D(M);
 par.Kn = 0.1;
@@ -69,21 +71,18 @@ for i = 1 : par.num_bc
     par.penalty_B{i} = par.penalty{i} * par.B{i};
 end
 
-result = solver(par);
+result = solver_steady_state(par);
 
-output_filename = strcat('result_Inflow2D/inflow_tend_', ...
+        
+output_filename = strcat('result_HC2D/hc_tend_', ...
                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 output_filename = strcat(output_filename,num2str(M),'.txt');
 write_result(result,output_filename);
+
 end
 
 function f = ic(x,id)
-if id == 1
-    f = exp(-(x-0.5).*(x-0.5)*100);
-    
-else
-    f = zeros(length(x),1);
-end
+f = zeros(length(x),1);
 end
 
 
@@ -100,16 +99,24 @@ end
 
 
 % vaccum boundary conditions
-function f = bc_inhomo(B,bc_id)
+function f = bc_inhomo(B,bc_id,t)
+
+    if t <= 1
+        thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+    else
+        thetaIn = 1;
+    end
+    
     switch bc_id
         % boundary at x = x_start
         case 1
-            thetaIn = 0;
-            f = thetaIn * B(:,3); 
+            b_normal = -1;
+            f = b_normal * thetaIn * (B(:,3)+B(:,4)+B(:,5))/sqrt(2); 
             
         case 2
-            thetaIn = 0;
-            f = thetaIn * B(:,3); 
+            
+            b_normal = 1;
+            f = b_normal * thetaIn * (B(:,3)+B(:,4)+B(:,5))/sqrt(2); 
     end
 
 end
@@ -186,7 +193,7 @@ int_dt_f = norm_dt_f * (t-t_Old);
 end
 
 function save_norms(int_f,int_dx_f,int_dt_f,n,M)
-filename = strcat('result_Inflow2D/result_Reference/inflow_norms', ...
+filename = strcat('result_HC2D/result_Reference/hc_norms', ...
                 '_points_',num2str(n),'_neqn_',num2str(M),'.txt');
 
 dlmwrite(filename,int_f,'delimiter','\t','precision',10);
