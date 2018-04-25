@@ -1,0 +1,360 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: 
+    0.0060
+
+   164
+
+    50
+
+time: neqn: 
+    0.0121
+
+   164
+
+   100
+
+time: neqn: 
+    0.0181
+
+   164
+
+   150
+
+time: neqn: 
+    0.0241
+
+   164
+
+   200
+
+time: neqn: 
+    0.0301
+
+   164
+
+   250
+
+time: neqn: 
+    0.0362
+
+   164
+
+   300
+
+time: neqn: 
+    0.0422
+
+   164
+
+   350
+
+time: neqn: 
+    0.0482
+
+   164
+
+   400
+
+time: neqn: 
+    0.0542
+
+   164
+
+   450
+
+time: neqn: 
+    0.0603
+
+   164
+
+   500
+
+time: neqn: 
+    0.0663
+
+   164
+
+   550
+
+time: neqn: 
+    0.0723
+
+   164
+
+   600
+
+time: neqn: 
+    0.0783
+
+   164
+
+   650
+
+time: neqn: 
+    0.0844
+
+   164
+
+   700
+
+time: neqn: 
+    0.0904
+
+   164
+
+   750
+
+time: neqn: 
+    0.0964
+
+   164
+
+   800
+
+time: neqn: 
+    0.1024
+
+   164
+
+   850
+
+time: neqn: 
+    0.1085
+
+   164
+
+   900
+
+time: neqn: 
+    0.1145
+
+   164
+
+   950
+
+time: neqn: 
+    0.1205
+
+   164
+
+        1000
+
+time: neqn: 
+    0.1265
+
+   164
+
+        1050
+
+time: neqn: 
+    0.1326
+
+   164
+
+        1100
+
+time: neqn: 
+    0.1386
+
+   164
+
+        1150
+
+time: neqn: 
+    0.1446
+
+   164
+
+        1200
+
+time: neqn: 
+    0.1506
+
+   164
+
+        1250
+
+time: neqn: 
+    0.1567
+
+   164
+
+        1300
+
+time: neqn: 
+    0.1627
+
+   164
+
+        1350
+
+time: neqn: 
+    0.1687
+
+   164
+
+        1400
+
+time: neqn: 
+    0.1747
+
+   164
+
+        1450
+
+time: neqn: 
+    0.1808
+
+   164
+
+        1500
+
+time: neqn: 
+    0.1868
+
+   164
+
+        1550
+
+time: neqn: 
+    0.1928
+
+   164
+
+        1600
+
+time: neqn: 
+    0.1988
+
+   164
+
+        1650
+
+time: neqn: 
+    0.2049
+
+   164
+
+        1700
+
+time: neqn: 
+    0.2109
+
+   164
+
+        1750
+
+time: neqn: 
+    0.2169
+
+   164
+
+        1800
+
+time: neqn: 
+    0.2229
+
+   164
+
+        1850
+
+time: neqn: 
+    0.2290
+
+   164
+
+        1900
+
+time: neqn: 
+    0.2350
+
+   164
+
+        1950
+
+time: neqn: 
+    0.2410
+
+   164
+
+        2000
+
+time: neqn: 
+    0.2470
+
+   164
+
+        2050
+
+time: neqn: 
+    0.2531
+
+   164
+
+        2100
+
+time: neqn: 
+    0.2591
+
+   164
+
+        2150
+
+time: neqn: 
+    0.2651
+
+   164
+
+        2200
+
+time: neqn: 
+    0.2711
+
+   164
+
+        2250
+
+time: neqn: 
+    0.2772
+
+   164
+
+        2300
+
+time: neqn: 
+    0.2832
+
+   164
+
+        2350
+
+time: neqn: 
+    0.2892
+
+   164
+
+        2400
+
+time: neqn: 
+    0.2953
+
+   164
+
+        2450
+
+2490 time steps
+CPU-times
+ advection:         519.95s  100%
+plotting:            0.68s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:

@@ -28,7 +28,7 @@ par.t_plot = false;
 
 par.n = 300;
 
-if (M == 85)
+if (M == 55)
     par.save_during = true;
 end
    
