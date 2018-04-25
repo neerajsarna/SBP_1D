@@ -28,9 +28,9 @@ end
 % we don't plot during the computation
 par.t_plot = false;
 
-par.n = 50;
+par.n = 300;
 
-if (M == 85)
+if (M == 55)
     par.save_during = true;
 end
    
@@ -73,16 +73,12 @@ end
 
 result = solver_steady_state(par);
 
-plot(result(1).X,sqrt(2) * (result(3).sol + result(4).sol + result(5).sol)/3,'-*', ...
-    result(1).X,exact_theta(result(1).X),'-o');
-
-xlim(par.ax);
-ylim([-1 1]);
         
-% output_filename = strcat('result_HC2D/hc_tend_', ...
-%                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-% output_filename = strcat(output_filename,num2str(M),'.txt');
-% write_result(result,output_filename);
+output_filename = strcat('result_HC2D/hc_tend_', ...
+                        num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat(output_filename,num2str(M),'.txt');
+write_result(result,output_filename);
+
 end
 
 function f = ic(x,id)
@@ -124,14 +120,6 @@ function f = bc_inhomo(B,bc_id,t)
     end
 
 end
-
-% we know the steady state solution for M = 3
-function f = exact_theta(x)
-
-f = 1.514419333929563*(-0.5 + x) + 0.00226632542703777*sinh(4.662524041201569*(-0.5 + x));
-
-end
-
 
 
 function [int_f,int_dx_f,int_dt_f] = compute_during(U,weight,k_RK,PX,DX,t,t_Old, ...
