@@ -143,7 +143,7 @@ end
 % residual from the steady state
 residual = 100 * ones(length(X),1);
 
-while norm(residual) > 10^(-8) || step_count < 150
+while norm(residual) > 10^(-8) || step_count < 500
     
    
     
