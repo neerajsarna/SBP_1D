@@ -5,7 +5,7 @@ par = struct(...
 'ic',@ic,... % initial conditions
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
+ 't_end',10.0,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
