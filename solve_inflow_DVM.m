@@ -8,7 +8,7 @@ par = struct(...
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
  't_end',0.3,... % the end time of the computation
- 'CFL',4.0,...      % the crude cfl number
+ 'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
@@ -27,10 +27,10 @@ par.t_plot = false;
 par.n_eqn = 2 * nc;
 %par.n_eqn =nc;
 
-par.n = 300;
+par.n = 50;
 %[temp_x,temp_w] = gauss_quadrature(nc,-5,5);
-[par.x_m,par.w_m] = gauss_quadrature(nc,-5,0);
-[par.x_p,par.w_p] = gauss_quadrature(nc,0,5);
+[par.x_m,par.w_m] = gauss_quadrature(nc,-3,0);
+[par.x_p,par.w_p] = gauss_quadrature(nc,0,3);
 
 % par.x_m = temp_x(temp_x < 0);
 % par.x_p = temp_x(temp_x >= 0);
@@ -56,26 +56,36 @@ end
 
 result= solver_DVM(par);
 
-temp = cell(length(result),1);
+% temp = cell(length(result),1);
+% 
+% for i = 1 : length(temp)
+%     temp{i} = result(i).sol;
+% end
+% 
+% density = compute_density(temp,par.Ax,par.all_w);
+% u = compute_velocity(temp,par.Ax,par.all_w);
+% alpha2 = compute_alpha2(temp,par.Ax,par.all_w);
 
-for i = 1 : length(temp)
-    temp{i} = result(i).sol;
+% filename = strcat('result_Inflow/DVM_inflow_tend_',num2str(par.t_end),...
+%                         '_points_',num2str(par.n),'_neqn_');
+% filename = strcat(filename,num2str(nc),'.txt');
+% 
+% dlmwrite(filename,result(1).X','delimiter','\t','precision',10);
+% dlmwrite(filename,density','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,u','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,alpha2','delimiter','\t','-append','precision',10);
+
+% a plot of the distribution function along the x and the velocity space
+temp = zeros(length(result),length(result(1).X));
+
+[v_grid,sort_grid] = sort([par.x_m',par.x_p']);
+
+for i = 1:length(result)
+    temp(i,:) = result(sort_grid(i)).sol;
 end
 
-density = compute_density(temp,par.Ax,par.all_w);
-u = compute_velocity(temp,par.Ax,par.all_w);
-alpha2 = compute_alpha2(temp,par.Ax,par.all_w);
-
-
-filename = strcat('result_Inflow/DVM_inflow_tend_',num2str(par.t_end),...
-                        '_points_',num2str(par.n),'_neqn_');
-filename = strcat(filename,num2str(nc),'.txt');
-
-dlmwrite(filename,result(1).X','delimiter','\t','precision',10);
-dlmwrite(filename,density','delimiter','\t','-append','precision',10);
-dlmwrite(filename,u','delimiter','\t','-append','precision',10);
-dlmwrite(filename,alpha2','delimiter','\t','-append','precision',10);
-
+[x_grid,v_grid] = meshgrid(result(1).X,v_grid);
+surf(x_grid,v_grid,temp);
 end
 
 
