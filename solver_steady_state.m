@@ -266,7 +266,7 @@ while norm(residual) > 10^(-8) || step_count < 500
     tic
     
     if par.t_plot
-        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o',X,par.exact_theta(X),'-o');
+        plot(X,U{2},'-o');
         xlim(par.ax);
         ylim([-1 1]);        
         drawnow;
