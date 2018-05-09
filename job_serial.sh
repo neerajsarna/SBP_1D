@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[4,24,44,64,84,104,124,5,25,45,65,85,105,125]"
+#BSUB -J "MATLAB_ARRAY[4,8,12,16,20,24,5,9,13,17,21,25]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_inflow_KnInf_%I
@@ -9,7 +9,7 @@
 ### Request the time you need for execution in minutes
 ### The format for the parameter is: [hour:]minute,
 ### that means for 80 minutes you could also use this: 1:20
-#BSUB -W 1000
+#BSUB -W 20:00
  
 ### Request memory you need for your job in MB
 #BSUB -M 5000

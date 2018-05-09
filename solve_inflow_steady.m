@@ -19,9 +19,9 @@ par = struct(...
 'steady_state', true ...
 );
 
-par.t_plot = true;
+par.t_plot = false;
 
-par.n = 50;
+par.n = 300;
 
 par.n_eqn = neqn;
 
