@@ -1,4 +1,4 @@
-function solve_inflow_steady(neqn)
+function result = solve_inflow_steady(neqn)
 
 par = struct(...
 'name','1D Advection',... % name of example
@@ -21,7 +21,7 @@ par = struct(...
 
 par.t_plot = false;
 
-par.n = 300;
+par.n = 50;
 
 par.n_eqn = neqn;
 
@@ -51,9 +51,9 @@ end
 
 result = solver_steady_state(par);
 
-output_filename = strcat('result_Inflow_KnInf_Steady/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-write_result(result,output_filename);
+% output_filename = strcat('result_Inflow_KnInf_Steady/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
+% write_result(result,output_filename);
 
 end
 
@@ -64,6 +64,7 @@ function f = bc_inhomo(B,bc_id,t)
     if t <= 1
         % additional exp(1) makes the result at t = 1 equal to 1.
         thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+        %thetaIn = 1;
     else
         thetaIn = 1;
     end
@@ -92,6 +93,10 @@ end
 function f = relax(x,id)
 Kn = 0.1;
 f = zeros(length(x),1);
+
+if id > 3
+    f = -1/Kn * ones(length(x),1);
+end
 
 end
 

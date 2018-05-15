@@ -1,4 +1,4 @@
-function [convg_rate,expected_rate] = compute_error(M_values,n,n_ref,n_ref2, ...
+function [convg_rate_Odd,convg_rate_Even,expected_rate] = compute_error2D(M_values,n,n_ref,...
                                                     t_end,filename,foldername)
     
 
@@ -52,32 +52,51 @@ end
    %% compute the expected rate of convergence
    
     disp('regularity of reference ...');
-   [expected_rate,loc_truncate] = expected_convg_rate(n_ref,n_ref2,t_end,n,foldername,filename);
-
-   disp('truncated at');
-   disp(loc_truncate);
+   [expected_rate,loc_truncate] = expected_convg_rate2D(n_ref,t_end,n, ...
+                                                        foldername,filename);
    
-   [P_error,y_error] = polyfit_linear(log(M_values(find(M_values<loc_truncate))),log(errorTot(find(M_values<loc_truncate)))');
-    convg_rate = abs(P_error(1));
+% 
+   disp('truncated at');
+   disp(loc_truncate); 
+   
+   % order for even values of M
+   [P_error_Even,y_error_Even] = polyfit_linear(log(M_values(mod(M_values,2)==0)), ...
+                                      log(errorTot(mod(M_values,2)==0))');
+    
+   % order for odd values of M
+   [P_error_Odd,y_error_Odd] = polyfit_linear(log(M_values(mod(M_values,2)~= 0)), ...
+                                      log(errorTot(mod(M_values,2)~= 0))');
+                                  
+   convg_rate_Odd = abs(P_error_Odd(1));
+   convg_rate_Even = abs(P_error_Even(1));
     
    %% plotting 
    figure(5);
-   loglog(M_values,errorTot,'-o',M_values(find(M_values<loc_truncate)),exp(y_error),'k-','MarkerSize',3);
+   loglog(M_values,errorTot,'-o', ...
+         M_values(mod(M_values,2)==0),exp(y_error_Even),'k-*', ...
+         M_values(mod(M_values,2)~=0),exp(y_error_Odd),'r-*', ...
+         'MarkerSize',3);
+        
    xlabel('M','FontSize',10);
-   ylabel('||E_M||', 'FontSize',10);
+   ylabel('||E_M||','FontSize',10);
    xlim([M_values(1) M_values(end)]);
-   legend('error','linear fit');
-    xticks(10:30:100);
+   legend('error','linear fit Even','linear fit Odd','Location','best');
+    xticks(3:4:27);
     xt = get(gca, 'XTick');
     set(gca, 'FontSize', 16);
     grid on;
     
-    disp('OBTAINED RATE: ');
-    disp(convg_rate);
+    disp('OBTAINED RATE Odd M: ');
+    disp(convg_rate_Odd);
     
-    disp('% Error in prediction ');
-    disp((convg_rate-expected_rate)*100/convg_rate);
+    disp('OBTAINED RATE Even M: ');
+    disp(convg_rate_Even);
+    
+    disp('% Error in prediction Odd M');
+    disp((convg_rate_Odd-expected_rate)*100/convg_rate_Odd);
    
+    disp('% Error in prediction Even M');
+    disp((convg_rate_Even-expected_rate)*100/convg_rate_Even);
 end
 
 function [P,yfit] = polyfit_linear(x,y)

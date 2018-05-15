@@ -143,7 +143,8 @@ end
 % residual from the steady state
 residual = 100 * ones(length(X),1);
 
-while norm(residual) > 10^(-5) || step_count < 500
+while norm(residual) > 10^(-8) || step_count < 100
+
     
    
     
@@ -266,9 +267,9 @@ while norm(residual) > 10^(-5) || step_count < 500
     tic
     
     if par.t_plot
-        plot(X,U{2},'-o');
+        plot(X,U{1},'-o');
         xlim(par.ax);
-        ylim([-1 1]);        
+        ylim([-10 10]);        
         drawnow;
     end
     

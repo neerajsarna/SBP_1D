@@ -26,9 +26,9 @@ if (M < 3)
     error('M should be greater than 3.');
 end
 % we don't plot during the computation
-par.t_plot = false;
+par.t_plot = true;
 
-par.n = 300;
+par.n = 100;
 
 if (M == 55)
     par.save_during = true;
@@ -55,8 +55,11 @@ par.B{1} = dvlp_B_ID1(par.B{2},M);
 [par.penalty{2}] = dvlp_penalty_odd(par.Ax,M);
 par.penalty{1} = par.penalty{2};
 
-%we remove the variables which are not coupled to density
-[par.id_all,par.id_local_odd,par.idx_trun,par.idx_trun_odd,par.idx_trun_even] =  Trun_id(M);
+%we remove the variables which are not coupled to density or the variables
+%which do not participate in heat conduction
+[par.id_all,par.id_local_odd,par.idx_trun, ...
+    par.idx_trun_odd,par.idx_trun_even] =  Trun_id(M);
+
 par.Ax = par.Ax(par.id_all,par.id_all);
 par.P = par.P(par.id_all,par.id_all);
 par.B{1} = par.B{1}(par.id_local_odd,par.id_all);
@@ -74,10 +77,10 @@ end
 result = solver_steady_state(par);
 
         
-output_filename = strcat('result_HC2D/hc_tend_', ...
-                        num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-output_filename = strcat(output_filename,num2str(M),'.txt');
-write_result(result,output_filename);
+% output_filename = strcat('result_HC2D/hc_tend_', ...
+%                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat(output_filename,num2str(M),'.txt');
+% write_result(result,output_filename);
 
 end
 
@@ -146,8 +149,10 @@ for i = 0 : M
     % for every tensor degree, we first store the norm of the even one and
     % then the odd ones
     
-    norm_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a,U(shift + idx_trun_even{i+1}),'Un',0))));
-    norm_dx_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U(shift + idx_trun_even{i+1}),'Un',0))));
+    norm_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a ...
+                        ,U(shift + idx_trun_even{i+1}),'Un',0))));
+    norm_dx_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a, ...
+                         U(shift + idx_trun_even{i+1}),'Un',0))));
     
     % we now loop over all the even variables
     for j = 1 : length(idx_trun_even{i+1})
@@ -165,8 +170,10 @@ for i = 0 : M
     
     % we first loop over all the odd variables
     if i > 0
-        norm_dx_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U(shift + idx_trun_odd{i+1}),'Un',0))));
-        norm_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a,U(shift + idx_trun_odd{i+1}),'Un',0))));
+        norm_dx_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a, ...
+                                U(shift + idx_trun_odd{i+1}),'Un',0))));
+        norm_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a, ...
+                                U(shift + idx_trun_odd{i+1}),'Un',0))));
         
         for j = 1 : length(idx_trun_odd{i+1})
             temp = zeros(size(DX,1),1);
@@ -232,7 +239,6 @@ for i = 0 : M
     idx_trun{i + 1} = all_idx{i+1}(sort(ia),:);
     idx_trun_local_odd{i + 1} = find(rem(idx_trun{i+1}(:,1),2) ~= 0);
     idx_trun_local_even{i + 1} = find(rem(idx_trun{i+1}(:,1),2) == 0);
-    
     
     id_all = [id_all sort(ia)'+shift_id];
     

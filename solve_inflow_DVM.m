@@ -27,8 +27,8 @@ par.t_plot = false;
 par.n_eqn = 2 * nc;
 %par.n_eqn =nc;
 
-par.n = 50;
-%[temp_x,temp_w] = gauss_quadrature(nc,-5,5);
+par.n = 100;
+%[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-3,0);
 [par.x_p,par.w_p] = gauss_quadrature(nc,0,3);
 
@@ -84,8 +84,18 @@ for i = 1:length(result)
     temp(i,:) = result(sort_grid(i)).sol;
 end
 
-[x_grid,v_grid] = meshgrid(result(1).X,v_grid);
-surf(x_grid,v_grid,temp);
+[x_mesh,v_mesh] = meshgrid(result(1).X,v_grid);
+
+surf(x_mesh,v_mesh,temp);
+
+output_filename = strcat('result_Inflow/DVM_inflow_', ...
+                        num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat(output_filename,num2str(nc),'.txt');
+
+dlmwrite(output_filename,result(1).X','delimiter','\t','precision',10);
+dlmwrite(output_filename,v_grid,'-append','delimiter','\t','precision',10);
+dlmwrite(output_filename,temp,'-append','delimiter','\t','precision',10);
+
 end
 
 

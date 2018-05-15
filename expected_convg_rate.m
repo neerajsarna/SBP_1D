@@ -4,7 +4,8 @@
 % 2. t_end = end time at which we do the computations
 % 3. n = number of grid points along the spatial domain
 % 4. foldername = folder in which the results are
-function [expected_rate,loc_truncate] = expected_convg_rate(n_eqn,n_eqn2,t_end,n,foldername,filename)
+function [expected_rate,loc_truncate] = expected_convg_rate(n_eqn,n_eqn2,t_end,n, ...
+                                        foldername,filename)
 
 
 % filename of the file which contains all the norms 
@@ -24,7 +25,8 @@ delta_x = 1/n;
 
 
 %% we also extract the reference solution at t = 0.3
-output_filename = strcat(foldername,'/',filename,'_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
+output_filename = strcat(foldername,'/',filename,'_tend_', ...
+                        num2str(t_end),'_points_',num2str(n),'_neqn_');
 output_filename = strcat(output_filename,num2str(n_eqn),'.txt');
     
 result_final = dlmread(output_filename,'\t');
@@ -38,7 +40,7 @@ result_final_2 = dlmread(output_filename,'\t');
 result_final_2 = result_final_2(2:end,:)';
 
 norm_final = sqrt(dot(result_final,P*result_final,1));
- 
+             
 loc_truncate = find_truncate(result_final,result_final_2,P,D);
 
 id_odd = odd_var(loc_truncate);
@@ -47,76 +49,98 @@ id_even = even_var(loc_truncate);
 id_odd_full = odd_var(n_eqn);
 id_even_full = even_var(n_eqn);
 
+
+%% the points to be used during the linear fit, we start from three to ignore the initial part
+id_full = 3:1:100;
+
 %% polyfit for f
-[P_Odd_f,y_Odd_f] = polyfit_linear(log(id_odd),log(int_f(id_odd)));
-[P_Even_f,y_Even_f] = polyfit_linear(log(id_even),log(int_f(id_even)));
+
+[P_f,y_f] = polyfit_linear(log(id_full),log(int_f(id_full)));
+
 % 
 
 %% polyfit for dxf
-[P_Odd_dx_f,y_Odd_dx_f] = polyfit_linear(log(id_odd),log(int_dx_f(id_odd)));
-[P_Even_dx_f,y_Even_dx_f] = polyfit_linear(log(id_even),log(int_dx_f(id_even)));
-
+[P_dx_f,y_dx_f] = polyfit_linear(log(id_full),log(int_dx_f(id_full)));
 % 
 %% polyfit for dt_f
-[P_Odd_dt_f,y_Odd_dt_f] = polyfit_linear(log(id_odd),log(int_dt_f(id_odd)));
-[P_Even_dt_f,y_Even_dt_f] = polyfit_linear(log(id_even),log(int_dt_f(id_even)));
-
+[P_dt_f,y_dt_f] = polyfit_linear(log(id_full),log(int_dt_f(id_full)));
 %% polyfit for f at t = t_end
-[P_Odd_f_final,y_Odd_f_final] = polyfit_linear(log(id_odd),log(norm_final(id_odd)));
-[P_Even_f_final,y_Even_f_final] = polyfit_linear(log(id_even),log(norm_final(id_even)));
+[P_f_final,y_f_final] = polyfit_linear(log(id_full),log(norm_final(id_full)));
 
-
-% 
 %% plotting for f
 figure(1)
-loglog(id_odd_full,int_f(id_odd_full),'-o',id_even_full,int_f(id_even_full),'-o',id_odd,exp(y_Odd_f),'r-*',...
-                id_even,exp(y_Even_f),'k-*',...
-                    'MarkerSize',3);
-legend('odd moments','even moments','linear fit odd','linear fit even');
+fig = loglog(id_odd_full,int_f(id_odd_full),'-o', ...
+            id_even_full,int_f(id_even_full),'-square',...
+                    id_full,exp(y_f),'-*',...
+                    'MarkerSize',4);
+                
+legend('odd moments','even moments','linear fit');
 xlim([1 n_eqn]);
-title('norm int f');
+title('variation of N_m');
+xlabel('m+1');
+ylabel('N_m');
+xt = get(gca, 'YTick');
+set(gca, 'FontSize', 16);
 grid on;
+
+
 % 
 %% plotting for dt f
 figure(2)
-loglog(id_odd_full,int_dt_f(id_odd_full),'-o',id_even_full,int_dt_f(id_even_full),'-o',id_odd,exp(y_Odd_dt_f),'r-*',...
-                id_even,exp(y_Even_dt_f),'k-*',...
-                    'MarkerSize',3);
-legend('odd moments','even moments','linear fit odd','linear fit even');
+fig = loglog(id_odd_full,int_dt_f(id_odd_full),'-o', ...
+             id_even_full,int_dt_f(id_even_full),'-square',...
+                id_full,exp(y_dt_f),'-*',...
+                    'MarkerSize',4);
+legend('odd moments','even moments','linear fit');
 xlim([1 n_eqn]);
-title('norm int dt f');
+title('variation of N_m^{(t)}');
+xlabel('m+1');
+ylabel('N_m^{(t)}');
+xt = get(gca, 'YTick');
+set(gca, 'FontSize', 16);
 grid on;
+
 % 
+
  %% plotting for dx f
 figure(3)
-loglog(id_odd_full,int_dx_f(id_odd_full),'-o',id_even_full,int_dx_f(id_even_full),'-o',id_odd,exp(y_Odd_dx_f),'r-*',...
-                id_even,exp(y_Even_dx_f),'k-*',...
-                    'MarkerSize',3);
-legend('odd moments','even moments','linear fit odd','linear fit even');
+fig = loglog(id_odd_full,int_dx_f(id_odd_full),'-o',id_even_full,int_dx_f(id_even_full),'-square',...
+                id_full,exp(y_dx_f),'-*',...
+                    'MarkerSize',4);
+legend('odd moments','even moments','linear fit');
 xlim([1 n_eqn]);
-title('norm int dx f');
+title('variation of N_m^{(x)}');
+xlabel('m+1');
+ylabel('N_m^{(x)}');
+xt = get(gca, 'YTick');
+set(gca, 'FontSize', 16);
 grid on;
+
 % 
 
 %% plotting for f at t = t_end
 figure(4)
-loglog(id_odd_full,norm_final(id_odd_full),'-o',id_even_full,norm_final(id_even_full),'-o',id_odd,exp(y_Odd_f_final),'r-*',...
-                id_even,exp(y_Even_f_final),'k-*',...
-                    'MarkerSize',3);
-legend('odd moments','even moments','linear fit odd','linear fit even');
+fig = loglog(id_odd_full,norm_final(id_odd_full),'-o',id_even_full,norm_final(id_even_full),'-square',...
+                id_full,exp(y_f_final),'-*',...
+                    'MarkerSize',4);
+legend('odd moments','even moments','linear fit');
 xlim([1 n_eqn]);
-title('norm f(t = t_{end})');
+title('variation of N_m^{(T)}');
+xlabel('m+1');
+ylabel('N_m^{(T)}');
+xt = get(gca, 'YTick');
+set(gca, 'FontSize', 16);
 grid on;
+
 
 
 %% display the convergence rates 
 quantities = {'int(f)';'int(d_xf)';'int(d_tf)';'f(t_{end})'};
-even_Order = abs([P_Even_f(1), P_Even_dx_f(1),P_Even_dt_f(1),P_Even_f_final(1)])';
-odd_Order = abs([P_Odd_f(1), P_Odd_dx_f(1),P_Odd_dt_f(1),P_Odd_f_final(1)])';
-reduction = even_Order - [0.5,1,0.5,0.5]';
-expected_rate = min(reduction);
+full_Order = abs([P_f(1), P_dx_f(1),P_dt_f(1),P_f_final(1)])';
+reduction_full = full_Order - [0.5,1,0.5,0.5]';
+expected_rate = min(reduction_full);
 
-T = table(quantities,even_Order,odd_Order,reduction);
+T = table(quantities,full_Order,reduction_full);
 disp(T);
 disp('EXPECTED RATE');
 disp(expected_rate);
