@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[4,8,12,16,20,24,5,9,13,17,21,25]"
+#BSUB -J "MATLAB_ARRAY[4,8,12,16,20,24,3,7,11,15,19,23,27,55]"
  
 ### File / path where STDOUT will be written, the %J is the job id
-#BSUB -o log_files/solving_inflow_KnInf_%I
+#BSUB -o log_files/solving_HC2D_%I
  
 ### Request the time you need for execution in minutes
 ### The format for the parameter is: [hour:]minute,
@@ -23,7 +23,7 @@ module load matlab
  
  
 # start non-interactive batch job
-matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_inflow_steady_$LSB_JOBINDEX.log <<EOF
-run solve_inflow_steady($LSB_JOBINDEX);
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_HC2D_$LSB_JOBINDEX.log <<EOF
+run solve_HC2D($LSB_JOBINDEX);
 quit();
 EOF

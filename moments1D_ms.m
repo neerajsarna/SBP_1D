@@ -133,10 +133,10 @@ function[filenames] = dvlp_filenames(nEqn)
 
 filenames = struct;
 
-filenames.B = strcat("generic_1D/system_matrices1D/Bwall_1D_",num2str(nEqn));
+filenames.B = strcat("system_matrices1D/Bwall_1D_",num2str(nEqn));
 filenames.B = strcat(filenames.B,".txt");
 
-filenames.Ax = strcat("generic_1D/system_matrices1D/A1_1D_",num2str(nEqn));
+filenames.Ax = strcat("system_matrices1D/A1_1D_",num2str(nEqn));
 filenames.Ax = strcat(filenames.Ax,".txt");
 end
 

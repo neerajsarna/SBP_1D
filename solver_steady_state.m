@@ -143,7 +143,7 @@ end
 % residual from the steady state
 residual = 100 * ones(length(X),1);
 
-while norm(residual) > 10^(-8) || step_count < 100
+while norm(residual) > 10^(-8) || step_count < 500
 
     
    
@@ -235,6 +235,9 @@ while norm(residual) > 10^(-8) || step_count < 100
                     k_RK{RK}{i} = k_RK{RK}{i} + Prod{i}.*UTemp{i};
                 end
                 
+            end
+            
+            for i = 1 : par.n_eqn
                 if RK ~= 4
                     UTemp{i} = U{i} + k_RK{RK}{i} * dt_temp(RK + 1);
                 end
@@ -267,7 +270,7 @@ while norm(residual) > 10^(-8) || step_count < 100
     tic
     
     if par.t_plot
-        plot(X,U{1},'-o');
+        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
         xlim(par.ax);
         ylim([-10 10]);        
         drawnow;

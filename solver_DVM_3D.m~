@@ -1,22 +1,10 @@
-function output = solver(par)
+function output = solver_DVM_3D(par)
 
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
-if par.save_during 
-    if ~isfield(par,'compute_during') && ~isfield(par,'save_during')
-        error('no routine added for computing during computation');
-    end
-end
-
-if ~isfield(par,'M'), par.M = par.n_eqn; end
-
 if ~isfield(par,'ic'),       par.ic = @zero; end% Default: no init. cond.
 
-if ~isfield(par,'relax'),       par.relax = @zero; end% Default: no init. cond.
-
 if ~isfield(par,'source'),  par.source = @zero; end % Default: no source.
-
-if ~isfield(par,'prod_explicit'), par.prod_explicit = false; end % default not explicit prod
 
 if par.num_bc ~=2
     assert(1 == 0, 'not valid num bc'); 
@@ -32,11 +20,7 @@ if ~isfield(par,'source_ind')
 end
 
 % corresponding to every row in Ax, stores the non-zero indices
-Ix = cellfun(@find,num2cell(par.Ax',1),'Un',0);  
-
-if par.prod_explicit
-    Ix_prod = cellfun(@find,num2cell(par.P,1),'Un',0);  
-end
+Ix = cellfun(@find,num2cell(par.Ax',1),'Un',0);         
 
 % size of the grid
 h = (par.ax(2)-par.ax(1))/par.n;
@@ -73,7 +57,6 @@ for i = 1 : par.num_bc
     bc_coupling{i} = cellfun(@(a) find(abs(a) > 1e-14) ,num2cell(par.penalty_B{i},2),'Un',0);
     bc_coupling_g{i} = cellfun(@(a) find(abs(a)> 1e-14) ,num2cell(par.penalty{i},2),'Un',0);
     
-
 end
 
 [DX,PX,InvPX] = sbp_traditional_2(h,par.n);
@@ -81,70 +64,39 @@ end
 % scaling for the boundary conditions. See the SBP paper. 
 bc_scaling = InvPX(1,1);
 
-% initialize the solution variables
-% n_sys is the total number of equations in the system
-% dxU and dyU are the derivatives in the x and y direction.
-% force is the forcing term 
-% set the initial conditions in case they are needed else initialize with
-% zero
-U = cell(1,par.n_eqn); dxU = U; force = U; UTemp = U; Prod = U;
+% we have two systems now, one corresponding to g and the other to h
+U = cell(2,par.n_eqn); dxU = U; UTemp = U; 
 
 % data structure for storing the values at the boundaries. The one coming
 % from Sigma * B and the one coming from Sigma * g are both stored in
 % bc_values. 
-bc_values = cell(1,par.n_eqn);
+bc_values = cell(2,par.n_eqn);
 k_RK = cell(4,1);
-for j = 1:par.n_eqn                          
-    U{j} = X*0 + capargs(par.ic,X,j,par.Ax);     
-    force{j} = X*0;
-    bc_values{j} = X*0;
-    Prod{j} = X*0;
+
+for i = 1 : 2
+    for j = 1:par.n_eqn
+        U{i,j} = X*0 + capargs(par.ic,X,j,par.Ax,par.Ay,i);
+        bc_values{i,j} = X*0;
+    end
 end
 
 %% Time Loop
 cputime = zeros(1,3);
 t = 0; step_count = 0;
 
-% needed for norm computation
-t_Old = 0;
-
-% int_f = zeros(1,par.n_eqn);
-% int_dx_f = zeros(1,par.n_eqn);
-% int_dt_f = zeros(1,par.n_eqn);
-
-int_f = zeros(1,2  * (par.M + 1));
-int_dx_f = zeros(1,2  * (par.M + 1));
-int_dt_f = zeros(1,2  * (par.M + 1));
-
-
-for j = par.source_ind     
-        % apply source to the active components. We store the value on the
-        % whole grid at once. 
-        force{j} = capargs(par.source,X,j,t); 
-end
-
 % compute the boundary inhomogeneity
 for j = 1:par.num_bc
     % need to convert to cell for the computations which follow
     bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,t));
-   
-end
-
-if ~par.prod_explicit
-    for j = 1 : par.n_eqn
-        Prod{j} = capargs(par.relax,X,j);
-    end
+    
 end
 
 
 while t < par.t_end
     
-    
     if t+par.dt > par.t_end
         par.dt = par.t_end-t;
     end
-    
-    
     
     % the ode sytem can be written as U_t = Op.
     % RK = 4 implementation
@@ -156,12 +108,7 @@ while t < par.t_end
      UTemp = U; 
      for RK = 1 : 4
             evaluate = time_dep & (t_temp(RK) > 0);
-            
-            if evaluate(1)
-                for j = par.source_ind    
-                         force{j} = capargs(par.source,X,j,t_temp(RK)); 
-                end
-            end
+           
             
             if evaluate(2)
                 for j = 1:par.num_bc
@@ -171,51 +118,49 @@ while t < par.t_end
                 end
             end
             
-            
-            for i = 1:par.n_eqn
-                dxU{i} = DX * UTemp{i};
+            % compute the derivatives for g and h
+            for i = 1 : 2
+                for j = 1 : par.n_eqn
+                    dxU{i,j} = DX * UTemp{i,j};
+                end
+                
+                % extract all the value at x = x_start.
+                bc_ID = 1;
+                values = cellfun(@(a) a(1),UTemp(i,:),'Un',0);
+                
+                if par.pres_ID1
+                    for j = 1 : par.n_eqn
+                        %                 the term, values(bc_coupling{bc_ID}{j}), gives us the
+                        %                 value of all the variables, at the boundary, which are
+                        %                 coupled with the j-th variable.
+                        %                 par.system_data.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})
+                        %                 gives us the j-th row of the penalty matrix and the
+                        %                 entries in all those columns which have no zeros.
+                        bc_values{i,j}(1) = bc_scaling * (sumcell(values(bc_coupling{bc_ID}{j}),...
+                                                        par.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})) - ...
+                                                        sumcell(bc_g{bc_ID}(bc_coupling_g{bc_ID}{j}),...
+                                                        par.penalty{bc_ID}(j,bc_coupling_g{bc_ID}{j})));
+                    end
+                end
+                
+                
+                % extract all the value at x = x_end.
+                bc_ID = 2;
+                values = cellfun(@(a) a(end),UTemp,'Un',0);
+                
+                if par.pres_ID2
+                    for j = 1 : par.n_eqn
+                        bc_values{i,j}(end) = bc_scaling * (sumcell(values(bc_coupling{bc_ID}{j}),...
+                            par.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})) - ...
+                            sumcell(bc_g{bc_ID}(bc_coupling_g{bc_ID}{j}),...
+                            par.penalty{bc_ID}(j,bc_coupling_g{bc_ID}{j})));
+                    end
+                end
             end
-
-            
-            % extract all the value at x = x_start. 
-            bc_ID = 1;
-            values = cellfun(@(a) a(1),UTemp,'Un',0);
-            
-            if par.pres_ID1
-            for j = 1 : par.n_eqn
-%                 the term, values(bc_coupling{bc_ID}{j}), gives us the
-%                 value of all the variables, at the boundary, which are
-%                 coupled with the j-th variable. 
-%                 par.system_data.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})
-%                 gives us the j-th row of the penalty matrix and the
-%                 entries in all those columns which have no zeros. 
-                bc_values{j}(1) = bc_scaling * (sumcell(values(bc_coupling{bc_ID}{j}),...
-                                      par.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})) - ...
-                                      sumcell(bc_g{bc_ID}(bc_coupling_g{bc_ID}{j}),...
-                                      par.penalty{bc_ID}(j,bc_coupling_g{bc_ID}{j})));
-            end
-            end
-            
-
-           % extract all the value at x = x_end. 
-            bc_ID = 2;
-            values = cellfun(@(a) a(end),UTemp,'Un',0);
-            
-            if par.pres_ID2
-            for j = 1 : par.n_eqn    
-                bc_values{j}(end) = bc_scaling * (sumcell(values(bc_coupling{bc_ID}{j}),...
-                                                 par.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})) - ...
-                                                 sumcell(bc_g{bc_ID}(bc_coupling_g{bc_ID}{j}),...
-                                                 par.penalty{bc_ID}(j,bc_coupling_g{bc_ID}{j})));
-            end
-            end
-            
-            % checking conservation 
-%             flux_wall = ones(1,length(X)) * PX * (bc_values{2});
-%             flux_int = -ones(1,length(X)) * PX * (dxU{1} + dxU{3} * sqrt(2));
-%             
-%             disp('velocity norm');
-%             disp(norm(UTemp{2},2));
+             
+            density = par.compute_density(UTemp,par.Ax,par.all_w);
+            velocity = par.compute_velocity(UTemp,par.Ax,par.all_w);
+            alpha2 = par.compute_alpha2(UTemp,par.Ax,par.all_w);
             
             for i = 1 : par.n_eqn
                 
@@ -224,20 +169,8 @@ while t < par.t_end
                                     
                 k_RK{RK}{i} = (W + force{i} + bc_values{i});
                 
-                % explicit production terms
-                if par.prod_explicit
-                    %if i > 3
-                        k_RK{RK}{i} = k_RK{RK}{i} + sumcell(UTemp(Ix_prod{i}),par.P(i,Ix_prod{i}))/par.Kn;
-                    %end
-                else
-                    k_RK{RK}{i} = k_RK{RK}{i} + Prod{i}.*UTemp{i};
-                end
-                
-            end
-            
-            % since the equations are coupled, we only update after the
-            % computation.
-            for i = 1 : par.n_eqn
+                % adding relaxation
+                k_RK{RK}{i} = k_RK{RK}{i} + (-UTemp{i}+par.compute_fM(par.Ax,density,velocity,alpha2,i))/par.Kn;
                 if RK ~= 4
                     UTemp{i} = U{i} + k_RK{RK}{i} * dt_temp(RK + 1);
                 end
@@ -248,16 +181,15 @@ while t < par.t_end
     for RK = 1 : 4
         for i = 1 : par.n_eqn
             U{i} = U{i} + weight(RK) * k_RK{RK}{i} * par.dt;
-           
         end
     end
     
     step_count = step_count + 1;
     t = t + par.dt;
     cputime(1) = cputime(1) + toc;
-      
+    
     if mod(step_count,50) == 0
-        disp('time: neqn: step_count ');
+        disp('time: neqn: ');
         disp(t);
         disp(par.n_eqn);
         disp(step_count);
@@ -266,36 +198,25 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
+        var_plot = par.compute_density(U,par.Ax,par.all_w);
+        %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
+        %plot(diag(par.Ax),var_plot,'-o');
+        plot(X,var_plot,'-o');
+        %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
-        ylim([-1 1]);        
+        ylim([0 0.1]);        
         drawnow;
     end
     
     % option to save the data during time step, required for convergence
     % studies
     if par.save_during && mod(step_count,100) == 0
-        
         % we compute the norms of the different features of the solution
-        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(...
-                                                U,weight,k_RK,PX,DX,t,t_Old, ...
-                                                par.idx_trun,par.idx_trun_odd,par.idx_trun_even);
+        capargs(par.compute_during,U,weight,k_RK,PX,DX,t);
        
-        
-        int_f = temp_int_f + int_f;
-        int_dx_f = temp_int_dx_f + int_dx_f;
-        int_dt_f = temp_int_dt_f + int_dt_f;
-        
-        t_Old = t;
-        
     end
     
     cputime(2) = cputime(2) + toc;
-end
-
-% write down the norms of f and it's derivatives into a file
-if par.save_during
-    par.save_norms(int_f,int_dx_f,int_dt_f,par.n,par.M);
 end
 
 fprintf('%0.0f time steps\n',step_count)           % Display test
@@ -313,9 +234,7 @@ end
 function z = capargs(fct,varargin)
 % Call function fct with as many arguments as it requires (at least 1),
 % and ignore further arguments.
-
 narg = max(nargin(fct),1);
-
 z = fct(varargin{1:narg});
 
 end
@@ -334,4 +253,5 @@ for j = 1:length(w)
 end
 
 end
+
 
