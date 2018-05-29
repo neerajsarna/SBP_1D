@@ -7,7 +7,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
+ 't_end',0.5,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -23,7 +23,7 @@ par = struct(...
 );
 
 par.Kn = 0.1;
-par.t_plot = false;
+par.t_plot = true;
 par.n_eqn = (2 * nc) * (2 * nc);
 %par.n_eqn =nc;
 
@@ -83,17 +83,18 @@ density = compute_density(temp,par.Ax,par.Ay,par.all_w);
 theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
 sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
 
-filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_Kn0p1.txt';
+filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_theta1_Kn0p1.txt';
 dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
 dlmwrite(filename,density','delimiter','\t','-append','precision',10);
 dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
 dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
 dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
 dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
+
 end
 
 
-% working on inflow boundaries, we consider vacum boundary conditions
+% working on inflow boundaries, we consider vacuum boundary conditions
 function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,t)
 
     rho = 0;
@@ -107,26 +108,26 @@ function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,t)
     end
   
     
-    f = diag(B) * 0;
+    f = diag(B) * thetaIn;
     
-%     id = find(diag(B) == 1);
-%     
-%     switch bc_id
-%         % boundary at x = x_start
-%         case 1
-%             thetaIn = 0;
-%     
-%             for i = 1 : length(id)
-%                 f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-%             end
-%             
-%         case 2
-%             thetaIn = 0;
-%     
-%             for i = 1 : length(id)
-%                 f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-%             end
-%     end
+    id = find(diag(B) == 1);
+    
+    switch bc_id
+        % boundary at x = x_start
+        case 1
+            % thetaIn = -1 at x = 0
+            thetaIn = -thetaIn;
+    
+            for i = 1 : length(id)
+                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
+            end
+            
+        case 2
+            
+            for i = 1 : length(id)
+                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
+            end
+    end
 
 end
         
@@ -145,7 +146,8 @@ vy = Ay(id,id);
 switch sys_id
     % value for g
     case 1  
-        f = density * f0(vx,vy);
+        %f = density * f0(vx,vy);
+        f = density * 0;
         
     % value for h
     case 2

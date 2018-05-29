@@ -25,7 +25,7 @@ if (M < 3)
 end
 
 % to plot during computation or not to plot, thats the question
-par.t_plot = true;
+par.t_plot = false;
 
 par.n = 50;
 
@@ -42,7 +42,7 @@ par.penalty = cell(par.num_bc,1);
 par.B{2} = dvlp_BInflow2D(M);
 par.Ax = dvlp_Ax2D(M);
 par.P = dvlp_Prod2D(M);
-par.Kn = inf;
+par.Kn = 0.1;
 
 % stabilise the boundary conditions with Onsager
 par.B{2} = stabilize_boundary(par.Ax,par.B{2},M);
@@ -76,16 +76,16 @@ result = solver(par);
 %                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 % output_filename = strcat(output_filename,num2str(M),'.txt');
 
-output_filename = 'result_Inflow2D_Mom_M40.txt';
+output_filename = strcat('result_Comp_DVM_Mom/result_Inflow2D_M',num2str(M),'_Kn0p1','.txt');
 
-%write_result(result,output_filename);
+write_result(result,output_filename);
 end
 
 function f = ic(x,id)
 
 if id == 1
-    f = exp(-(x-0.5).*(x-0.5)*100);
-    %f = zeros(length(x),1);
+    %f = exp(-(x-0.5).*(x-0.5)*100);
+    f = zeros(length(x),1);
     
 else
     f = zeros(length(x),1);
