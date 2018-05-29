@@ -266,7 +266,9 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
+        %plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
+        
+        plot(X,U{1},'-o');
         xlim(par.ax);
         ylim([-1 1]);        
         drawnow;

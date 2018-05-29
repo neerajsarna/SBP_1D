@@ -11,7 +11,7 @@ if par.num_bc ~=2
 end   
 
 % find which of the given data is time dependent
-time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>2];
+time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>5];
         
 % if the number of arguments are greater than 3 then definitely we have 
 % an anisotropic source term.
@@ -44,7 +44,7 @@ bc_coupling_g = cell(par.num_bc,1);
 
 %the boundary inhomogeneity. Every component of the cell will be equal to
 %the number of boundar conditions which we need to prescribe. 
-bc_g = cell(par.num_bc,1);
+bc_g = cell(par.num_bc,2);
 
 % we need to do this fixing for the machine error
 for i = 1 : par.num_bc
@@ -85,10 +85,12 @@ cputime = zeros(1,3);
 t = 0; step_count = 0;
 
 % compute the boundary inhomogeneity
-for j = 1:par.num_bc
-    % need to convert to cell for the computations which follow
-    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,t));
-    
+for i = 1 : 2
+    for j = 1:par.num_bc
+        % need to convert to cell for the computations which follow
+        bc_g{j,i} = num2cell(capargs(par.bc_inhomo,par.B{j},j,par.Ax,par.Ay,i,t));
+        
+    end
 end
 
 
@@ -111,10 +113,13 @@ while t < par.t_end
          
          
          if evaluate(2)
-             for j = 1:par.num_bc
-                 % need to convert to cell for the computations which follow
-                 bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,t_temp(RK)));
-                 
+             for i = 1 : 2
+                 for j = 1:par.num_bc
+                     % need to convert to cell for the computations which follow
+                     bc_g{j,i} = num2cell(capargs(par.bc_inhomo,par.B{j}, ...
+                                            j,par.Ax,par.Ay,i,t_temp(RK)));
+                     
+                 end
              end
          end
          
@@ -130,15 +135,15 @@ while t < par.t_end
              
              if par.pres_ID1
                  for j = 1 : par.n_eqn
-                     %                 the term, values(bc_coupling{bc_ID}{j}), gives us the
-                     %                 value of all the variables, at the boundary, which are
-                     %                 coupled with the j-th variable.
-                     %                 par.system_data.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})
-                     %                 gives us the j-th row of the penalty matrix and the
-                     %                 entries in all those columns which have no zeros.
+                     % the term, values(bc_coupling{bc_ID}{j}), gives us the
+                     % value of all the variables, at the boundary, which are
+                     % coupled with the j-th variable.
+                     % par.system_data.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})
+                     % gives us the j-th row of the penalty matrix and the
+                     % entries in all those columns which have no zeros.
                      bc_values{i,j}(1) = bc_scaling * (sumcell(values(bc_coupling{bc_ID}{j}),...
                          par.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})) - ...
-                         sumcell(bc_g{bc_ID}(bc_coupling_g{bc_ID}{j}),...
+                         sumcell(bc_g{bc_ID,i}(bc_coupling_g{bc_ID}{j}),...
                          par.penalty{bc_ID}(j,bc_coupling_g{bc_ID}{j})));
                  end
              end
@@ -150,35 +155,36 @@ while t < par.t_end
              
              if par.pres_ID2
                  for j = 1 : par.n_eqn
-                     bc_values{i,j}(end) = bc_scaling * (sumcell(values(bc_coupling{bc_ID}{j}),...
+                     bc_values{i,j}(end) = bc_scaling * ...
+                         (sumcell(values(bc_coupling{bc_ID}{j}),...
                          par.penalty_B{bc_ID}(j,bc_coupling{bc_ID}{j})) - ...
-                         sumcell(bc_g{bc_ID}(bc_coupling_g{bc_ID}{j}),...
+                         sumcell(bc_g{bc_ID,i}(bc_coupling_g{bc_ID}{j}),...
                          par.penalty{bc_ID}(j,bc_coupling_g{bc_ID}{j})));
                  end
              end
              
-             %% we need to fix these computations
-             density = par.compute_density(UTemp,par.Ax,par.all_w);
-             velocity = par.compute_velocity(UTemp,par.Ax,par.all_w);
-             alpha2 = par.compute_alpha2(UTemp,par.Ax,par.all_w);
+             rho = par.compute_density(UTemp,par.Ax,par.Ay,par.all_w);
+             [ux,uy] = par.compute_velocity(UTemp,par.Ax,par.Ay,par.all_w);
+             theta = par.compute_theta(UTemp,par.Ax,par.Ay,par.all_w);
              
              for j = 1 : par.n_eqn
                  
                  % multiplication of the derivatives and the system matrices
-                 W = -sumcell(dxU(Ix{j}),par.Ax(j,Ix{j}));
+                 W = -sumcell(dxU(i,Ix{j}),par.Ax(j,Ix{j}));
+                 
                  
                  k_RK{RK,i}{j} = (W + bc_values{i,j});
                  
                  % adding relaxation
-                 k_RK{RK,i}{j} = k_RK{RK,i}{i} + ...
-                     (-UTemp{i,j}+par.compute_fM(par.Ax,density,velocity,alpha2,i))/par.Kn;
+%                  k_RK{RK,i}{j} = k_RK{RK,i}{j} + ...
+%                      (-UTemp{i,j}+par.compute_fM(par.Ax,par.Ay,rho,ux,uy,theta,j,i))/par.Kn;
              end
          end
          
-         % we should not update Utemp we have not computed the two coupled
-         % systems
+         % we should not update Utemp, we have not computed the two coupled
+         % systems.
          for i = 1 : 2
-             for j = 1 : n_eqn
+             for j = 1 : par.n_eqn
                  if RK ~= 4
                      UTemp{i,j} = U{i,j} + k_RK{RK,i}{j} * dt_temp(RK + 1);
                  end
@@ -187,8 +193,10 @@ while t < par.t_end
      end
     
     for RK = 1 : 4
-        for i = 1 : par.n_eqn
-            U{i} = U{i} + weight(RK) * k_RK{RK}{i} * par.dt;
+        for i = 1 : 2
+            for j = 1 : par.n_eqn
+                U{i,j} = U{i,j} + weight(RK) * k_RK{RK,i}{j} * par.dt;
+            end
         end
     end
     
@@ -206,14 +214,49 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        var_plot = par.compute_density(U,par.Ax,par.all_w);
+        var_plot = par.compute_density(U,par.Ax,par.Ay,par.all_w);
         %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
         %plot(diag(par.Ax),var_plot,'-o');
         plot(X,var_plot,'-o');
         %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
-        ylim([0 0.1]);        
+        ylim([0 1]);        
         drawnow;
+
+%         v_id_plot = 1;
+%         
+%         % velocity corresponding to which we plot
+%         v_plot = par.Ax(v_id_plot,v_id_plot);
+%         
+%         % the true solution shift
+%         v_shift_plot = X - v_plot * t;
+%         
+%         exact_solution = zeros(length(v_shift_plot),1);
+%         
+%         for i = 1:length(v_shift_plot)
+%             % take from the initial conditions
+%             t_temp = (v_shift_plot(i)-1)/abs(v_plot);
+%             if t_temp  <= 0
+%                 exact_solution(i) = U{1,v_id_plot}(i);
+%                 % take from the boundary conditions
+%             else 
+%                 % distance from the right boundary 
+% %                 if t_temp <= 1
+% %                     exact_solution(i) = exp(-1/(1-(t_temp-1)^2)) * exp(1);
+% %                 else
+% %                     exact_solution(i) = 1;
+% %                 end
+%                 
+%                 exact_solution(i) = 0;
+%             end
+%         end
+% 
+%         
+%         var_plot = U{1,v_id_plot};
+%         plot(X,var_plot,'-o',X,exact_solution,'-*');
+%         xlim(par.ax);
+        
+%        drawnow;
     end
     
     % option to save the data during time step, required for convergence
@@ -221,7 +264,6 @@ while t < par.t_end
     if par.save_during && mod(step_count,100) == 0
         % we compute the norms of the different features of the solution
         capargs(par.compute_during,U,weight,k_RK,PX,DX,t);
-       
     end
     
     cputime(2) = cputime(2) + toc;
@@ -262,4 +304,13 @@ end
 
 end
 
+% we convert the data into contourf compatible format
+function f = contourf_comp(Ax,X,data)
+f = zeros(size(Ax,1),length(X));
+
+for i = 1 : size(Ax,1)
+    f(i,:) = data{i};
+end
+
+end
 
