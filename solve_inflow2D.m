@@ -76,9 +76,9 @@ result = solver(par);
 %                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 % output_filename = strcat(output_filename,num2str(M),'.txt');
 
-output_filename = 'result_Inflow2D_Mom.txt';
+output_filename = 'result_Inflow2D_Mom_M40.txt';
 
-write_result(result,output_filename);
+%write_result(result,output_filename);
 end
 
 function f = ic(x,id)

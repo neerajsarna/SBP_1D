@@ -47,11 +47,6 @@ w_grid1D = w_grid1D(perm);
 
 w = wx_grid2D.*wy_grid2D;
 
-% par.x_m = temp_x(temp_x < 0);
-% par.x_p = temp_x(temp_x >= 0);
-% par.w_m = temp_w(temp_x < 0);
-% par.w_p = temp_w(temp_x >= 0);
-
 par.Ax = diag(vx_grid2D(:));
 par.Ay = diag(vy_grid2D(:));
 par.all_w = w(:);
@@ -86,13 +81,15 @@ end
 density = compute_density(temp,par.Ax,par.Ay,par.all_w);
 [ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
 theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
+sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
 
-filename = 'result_Inflow2D_DVM.txt';
+filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_Kn0p1.txt';
 dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
 dlmwrite(filename,density','delimiter','\t','-append','precision',10);
 dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
 dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
 dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
+dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
 end
 
 
@@ -240,6 +237,39 @@ for i = 1 : grid_points
 end
 
 end
+
+% compute the sigma xx
+function f = compute_sigmaxx(U,Ax,Ay,all_weights)
+grid_points = length(U{1,1});
+
+f = zeros(grid_points,1);
+
+% scale by the He2(xi_1)
+all_weights_x = (diag(Ax).*diag(Ax)-1).*all_weights/sqrt(2);
+
+% scale by He2(xi_2)
+all_weights_y = (diag(Ay).*diag(Ay)-1).*all_weights/sqrt(2);
+
+% loop over the grid
+for i = 1 : grid_points
+    
+    temp_g = cell2mat(cellfun(@(a) a(i),U(1,:),'Un',0));
+    temp_h = cell2mat(cellfun(@(a) a(i),U(2,:),'Un',0));
+    
+    if size(temp_g,1) ~= size(all_weights_x,1)
+        temp_g = reshape(temp_g,size(all_weights_x));
+    end
+    
+    if size(temp_h,1) ~= size(all_weights_x,1)
+        temp_h = reshape(temp_h,size(all_weights_x));
+    end
+    
+    f(i) = sqrt(2) * sum((2 * all_weights_x - all_weights_y).*temp_g - ...
+                        all_weights.*temp_h)/3;
+end
+
+end
+
 
 % compute the Maxwellian, there are two maxellians, one corresponding to
 % g and one for h

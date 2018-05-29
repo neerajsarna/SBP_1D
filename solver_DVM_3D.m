@@ -176,8 +176,8 @@ while t < par.t_end
                  k_RK{RK,i}{j} = (W + bc_values{i,j});
                  
                  % adding relaxation
-%                  k_RK{RK,i}{j} = k_RK{RK,i}{j} + ...
-%                      (-UTemp{i,j}+par.compute_fM(par.Ax,par.Ay,rho,ux,uy,theta,j,i))/par.Kn;
+                 k_RK{RK,i}{j} = k_RK{RK,i}{j} + ...
+                     (-UTemp{i,j}+par.compute_fM(par.Ax,par.Ay,rho,ux,uy,theta,j,i))/par.Kn;
              end
          end
          
@@ -214,13 +214,13 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        var_plot = par.compute_density(U,par.Ax,par.Ay,par.all_w);
+        var_plot = par.compute_theta(U,par.Ax,par.Ay,par.all_w);
         %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
         %plot(diag(par.Ax),var_plot,'-o');
         plot(X,var_plot,'-o');
         %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
-        ylim([0 1]);        
+        ylim([-1 1]);        
         drawnow;
 
 %         v_id_plot = 1;
