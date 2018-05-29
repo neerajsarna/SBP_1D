@@ -1,0 +1,14163 @@
+Sender: LSF System <lsfadmin@linuxbcsc67>
+Subject: Job 42907049[12]: <MATLAB_ARRAY[4,8,12,16,20,24,3,7,11,15,19,23,27,55]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[4,8,12,16,20,24,3,7,11,15,19,23,27,55]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Wed May 16 10:42:36 2018
+Job was executed on host(s) <linuxbcsc67>, in queue <normal>, as user <ns179556> in cluster <rcc> at Thu May 17 16:16:29 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Thu May 17 16:16:29 2018
+Terminated at Thu May 17 17:38:39 2018
+Results reported at Thu May 17 17:38:39 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[4,8,12,16,20,24,3,7,11,15,19,23,27,55]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_HC2D_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 20:00
+ 
+### Request memory you need for your job in MB
+#BSUB -M 5000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solver_HC2D_$LSB_JOBINDEX.log <<EOF
+run solve_HC2D($LSB_JOBINDEX);
+quit();
+EOF
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   4849.09 sec.
+    Max Memory :                                 427 MB
+    Average Memory :                             411.50 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4573.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                57
+    Run time :                                   4930 sec.
+    Turnaround time :                            111363 sec.
+
+The output (if any) follows:
+
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2017b
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.21464
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: step count: residual: 
+    0.0144
+
+    35
+
+    50
+
+   2.4720e-12
+
+time: neqn: step count: residual: 
+    0.0287
+
+    35
+
+   100
+
+   5.1471e-05
+
+time: neqn: step count: residual: 
+    0.0431
+
+    35
+
+   150
+
+    0.0102
+
+time: neqn: step count: residual: 
+    0.0575
+
+    35
+
+   200
+
+    0.1317
+
+time: neqn: step count: residual: 
+    0.0718
+
+    35
+
+   250
+
+    0.5839
+
+time: neqn: step count: residual: 
+    0.0862
+
+    35
+
+   300
+
+    1.5246
+
+time: neqn: step count: residual: 
+    0.1006
+
+    35
+
+   350
+
+    2.9528
+
+time: neqn: step count: residual: 
+    0.1149
+
+    35
+
+   400
+
+    4.7553
+
+time: neqn: step count: residual: 
+    0.1293
+
+    35
+
+   450
+
+    6.7818
+
+time: neqn: step count: residual: 
+    0.1437
+
+    35
+
+   500
+
+    8.8921
+
+time: neqn: step count: residual: 
+    0.1580
+
+    35
+
+   550
+
+   10.9762
+
+time: neqn: step count: residual: 
+    0.1724
+
+    35
+
+   600
+
+   12.9567
+
+time: neqn: step count: residual: 
+    0.1868
+
+    35
+
+   650
+
+   14.7849
+
+time: neqn: step count: residual: 
+    0.2011
+
+    35
+
+   700
+
+   16.4341
+
+time: neqn: step count: residual: 
+    0.2155
+
+    35
+
+   750
+
+   17.8933
+
+time: neqn: step count: residual: 
+    0.2299
+
+    35
+
+   800
+
+   19.1621
+
+time: neqn: step count: residual: 
+    0.2442
+
+    35
+
+   850
+
+   20.2470
+
+time: neqn: step count: residual: 
+    0.2586
+
+    35
+
+   900
+
+   21.1586
+
+time: neqn: step count: residual: 
+    0.2730
+
+    35
+
+   950
+
+   21.9094
+
+time: neqn: step count: residual: 
+    0.2873
+
+    35
+
+        1000
+
+   22.5127
+
+time: neqn: step count: residual: 
+    0.3017
+
+    35
+
+        1050
+
+   22.9811
+
+time: neqn: step count: residual: 
+    0.3161
+
+    35
+
+        1100
+
+   23.3258
+
+time: neqn: step count: residual: 
+    0.3305
+
+    35
+
+        1150
+
+   23.5572
+
+time: neqn: step count: residual: 
+    0.3448
+
+    35
+
+        1200
+
+   23.6850
+
+time: neqn: step count: residual: 
+    0.3592
+
+    35
+
+        1250
+
+   23.7183
+
+time: neqn: step count: residual: 
+    0.3736
+
+    35
+
+        1300
+
+   23.6657
+
+time: neqn: step count: residual: 
+    0.3879
+
+    35
+
+        1350
+
+   23.5347
+
+time: neqn: step count: residual: 
+    0.4023
+
+    35
+
+        1400
+
+   23.3319
+
+time: neqn: step count: residual: 
+    0.4167
+
+    35
+
+        1450
+
+   23.0636
+
+time: neqn: step count: residual: 
+    0.4310
+
+    35
+
+        1500
+
+   22.7356
+
+time: neqn: step count: residual: 
+    0.4454
+
+    35
+
+        1550
+
+   22.3535
+
+time: neqn: step count: residual: 
+    0.4598
+
+    35
+
+        1600
+
+   21.9227
+
+time: neqn: step count: residual: 
+    0.4741
+
+    35
+
+        1650
+
+   21.4481
+
+time: neqn: step count: residual: 
+    0.4885
+
+    35
+
+        1700
+
+   20.9346
+
+time: neqn: step count: residual: 
+    0.5029
+
+    35
+
+        1750
+
+   20.3871
+
+time: neqn: step count: residual: 
+    0.5172
+
+    35
+
+        1800
+
+   19.8104
+
+time: neqn: step count: residual: 
+    0.5316
+
+    35
+
+        1850
+
+   19.2092
+
+time: neqn: step count: residual: 
+    0.5460
+
+    35
+
+        1900
+
+   18.5877
+
+time: neqn: step count: residual: 
+    0.5603
+
+    35
+
+        1950
+
+   17.9503
+
+time: neqn: step count: residual: 
+    0.5747
+
+    35
+
+        2000
+
+   17.3008
+
+time: neqn: step count: residual: 
+    0.5891
+
+    35
+
+        2050
+
+   16.6431
+
+time: neqn: step count: residual: 
+    0.6034
+
+    35
+
+        2100
+
+   15.9807
+
+time: neqn: step count: residual: 
+    0.6178
+
+    35
+
+        2150
+
+   15.3169
+
+time: neqn: step count: residual: 
+    0.6322
+
+    35
+
+        2200
+
+   14.6549
+
+time: neqn: step count: residual: 
+    0.6465
+
+    35
+
+        2250
+
+   13.9980
+
+time: neqn: step count: residual: 
+    0.6609
+
+    35
+
+        2300
+
+   13.3489
+
+time: neqn: step count: residual: 
+    0.6753
+
+    35
+
+        2350
+
+   12.7105
+
+time: neqn: step count: residual: 
+    0.6896
+
+    35
+
+        2400
+
+   12.0855
+
+time: neqn: step count: residual: 
+    0.7040
+
+    35
+
+        2450
+
+   11.4766
+
+time: neqn: step count: residual: 
+    0.7184
+
+    35
+
+        2500
+
+   10.8863
+
+time: neqn: step count: residual: 
+    0.7327
+
+    35
+
+        2550
+
+   10.3173
+
+time: neqn: step count: residual: 
+    0.7471
+
+    35
+
+        2600
+
+    9.7722
+
+time: neqn: step count: residual: 
+    0.7615
+
+    35
+
+        2650
+
+    9.2538
+
+time: neqn: step count: residual: 
+    0.7758
+
+    35
+
+        2700
+
+    8.7649
+
+time: neqn: step count: residual: 
+    0.7902
+
+    35
+
+        2750
+
+    8.3083
+
+time: neqn: step count: residual: 
+    0.8046
+
+    35
+
+        2800
+
+    7.8868
+
+time: neqn: step count: residual: 
+    0.8189
+
+    35
+
+        2850
+
+    7.5032
+
+time: neqn: step count: residual: 
+    0.8333
+
+    35
+
+        2900
+
+    7.1602
+
+time: neqn: step count: residual: 
+    0.8477
+
+    35
+
+        2950
+
+    6.8599
+
+time: neqn: step count: residual: 
+    0.8620
+
+    35
+
+        3000
+
+    6.6044
+
+time: neqn: step count: residual: 
+    0.8764
+
+    35
+
+        3050
+
+    6.3947
+
+time: neqn: step count: residual: 
+    0.8908
+
+    35
+
+        3100
+
+    6.2315
+
+time: neqn: step count: residual: 
+    0.9051
+
+    35
+
+        3150
+
+    6.1141
+
+time: neqn: step count: residual: 
+    0.9195
+
+    35
+
+        3200
+
+    6.0410
+
+time: neqn: step count: residual: 
+    0.9339
+
+    35
+
+        3250
+
+    6.0100
+
+time: neqn: step count: residual: 
+    0.9482
+
+    35
+
+        3300
+
+    6.0177
+
+time: neqn: step count: residual: 
+    0.9626
+
+    35
+
+        3350
+
+    6.0604
+
+time: neqn: step count: residual: 
+    0.9770
+
+    35
+
+        3400
+
+    6.1341
+
+time: neqn: step count: residual: 
+    0.9914
+
+    35
+
+        3450
+
+    6.2345
+
+time: neqn: step count: residual: 
+    1.0057
+
+    35
+
+        3500
+
+    6.3525
+
+time: neqn: step count: residual: 
+    1.0201
+
+    35
+
+        3550
+
+    6.4480
+
+time: neqn: step count: residual: 
+    1.0345
+
+    35
+
+        3600
+
+    6.5173
+
+time: neqn: step count: residual: 
+    1.0488
+
+    35
+
+        3650
+
+    6.5629
+
+time: neqn: step count: residual: 
+    1.0632
+
+    35
+
+        3700
+
+    6.5872
+
+time: neqn: step count: residual: 
+    1.0776
+
+    35
+
+        3750
+
+    6.5926
+
+time: neqn: step count: residual: 
+    1.0919
+
+    35
+
+        3800
+
+    6.5807
+
+time: neqn: step count: residual: 
+    1.1063
+
+    35
+
+        3850
+
+    6.5534
+
+time: neqn: step count: residual: 
+    1.1207
+
+    35
+
+        3900
+
+    6.5126
+
+time: neqn: step count: residual: 
+    1.1350
+
+    35
+
+        3950
+
+    6.4602
+
+time: neqn: step count: residual: 
+    1.1494
+
+    35
+
+        4000
+
+    6.3982
+
+time: neqn: step count: residual: 
+    1.1638
+
+    35
+
+        4050
+
+    6.3286
+
+time: neqn: step count: residual: 
+    1.1781
+
+    35
+
+        4100
+
+    6.2535
+
+time: neqn: step count: residual: 
+    1.1925
+
+    35
+
+        4150
+
+    6.1749
+
+time: neqn: step count: residual: 
+    1.2069
+
+    35
+
+        4200
+
+    6.0949
+
+time: neqn: step count: residual: 
+    1.2212
+
+    35
+
+        4250
+
+    6.0156
+
+time: neqn: step count: residual: 
+    1.2356
+
+    35
+
+        4300
+
+    5.9390
+
+time: neqn: step count: residual: 
+    1.2500
+
+    35
+
+        4350
+
+    5.8673
+
+time: neqn: step count: residual: 
+    1.2643
+
+    35
+
+        4400
+
+    5.8022
+
+time: neqn: step count: residual: 
+    1.2787
+
+    35
+
+        4450
+
+    5.7456
+
+time: neqn: step count: residual: 
+    1.2931
+
+    35
+
+        4500
+
+    5.6988
+
+time: neqn: step count: residual: 
+    1.3074
+
+    35
+
+        4550
+
+    5.6630
+
+time: neqn: step count: residual: 
+    1.3218
+
+    35
+
+        4600
+
+    5.6392
+
+time: neqn: step count: residual: 
+    1.3362
+
+    35
+
+        4650
+
+    5.6280
+
+time: neqn: step count: residual: 
+    1.3505
+
+    35
+
+        4700
+
+    5.6296
+
+time: neqn: step count: residual: 
+    1.3649
+
+    35
+
+        4750
+
+    5.6439
+
+time: neqn: step count: residual: 
+    1.3793
+
+    35
+
+        4800
+
+    5.6706
+
+time: neqn: step count: residual: 
+    1.3936
+
+    35
+
+        4850
+
+    5.7090
+
+time: neqn: step count: residual: 
+    1.4080
+
+    35
+
+        4900
+
+    5.7582
+
+time: neqn: step count: residual: 
+    1.4224
+
+    35
+
+        4950
+
+    5.8170
+
+time: neqn: step count: residual: 
+    1.4367
+
+    35
+
+        5000
+
+    5.8840
+
+time: neqn: step count: residual: 
+    1.4511
+
+    35
+
+        5050
+
+    5.9580
+
+time: neqn: step count: residual: 
+    1.4655
+
+    35
+
+        5100
+
+    6.0373
+
+time: neqn: step count: residual: 
+    1.4798
+
+    35
+
+        5150
+
+    6.1205
+
+time: neqn: step count: residual: 
+    1.4942
+
+    35
+
+        5200
+
+    6.2061
+
+time: neqn: step count: residual: 
+    1.5086
+
+    35
+
+        5250
+
+    6.2928
+
+time: neqn: step count: residual: 
+    1.5229
+
+    35
+
+        5300
+
+    6.3791
+
+time: neqn: step count: residual: 
+    1.5373
+
+    35
+
+        5350
+
+    6.4639
+
+time: neqn: step count: residual: 
+    1.5517
+
+    35
+
+        5400
+
+    6.5458
+
+time: neqn: step count: residual: 
+    1.5660
+
+    35
+
+        5450
+
+    6.6239
+
+time: neqn: step count: residual: 
+    1.5804
+
+    35
+
+        5500
+
+    6.6973
+
+time: neqn: step count: residual: 
+    1.5948
+
+    35
+
+        5550
+
+    6.7649
+
+time: neqn: step count: residual: 
+    1.6091
+
+    35
+
+        5600
+
+    6.8262
+
+time: neqn: step count: residual: 
+    1.6235
+
+    35
+
+        5650
+
+    6.8803
+
+time: neqn: step count: residual: 
+    1.6379
+
+    35
+
+        5700
+
+    6.9267
+
+time: neqn: step count: residual: 
+    1.6523
+
+    35
+
+        5750
+
+    6.9648
+
+time: neqn: step count: residual: 
+    1.6666
+
+    35
+
+        5800
+
+    6.9941
+
+time: neqn: step count: residual: 
+    1.6810
+
+    35
+
+        5850
+
+    7.0143
+
+time: neqn: step count: residual: 
+    1.6954
+
+    35
+
+        5900
+
+    7.0250
+
+time: neqn: step count: residual: 
+    1.7097
+
+    35
+
+        5950
+
+    7.0260
+
+time: neqn: step count: residual: 
+    1.7241
+
+    35
+
+        6000
+
+    7.0172
+
+time: neqn: step count: residual: 
+    1.7385
+
+    35
+
+        6050
+
+    6.9984
+
+time: neqn: step count: residual: 
+    1.7528
+
+    35
+
+        6100
+
+    6.9696
+
+time: neqn: step count: residual: 
+    1.7672
+
+    35
+
+        6150
+
+    6.9308
+
+time: neqn: step count: residual: 
+    1.7816
+
+    35
+
+        6200
+
+    6.8822
+
+time: neqn: step count: residual: 
+    1.7959
+
+    35
+
+        6250
+
+    6.8238
+
+time: neqn: step count: residual: 
+    1.8103
+
+    35
+
+        6300
+
+    6.7558
+
+time: neqn: step count: residual: 
+    1.8247
+
+    35
+
+        6350
+
+    6.6784
+
+time: neqn: step count: residual: 
+    1.8390
+
+    35
+
+        6400
+
+    6.5920
+
+time: neqn: step count: residual: 
+    1.8534
+
+    35
+
+        6450
+
+    6.4969
+
+time: neqn: step count: residual: 
+    1.8678
+
+    35
+
+        6500
+
+    6.3934
+
+time: neqn: step count: residual: 
+    1.8821
+
+    35
+
+        6550
+
+    6.2818
+
+time: neqn: step count: residual: 
+    1.8965
+
+    35
+
+        6600
+
+    6.1628
+
+time: neqn: step count: residual: 
+    1.9109
+
+    35
+
+        6650
+
+    6.0366
+
+time: neqn: step count: residual: 
+    1.9252
+
+    35
+
+        6700
+
+    5.9039
+
+time: neqn: step count: residual: 
+    1.9396
+
+    35
+
+        6750
+
+    5.7651
+
+time: neqn: step count: residual: 
+    1.9540
+
+    35
+
+        6800
+
+    5.6209
+
+time: neqn: step count: residual: 
+    1.9683
+
+    35
+
+        6850
+
+    5.4717
+
+time: neqn: step count: residual: 
+    1.9827
+
+    35
+
+        6900
+
+    5.3182
+
+time: neqn: step count: residual: 
+    1.9971
+
+    35
+
+        6950
+
+    5.1611
+
+time: neqn: step count: residual: 
+    2.0114
+
+    35
+
+        7000
+
+    5.0009
+
+time: neqn: step count: residual: 
+    2.0258
+
+    35
+
+        7050
+
+    4.8384
+
+time: neqn: step count: residual: 
+    2.0402
+
+    35
+
+        7100
+
+    4.6743
+
+time: neqn: step count: residual: 
+    2.0545
+
+    35
+
+        7150
+
+    4.5093
+
+time: neqn: step count: residual: 
+    2.0689
+
+    35
+
+        7200
+
+    4.3442
+
+time: neqn: step count: residual: 
+    2.0833
+
+    35
+
+        7250
+
+    4.1796
+
+time: neqn: step count: residual: 
+    2.0976
+
+    35
+
+        7300
+
+    4.0165
+
+time: neqn: step count: residual: 
+    2.1120
+
+    35
+
+        7350
+
+    3.8555
+
+time: neqn: step count: residual: 
+    2.1264
+
+    35
+
+        7400
+
+    3.6976
+
+time: neqn: step count: residual: 
+    2.1407
+
+    35
+
+        7450
+
+    3.5436
+
+time: neqn: step count: residual: 
+    2.1551
+
+    35
+
+        7500
+
+    3.3944
+
+time: neqn: step count: residual: 
+    2.1695
+
+    35
+
+        7550
+
+    3.2507
+
+time: neqn: step count: residual: 
+    2.1838
+
+    35
+
+        7600
+
+    3.1137
+
+time: neqn: step count: residual: 
+    2.1982
+
+    35
+
+        7650
+
+    2.9840
+
+time: neqn: step count: residual: 
+    2.2126
+
+    35
+
+        7700
+
+    2.8625
+
+time: neqn: step count: residual: 
+    2.2269
+
+    35
+
+        7750
+
+    2.7501
+
+time: neqn: step count: residual: 
+    2.2413
+
+    35
+
+        7800
+
+    2.6475
+
+time: neqn: step count: residual: 
+    2.2557
+
+    35
+
+        7850
+
+    2.5553
+
+time: neqn: step count: residual: 
+    2.2700
+
+    35
+
+        7900
+
+    2.4741
+
+time: neqn: step count: residual: 
+    2.2844
+
+    35
+
+        7950
+
+    2.4041
+
+time: neqn: step count: residual: 
+    2.2988
+
+    35
+
+        8000
+
+    2.3455
+
+time: neqn: step count: residual: 
+    2.3132
+
+    35
+
+        8050
+
+    2.2981
+
+time: neqn: step count: residual: 
+    2.3275
+
+    35
+
+        8100
+
+    2.2617
+
+time: neqn: step count: residual: 
+    2.3419
+
+    35
+
+        8150
+
+    2.2356
+
+time: neqn: step count: residual: 
+    2.3563
+
+    35
+
+        8200
+
+    2.2191
+
+time: neqn: step count: residual: 
+    2.3706
+
+    35
+
+        8250
+
+    2.2112
+
+time: neqn: step count: residual: 
+    2.3850
+
+    35
+
+        8300
+
+    2.2109
+
+time: neqn: step count: residual: 
+    2.3994
+
+    35
+
+        8350
+
+    2.2169
+
+time: neqn: step count: residual: 
+    2.4137
+
+    35
+
+        8400
+
+    2.2282
+
+time: neqn: step count: residual: 
+    2.4281
+
+    35
+
+        8450
+
+    2.2435
+
+time: neqn: step count: residual: 
+    2.4425
+
+    35
+
+        8500
+
+    2.2618
+
+time: neqn: step count: residual: 
+    2.4568
+
+    35
+
+        8550
+
+    2.2819
+
+time: neqn: step count: residual: 
+    2.4712
+
+    35
+
+        8600
+
+    2.3029
+
+time: neqn: step count: residual: 
+    2.4856
+
+    35
+
+        8650
+
+    2.3240
+
+time: neqn: step count: residual: 
+    2.4999
+
+    35
+
+        8700
+
+    2.3444
+
+time: neqn: step count: residual: 
+    2.5143
+
+    35
+
+        8750
+
+    2.3634
+
+time: neqn: step count: residual: 
+    2.5287
+
+    35
+
+        8800
+
+    2.3804
+
+time: neqn: step count: residual: 
+    2.5430
+
+    35
+
+        8850
+
+    2.3950
+
+time: neqn: step count: residual: 
+    2.5574
+
+    35
+
+        8900
+
+    2.4067
+
+time: neqn: step count: residual: 
+    2.5718
+
+    35
+
+        8950
+
+    2.4152
+
+time: neqn: step count: residual: 
+    2.5861
+
+    35
+
+        9000
+
+    2.4202
+
+time: neqn: step count: residual: 
+    2.6005
+
+    35
+
+        9050
+
+    2.4216
+
+time: neqn: step count: residual: 
+    2.6149
+
+    35
+
+        9100
+
+    2.4191
+
+time: neqn: step count: residual: 
+    2.6292
+
+    35
+
+        9150
+
+    2.4128
+
+time: neqn: step count: residual: 
+    2.6436
+
+    35
+
+        9200
+
+    2.4025
+
+time: neqn: step count: residual: 
+    2.6580
+
+    35
+
+        9250
+
+    2.3883
+
+time: neqn: step count: residual: 
+    2.6723
+
+    35
+
+        9300
+
+    2.3701
+
+time: neqn: step count: residual: 
+    2.6867
+
+    35
+
+        9350
+
+    2.3481
+
+time: neqn: step count: residual: 
+    2.7011
+
+    35
+
+        9400
+
+    2.3223
+
+time: neqn: step count: residual: 
+    2.7154
+
+    35
+
+        9450
+
+    2.2928
+
+time: neqn: step count: residual: 
+    2.7298
+
+    35
+
+        9500
+
+    2.2599
+
+time: neqn: step count: residual: 
+    2.7442
+
+    35
+
+        9550
+
+    2.2236
+
+time: neqn: step count: residual: 
+    2.7585
+
+    35
+
+        9600
+
+    2.1843
+
+time: neqn: step count: residual: 
+    2.7729
+
+    35
+
+        9650
+
+    2.1420
+
+time: neqn: step count: residual: 
+    2.7873
+
+    35
+
+        9700
+
+    2.0971
+
+time: neqn: step count: residual: 
+    2.8016
+
+    35
+
+        9750
+
+    2.0498
+
+time: neqn: step count: residual: 
+    2.8160
+
+    35
+
+        9800
+
+    2.0003
+
+time: neqn: step count: residual: 
+    2.8304
+
+    35
+
+        9850
+
+    1.9490
+
+time: neqn: step count: residual: 
+    2.8447
+
+    35
+
+        9900
+
+    1.8961
+
+time: neqn: step count: residual: 
+    2.8591
+
+    35
+
+        9950
+
+    1.8420
+
+time: neqn: step count: residual: 
+    2.8735
+
+    35
+
+       10000
+
+    1.7871
+
+time: neqn: step count: residual: 
+    2.8878
+
+    35
+
+       10050
+
+    1.7315
+
+time: neqn: step count: residual: 
+    2.9022
+
+    35
+
+       10100
+
+    1.6758
+
+time: neqn: step count: residual: 
+    2.9166
+
+    35
+
+       10150
+
+    1.6202
+
+time: neqn: step count: residual: 
+    2.9309
+
+    35
+
+       10200
+
+    1.5652
+
+time: neqn: step count: residual: 
+    2.9453
+
+    35
+
+       10250
+
+    1.5112
+
+time: neqn: step count: residual: 
+    2.9597
+
+    35
+
+       10300
+
+    1.4585
+
+time: neqn: step count: residual: 
+    2.9741
+
+    35
+
+       10350
+
+    1.4076
+
+time: neqn: step count: residual: 
+    2.9884
+
+    35
+
+       10400
+
+    1.3588
+
+time: neqn: step count: residual: 
+    3.0028
+
+    35
+
+       10450
+
+    1.3126
+
+time: neqn: step count: residual: 
+    3.0172
+
+    35
+
+       10500
+
+    1.2693
+
+time: neqn: step count: residual: 
+    3.0315
+
+    35
+
+       10550
+
+    1.2293
+
+time: neqn: step count: residual: 
+    3.0459
+
+    35
+
+       10600
+
+    1.1930
+
+time: neqn: step count: residual: 
+    3.0603
+
+    35
+
+       10650
+
+    1.1606
+
+time: neqn: step count: residual: 
+    3.0746
+
+    35
+
+       10700
+
+    1.1324
+
+time: neqn: step count: residual: 
+    3.0890
+
+    35
+
+       10750
+
+    1.1085
+
+time: neqn: step count: residual: 
+    3.1034
+
+    35
+
+       10800
+
+    1.0889
+
+time: neqn: step count: residual: 
+    3.1177
+
+    35
+
+       10850
+
+    1.0737
+
+time: neqn: step count: residual: 
+    3.1321
+
+    35
+
+       10900
+
+    1.0627
+
+time: neqn: step count: residual: 
+    3.1465
+
+    35
+
+       10950
+
+    1.0558
+
+time: neqn: step count: residual: 
+    3.1608
+
+    35
+
+       11000
+
+    1.0526
+
+time: neqn: step count: residual: 
+    3.1752
+
+    35
+
+       11050
+
+    1.0528
+
+time: neqn: step count: residual: 
+    3.1896
+
+    35
+
+       11100
+
+    1.0560
+
+time: neqn: step count: residual: 
+    3.2039
+
+    35
+
+       11150
+
+    1.0617
+
+time: neqn: step count: residual: 
+    3.2183
+
+    35
+
+       11200
+
+    1.0695
+
+time: neqn: step count: residual: 
+    3.2327
+
+    35
+
+       11250
+
+    1.0790
+
+time: neqn: step count: residual: 
+    3.2470
+
+    35
+
+       11300
+
+    1.0897
+
+time: neqn: step count: residual: 
+    3.2614
+
+    35
+
+       11350
+
+    1.1012
+
+time: neqn: step count: residual: 
+    3.2758
+
+    35
+
+       11400
+
+    1.1131
+
+time: neqn: step count: residual: 
+    3.2901
+
+    35
+
+       11450
+
+    1.1250
+
+time: neqn: step count: residual: 
+    3.3045
+
+    35
+
+       11500
+
+    1.1367
+
+time: neqn: step count: residual: 
+    3.3189
+
+    35
+
+       11550
+
+    1.1477
+
+time: neqn: step count: residual: 
+    3.3332
+
+    35
+
+       11600
+
+    1.1579
+
+time: neqn: step count: residual: 
+    3.3476
+
+    35
+
+       11650
+
+    1.1671
+
+time: neqn: step count: residual: 
+    3.3620
+
+    35
+
+       11700
+
+    1.1750
+
+time: neqn: step count: residual: 
+    3.3763
+
+    35
+
+       11750
+
+    1.1816
+
+time: neqn: step count: residual: 
+    3.3907
+
+    35
+
+       11800
+
+    1.1865
+
+time: neqn: step count: residual: 
+    3.4051
+
+    35
+
+       11850
+
+    1.1899
+
+time: neqn: step count: residual: 
+    3.4194
+
+    35
+
+       11900
+
+    1.1915
+
+time: neqn: step count: residual: 
+    3.4338
+
+    35
+
+       11950
+
+    1.1913
+
+time: neqn: step count: residual: 
+    3.4482
+
+    35
+
+       12000
+
+    1.1893
+
+time: neqn: step count: residual: 
+    3.4625
+
+    35
+
+       12050
+
+    1.1854
+
+time: neqn: step count: residual: 
+    3.4769
+
+    35
+
+       12100
+
+    1.1796
+
+time: neqn: step count: residual: 
+    3.4913
+
+    35
+
+       12150
+
+    1.1720
+
+time: neqn: step count: residual: 
+    3.5056
+
+    35
+
+       12200
+
+    1.1626
+
+time: neqn: step count: residual: 
+    3.5200
+
+    35
+
+       12250
+
+    1.1513
+
+time: neqn: step count: residual: 
+    3.5344
+
+    35
+
+       12300
+
+    1.1383
+
+time: neqn: step count: residual: 
+    3.5487
+
+    35
+
+       12350
+
+    1.1236
+
+time: neqn: step count: residual: 
+    3.5631
+
+    35
+
+       12400
+
+    1.1073
+
+time: neqn: step count: residual: 
+    3.5775
+
+    35
+
+       12450
+
+    1.0894
+
+time: neqn: step count: residual: 
+    3.5919
+
+    35
+
+       12500
+
+    1.0700
+
+time: neqn: step count: residual: 
+    3.6062
+
+    35
+
+       12550
+
+    1.0492
+
+time: neqn: step count: residual: 
+    3.6206
+
+    35
+
+       12600
+
+    1.0272
+
+time: neqn: step count: residual: 
+    3.6350
+
+    35
+
+       12650
+
+    1.0040
+
+time: neqn: step count: residual: 
+    3.6493
+
+    35
+
+       12700
+
+    0.9798
+
+time: neqn: step count: residual: 
+    3.6637
+
+    35
+
+       12750
+
+    0.9546
+
+time: neqn: step count: residual: 
+    3.6781
+
+    35
+
+       12800
+
+    0.9286
+
+time: neqn: step count: residual: 
+    3.6924
+
+    35
+
+       12850
+
+    0.9020
+
+time: neqn: step count: residual: 
+    3.7068
+
+    35
+
+       12900
+
+    0.8748
+
+time: neqn: step count: residual: 
+    3.7212
+
+    35
+
+       12950
+
+    0.8472
+
+time: neqn: step count: residual: 
+    3.7355
+
+    35
+
+       13000
+
+    0.8194
+
+time: neqn: step count: residual: 
+    3.7499
+
+    35
+
+       13050
+
+    0.7916
+
+time: neqn: step count: residual: 
+    3.7643
+
+    35
+
+       13100
+
+    0.7637
+
+time: neqn: step count: residual: 
+    3.7786
+
+    35
+
+       13150
+
+    0.7362
+
+time: neqn: step count: residual: 
+    3.7930
+
+    35
+
+       13200
+
+    0.7090
+
+time: neqn: step count: residual: 
+    3.8074
+
+    35
+
+       13250
+
+    0.6825
+
+time: neqn: step count: residual: 
+    3.8217
+
+    35
+
+       13300
+
+    0.6567
+
+time: neqn: step count: residual: 
+    3.8361
+
+    35
+
+       13350
+
+    0.6318
+
+time: neqn: step count: residual: 
+    3.8505
+
+    35
+
+       13400
+
+    0.6081
+
+time: neqn: step count: residual: 
+    3.8648
+
+    35
+
+       13450
+
+    0.5856
+
+time: neqn: step count: residual: 
+    3.8792
+
+    35
+
+       13500
+
+    0.5646
+
+time: neqn: step count: residual: 
+    3.8936
+
+    35
+
+       13550
+
+    0.5453
+
+time: neqn: step count: residual: 
+    3.9079
+
+    35
+
+       13600
+
+    0.5277
+
+time: neqn: step count: residual: 
+    3.9223
+
+    35
+
+       13650
+
+    0.5121
+
+time: neqn: step count: residual: 
+    3.9367
+
+    35
+
+       13700
+
+    0.4984
+
+time: neqn: step count: residual: 
+    3.9510
+
+    35
+
+       13750
+
+    0.4868
+
+time: neqn: step count: residual: 
+    3.9654
+
+    35
+
+       13800
+
+    0.4772
+
+time: neqn: step count: residual: 
+    3.9798
+
+    35
+
+       13850
+
+    0.4697
+
+time: neqn: step count: residual: 
+    3.9941
+
+    35
+
+       13900
+
+    0.4642
+
+time: neqn: step count: residual: 
+    4.0085
+
+    35
+
+       13950
+
+    0.4605
+
+time: neqn: step count: residual: 
+    4.0229
+
+    35
+
+       14000
+
+    0.4586
+
+time: neqn: step count: residual: 
+    4.0372
+
+    35
+
+       14050
+
+    0.4583
+
+time: neqn: step count: residual: 
+    4.0516
+
+    35
+
+       14100
+
+    0.4593
+
+time: neqn: step count: residual: 
+    4.0660
+
+    35
+
+       14150
+
+    0.4615
+
+time: neqn: step count: residual: 
+    4.0803
+
+    35
+
+       14200
+
+    0.4647
+
+time: neqn: step count: residual: 
+    4.0947
+
+    35
+
+       14250
+
+    0.4685
+
+time: neqn: step count: residual: 
+    4.1091
+
+    35
+
+       14300
+
+    0.4729
+
+time: neqn: step count: residual: 
+    4.1234
+
+    35
+
+       14350
+
+    0.4776
+
+time: neqn: step count: residual: 
+    4.1378
+
+    35
+
+       14400
+
+    0.4825
+
+time: neqn: step count: residual: 
+    4.1522
+
+    35
+
+       14450
+
+    0.4874
+
+time: neqn: step count: residual: 
+    4.1665
+
+    35
+
+       14500
+
+    0.4921
+
+time: neqn: step count: residual: 
+    4.1809
+
+    35
+
+       14550
+
+    0.4965
+
+time: neqn: step count: residual: 
+    4.1953
+
+    35
+
+       14600
+
+    0.5005
+
+time: neqn: step count: residual: 
+    4.2096
+
+    35
+
+       14650
+
+    0.5040
+
+time: neqn: step count: residual: 
+    4.2240
+
+    35
+
+       14700
+
+    0.5070
+
+time: neqn: step count: residual: 
+    4.2384
+
+    35
+
+       14750
+
+    0.5093
+
+time: neqn: step count: residual: 
+    4.2528
+
+    35
+
+       14800
+
+    0.5109
+
+time: neqn: step count: residual: 
+    4.2671
+
+    35
+
+       14850
+
+    0.5118
+
+time: neqn: step count: residual: 
+    4.2815
+
+    35
+
+       14900
+
+    0.5119
+
+time: neqn: step count: residual: 
+    4.2959
+
+    35
+
+       14950
+
+    0.5113
+
+time: neqn: step count: residual: 
+    4.3102
+
+    35
+
+       15000
+
+    0.5098
+
+time: neqn: step count: residual: 
+    4.3246
+
+    35
+
+       15050
+
+    0.5075
+
+time: neqn: step count: residual: 
+    4.3390
+
+    35
+
+       15100
+
+    0.5043
+
+time: neqn: step count: residual: 
+    4.3533
+
+    35
+
+       15150
+
+    0.5004
+
+time: neqn: step count: residual: 
+    4.3677
+
+    35
+
+       15200
+
+    0.4957
+
+time: neqn: step count: residual: 
+    4.3821
+
+    35
+
+       15250
+
+    0.4902
+
+time: neqn: step count: residual: 
+    4.3964
+
+    35
+
+       15300
+
+    0.4840
+
+time: neqn: step count: residual: 
+    4.4108
+
+    35
+
+       15350
+
+    0.4770
+
+time: neqn: step count: residual: 
+    4.4252
+
+    35
+
+       15400
+
+    0.4694
+
+time: neqn: step count: residual: 
+    4.4395
+
+    35
+
+       15450
+
+    0.4611
+
+time: neqn: step count: residual: 
+    4.4539
+
+    35
+
+       15500
+
+    0.4522
+
+time: neqn: step count: residual: 
+    4.4683
+
+    35
+
+       15550
+
+    0.4427
+
+time: neqn: step count: residual: 
+    4.4826
+
+    35
+
+       15600
+
+    0.4328
+
+time: neqn: step count: residual: 
+    4.4970
+
+    35
+
+       15650
+
+    0.4224
+
+time: neqn: step count: residual: 
+    4.5114
+
+    35
+
+       15700
+
+    0.4115
+
+time: neqn: step count: residual: 
+    4.5257
+
+    35
+
+       15750
+
+    0.4004
+
+time: neqn: step count: residual: 
+    4.5401
+
+    35
+
+       15800
+
+    0.3889
+
+time: neqn: step count: residual: 
+    4.5545
+
+    35
+
+       15850
+
+    0.3773
+
+time: neqn: step count: residual: 
+    4.5688
+
+    35
+
+       15900
+
+    0.3655
+
+time: neqn: step count: residual: 
+    4.5832
+
+    35
+
+       15950
+
+    0.3536
+
+time: neqn: step count: residual: 
+    4.5976
+
+    35
+
+       16000
+
+    0.3416
+
+time: neqn: step count: residual: 
+    4.6119
+
+    35
+
+       16050
+
+    0.3298
+
+time: neqn: step count: residual: 
+    4.6263
+
+    35
+
+       16100
+
+    0.3180
+
+time: neqn: step count: residual: 
+    4.6407
+
+    35
+
+       16150
+
+    0.3065
+
+time: neqn: step count: residual: 
+    4.6550
+
+    35
+
+       16200
+
+    0.2953
+
+time: neqn: step count: residual: 
+    4.6694
+
+    35
+
+       16250
+
+    0.2844
+
+time: neqn: step count: residual: 
+    4.6838
+
+    35
+
+       16300
+
+    0.2740
+
+time: neqn: step count: residual: 
+    4.6981
+
+    35
+
+       16350
+
+    0.2641
+
+time: neqn: step count: residual: 
+    4.7125
+
+    35
+
+       16400
+
+    0.2548
+
+time: neqn: step count: residual: 
+    4.7269
+
+    35
+
+       16450
+
+    0.2462
+
+time: neqn: step count: residual: 
+    4.7412
+
+    35
+
+       16500
+
+    0.2383
+
+time: neqn: step count: residual: 
+    4.7556
+
+    35
+
+       16550
+
+    0.2312
+
+time: neqn: step count: residual: 
+    4.7700
+
+    35
+
+       16600
+
+    0.2250
+
+time: neqn: step count: residual: 
+    4.7843
+
+    35
+
+       16650
+
+    0.2197
+
+time: neqn: step count: residual: 
+    4.7987
+
+    35
+
+       16700
+
+    0.2153
+
+time: neqn: step count: residual: 
+    4.8131
+
+    35
+
+       16750
+
+    0.2117
+
+time: neqn: step count: residual: 
+    4.8274
+
+    35
+
+       16800
+
+    0.2091
+
+time: neqn: step count: residual: 
+    4.8418
+
+    35
+
+       16850
+
+    0.2073
+
+time: neqn: step count: residual: 
+    4.8562
+
+    35
+
+       16900
+
+    0.2063
+
+time: neqn: step count: residual: 
+    4.8705
+
+    35
+
+       16950
+
+    0.2060
+
+time: neqn: step count: residual: 
+    4.8849
+
+    35
+
+       17000
+
+    0.2063
+
+time: neqn: step count: residual: 
+    4.8993
+
+    35
+
+       17050
+
+    0.2072
+
+time: neqn: step count: residual: 
+    4.9137
+
+    35
+
+       17100
+
+    0.2085
+
+time: neqn: step count: residual: 
+    4.9280
+
+    35
+
+       17150
+
+    0.2102
+
+time: neqn: step count: residual: 
+    4.9424
+
+    35
+
+       17200
+
+    0.2121
+
+time: neqn: step count: residual: 
+    4.9568
+
+    35
+
+       17250
+
+    0.2142
+
+time: neqn: step count: residual: 
+    4.9711
+
+    35
+
+       17300
+
+    0.2165
+
+time: neqn: step count: residual: 
+    4.9855
+
+    35
+
+       17350
+
+    0.2187
+
+time: neqn: step count: residual: 
+    4.9999
+
+    35
+
+       17400
+
+    0.2209
+
+time: neqn: step count: residual: 
+    5.0142
+
+    35
+
+       17450
+
+    0.2230
+
+time: neqn: step count: residual: 
+    5.0286
+
+    35
+
+       17500
+
+    0.2249
+
+time: neqn: step count: residual: 
+    5.0430
+
+    35
+
+       17550
+
+    0.2267
+
+time: neqn: step count: residual: 
+    5.0573
+
+    35
+
+       17600
+
+    0.2282
+
+time: neqn: step count: residual: 
+    5.0717
+
+    35
+
+       17650
+
+    0.2294
+
+time: neqn: step count: residual: 
+    5.0861
+
+    35
+
+       17700
+
+    0.2303
+
+time: neqn: step count: residual: 
+    5.1004
+
+    35
+
+       17750
+
+    0.2309
+
+time: neqn: step count: residual: 
+    5.1148
+
+    35
+
+       17800
+
+    0.2312
+
+time: neqn: step count: residual: 
+    5.1292
+
+    35
+
+       17850
+
+    0.2311
+
+time: neqn: step count: residual: 
+    5.1435
+
+    35
+
+       17900
+
+    0.2307
+
+time: neqn: step count: residual: 
+    5.1579
+
+    35
+
+       17950
+
+    0.2299
+
+time: neqn: step count: residual: 
+    5.1723
+
+    35
+
+       18000
+
+    0.2287
+
+time: neqn: step count: residual: 
+    5.1866
+
+    35
+
+       18050
+
+    0.2271
+
+time: neqn: step count: residual: 
+    5.2010
+
+    35
+
+       18100
+
+    0.2252
+
+time: neqn: step count: residual: 
+    5.2154
+
+    35
+
+       18150
+
+    0.2230
+
+time: neqn: step count: residual: 
+    5.2297
+
+    35
+
+       18200
+
+    0.2204
+
+time: neqn: step count: residual: 
+    5.2441
+
+    35
+
+       18250
+
+    0.2174
+
+time: neqn: step count: residual: 
+    5.2585
+
+    35
+
+       18300
+
+    0.2142
+
+time: neqn: step count: residual: 
+    5.2728
+
+    35
+
+       18350
+
+    0.2106
+
+time: neqn: step count: residual: 
+    5.2872
+
+    35
+
+       18400
+
+    0.2068
+
+time: neqn: step count: residual: 
+    5.3016
+
+    35
+
+       18450
+
+    0.2027
+
+time: neqn: step count: residual: 
+    5.3159
+
+    35
+
+       18500
+
+    0.1984
+
+time: neqn: step count: residual: 
+    5.3303
+
+    35
+
+       18550
+
+    0.1938
+
+time: neqn: step count: residual: 
+    5.3447
+
+    35
+
+       18600
+
+    0.1891
+
+time: neqn: step count: residual: 
+    5.3590
+
+    35
+
+       18650
+
+    0.1841
+
+time: neqn: step count: residual: 
+    5.3734
+
+    35
+
+       18700
+
+    0.1790
+
+time: neqn: step count: residual: 
+    5.3878
+
+    35
+
+       18750
+
+    0.1738
+
+time: neqn: step count: residual: 
+    5.4021
+
+    35
+
+       18800
+
+    0.1685
+
+time: neqn: step count: residual: 
+    5.4165
+
+    35
+
+       18850
+
+    0.1632
+
+time: neqn: step count: residual: 
+    5.4309
+
+    35
+
+       18900
+
+    0.1578
+
+time: neqn: step count: residual: 
+    5.4452
+
+    35
+
+       18950
+
+    0.1524
+
+time: neqn: step count: residual: 
+    5.4596
+
+    35
+
+       19000
+
+    0.1470
+
+time: neqn: step count: residual: 
+    5.4740
+
+    35
+
+       19050
+
+    0.1417
+
+time: neqn: step count: residual: 
+    5.4883
+
+    35
+
+       19100
+
+    0.1365
+
+time: neqn: step count: residual: 
+    5.5027
+
+    35
+
+       19150
+
+    0.1315
+
+time: neqn: step count: residual: 
+    5.5171
+
+    35
+
+       19200
+
+    0.1266
+
+time: neqn: step count: residual: 
+    5.5314
+
+    35
+
+       19250
+
+    0.1219
+
+time: neqn: step count: residual: 
+    5.5458
+
+    35
+
+       19300
+
+    0.1175
+
+time: neqn: step count: residual: 
+    5.5602
+
+    35
+
+       19350
+
+    0.1133
+
+time: neqn: step count: residual: 
+    5.5746
+
+    35
+
+       19400
+
+    0.1094
+
+time: neqn: step count: residual: 
+    5.5889
+
+    35
+
+       19450
+
+    0.1059
+
+time: neqn: step count: residual: 
+    5.6033
+
+    35
+
+       19500
+
+    0.1027
+
+time: neqn: step count: residual: 
+    5.6177
+
+    35
+
+       19550
+
+    0.0999
+
+time: neqn: step count: residual: 
+    5.6320
+
+    35
+
+       19600
+
+    0.0976
+
+time: neqn: step count: residual: 
+    5.6464
+
+    35
+
+       19650
+
+    0.0956
+
+time: neqn: step count: residual: 
+    5.6608
+
+    35
+
+       19700
+
+    0.0940
+
+time: neqn: step count: residual: 
+    5.6751
+
+    35
+
+       19750
+
+    0.0928
+
+time: neqn: step count: residual: 
+    5.6895
+
+    35
+
+       19800
+
+    0.0920
+
+time: neqn: step count: residual: 
+    5.7039
+
+    35
+
+       19850
+
+    0.0916
+
+time: neqn: step count: residual: 
+    5.7182
+
+    35
+
+       19900
+
+    0.0915
+
+time: neqn: step count: residual: 
+    5.7326
+
+    35
+
+       19950
+
+    0.0916
+
+time: neqn: step count: residual: 
+    5.7470
+
+    35
+
+       20000
+
+    0.0920
+
+time: neqn: step count: residual: 
+    5.7613
+
+    35
+
+       20050
+
+    0.0926
+
+time: neqn: step count: residual: 
+    5.7757
+
+    35
+
+       20100
+
+    0.0933
+
+time: neqn: step count: residual: 
+    5.7901
+
+    35
+
+       20150
+
+    0.0942
+
+time: neqn: step count: residual: 
+    5.8044
+
+    35
+
+       20200
+
+    0.0951
+
+time: neqn: step count: residual: 
+    5.8188
+
+    35
+
+       20250
+
+    0.0961
+
+time: neqn: step count: residual: 
+    5.8332
+
+    35
+
+       20300
+
+    0.0971
+
+time: neqn: step count: residual: 
+    5.8475
+
+    35
+
+       20350
+
+    0.0981
+
+time: neqn: step count: residual: 
+    5.8619
+
+    35
+
+       20400
+
+    0.0990
+
+time: neqn: step count: residual: 
+    5.8763
+
+    35
+
+       20450
+
+    0.0998
+
+time: neqn: step count: residual: 
+    5.8906
+
+    35
+
+       20500
+
+    0.1006
+
+time: neqn: step count: residual: 
+    5.9050
+
+    35
+
+       20550
+
+    0.1012
+
+time: neqn: step count: residual: 
+    5.9194
+
+    35
+
+       20600
+
+    0.1018
+
+time: neqn: step count: residual: 
+    5.9337
+
+    35
+
+       20650
+
+    0.1022
+
+time: neqn: step count: residual: 
+    5.9481
+
+    35
+
+       20700
+
+    0.1024
+
+time: neqn: step count: residual: 
+    5.9625
+
+    35
+
+       20750
+
+    0.1025
+
+time: neqn: step count: residual: 
+    5.9768
+
+    35
+
+       20800
+
+    0.1024
+
+time: neqn: step count: residual: 
+    5.9912
+
+    35
+
+       20850
+
+    0.1022
+
+time: neqn: step count: residual: 
+    6.0056
+
+    35
+
+       20900
+
+    0.1018
+
+time: neqn: step count: residual: 
+    6.0199
+
+    35
+
+       20950
+
+    0.1013
+
+time: neqn: step count: residual: 
+    6.0343
+
+    35
+
+       21000
+
+    0.1006
+
+time: neqn: step count: residual: 
+    6.0487
+
+    35
+
+       21050
+
+    0.0997
+
+time: neqn: step count: residual: 
+    6.0630
+
+    35
+
+       21100
+
+    0.0987
+
+time: neqn: step count: residual: 
+    6.0774
+
+    35
+
+       21150
+
+    0.0975
+
+time: neqn: step count: residual: 
+    6.0918
+
+    35
+
+       21200
+
+    0.0962
+
+time: neqn: step count: residual: 
+    6.1061
+
+    35
+
+       21250
+
+    0.0947
+
+time: neqn: step count: residual: 
+    6.1205
+
+    35
+
+       21300
+
+    0.0931
+
+time: neqn: step count: residual: 
+    6.1349
+
+    35
+
+       21350
+
+    0.0914
+
+time: neqn: step count: residual: 
+    6.1492
+
+    35
+
+       21400
+
+    0.0895
+
+time: neqn: step count: residual: 
+    6.1636
+
+    35
+
+       21450
+
+    0.0876
+
+time: neqn: step count: residual: 
+    6.1780
+
+    35
+
+       21500
+
+    0.0856
+
+time: neqn: step count: residual: 
+    6.1924
+
+    35
+
+       21550
+
+    0.0834
+
+time: neqn: step count: residual: 
+    6.2067
+
+    35
+
+       21600
+
+    0.0812
+
+time: neqn: step count: residual: 
+    6.2211
+
+    35
+
+       21650
+
+    0.0790
+
+time: neqn: step count: residual: 
+    6.2355
+
+    35
+
+       21700
+
+    0.0767
+
+time: neqn: step count: residual: 
+    6.2498
+
+    35
+
+       21750
+
+    0.0743
+
+time: neqn: step count: residual: 
+    6.2642
+
+    35
+
+       21800
+
+    0.0719
+
+time: neqn: step count: residual: 
+    6.2786
+
+    35
+
+       21850
+
+    0.0695
+
+time: neqn: step count: residual: 
+    6.2929
+
+    35
+
+       21900
+
+    0.0672
+
+time: neqn: step count: residual: 
+    6.3073
+
+    35
+
+       21950
+
+    0.0648
+
+time: neqn: step count: residual: 
+    6.3217
+
+    35
+
+       22000
+
+    0.0624
+
+time: neqn: step count: residual: 
+    6.3360
+
+    35
+
+       22050
+
+    0.0602
+
+time: neqn: step count: residual: 
+    6.3504
+
+    35
+
+       22100
+
+    0.0579
+
+time: neqn: step count: residual: 
+    6.3648
+
+    35
+
+       22150
+
+    0.0558
+
+time: neqn: step count: residual: 
+    6.3791
+
+    35
+
+       22200
+
+    0.0537
+
+time: neqn: step count: residual: 
+    6.3935
+
+    35
+
+       22250
+
+    0.0518
+
+time: neqn: step count: residual: 
+    6.4079
+
+    35
+
+       22300
+
+    0.0500
+
+time: neqn: step count: residual: 
+    6.4222
+
+    35
+
+       22350
+
+    0.0483
+
+time: neqn: step count: residual: 
+    6.4366
+
+    35
+
+       22400
+
+    0.0468
+
+time: neqn: step count: residual: 
+    6.4510
+
+    35
+
+       22450
+
+    0.0454
+
+time: neqn: step count: residual: 
+    6.4653
+
+    35
+
+       22500
+
+    0.0442
+
+time: neqn: step count: residual: 
+    6.4797
+
+    35
+
+       22550
+
+    0.0432
+
+time: neqn: step count: residual: 
+    6.4941
+
+    35
+
+       22600
+
+    0.0424
+
+time: neqn: step count: residual: 
+    6.5084
+
+    35
+
+       22650
+
+    0.0418
+
+time: neqn: step count: residual: 
+    6.5228
+
+    35
+
+       22700
+
+    0.0413
+
+time: neqn: step count: residual: 
+    6.5372
+
+    35
+
+       22750
+
+    0.0410
+
+time: neqn: step count: residual: 
+    6.5515
+
+    35
+
+       22800
+
+    0.0408
+
+time: neqn: step count: residual: 
+    6.5659
+
+    35
+
+       22850
+
+    0.0408
+
+time: neqn: step count: residual: 
+    6.5803
+
+    35
+
+       22900
+
+    0.0409
+
+time: neqn: step count: residual: 
+    6.5946
+
+    35
+
+       22950
+
+    0.0411
+
+time: neqn: step count: residual: 
+    6.6090
+
+    35
+
+       23000
+
+    0.0414
+
+time: neqn: step count: residual: 
+    6.6234
+
+    35
+
+       23050
+
+    0.0417
+
+time: neqn: step count: residual: 
+    6.6377
+
+    35
+
+       23100
+
+    0.0421
+
+time: neqn: step count: residual: 
+    6.6521
+
+    35
+
+       23150
+
+    0.0426
+
+time: neqn: step count: residual: 
+    6.6665
+
+    35
+
+       23200
+
+    0.0430
+
+time: neqn: step count: residual: 
+    6.6808
+
+    35
+
+       23250
+
+    0.0434
+
+time: neqn: step count: residual: 
+    6.6952
+
+    35
+
+       23300
+
+    0.0439
+
+time: neqn: step count: residual: 
+    6.7096
+
+    35
+
+       23350
+
+    0.0443
+
+time: neqn: step count: residual: 
+    6.7239
+
+    35
+
+       23400
+
+    0.0446
+
+time: neqn: step count: residual: 
+    6.7383
+
+    35
+
+       23450
+
+    0.0450
+
+time: neqn: step count: residual: 
+    6.7527
+
+    35
+
+       23500
+
+    0.0453
+
+time: neqn: step count: residual: 
+    6.7670
+
+    35
+
+       23550
+
+    0.0455
+
+time: neqn: step count: residual: 
+    6.7814
+
+    35
+
+       23600
+
+    0.0456
+
+time: neqn: step count: residual: 
+    6.7958
+
+    35
+
+       23650
+
+    0.0457
+
+time: neqn: step count: residual: 
+    6.8101
+
+    35
+
+       23700
+
+    0.0457
+
+time: neqn: step count: residual: 
+    6.8245
+
+    35
+
+       23750
+
+    0.0457
+
+time: neqn: step count: residual: 
+    6.8389
+
+    35
+
+       23800
+
+    0.0456
+
+time: neqn: step count: residual: 
+    6.8533
+
+    35
+
+       23850
+
+    0.0454
+
+time: neqn: step count: residual: 
+    6.8676
+
+    35
+
+       23900
+
+    0.0451
+
+time: neqn: step count: residual: 
+    6.8820
+
+    35
+
+       23950
+
+    0.0448
+
+time: neqn: step count: residual: 
+    6.8964
+
+    35
+
+       24000
+
+    0.0444
+
+time: neqn: step count: residual: 
+    6.9107
+
+    35
+
+       24050
+
+    0.0439
+
+time: neqn: step count: residual: 
+    6.9251
+
+    35
+
+       24100
+
+    0.0434
+
+time: neqn: step count: residual: 
+    6.9395
+
+    35
+
+       24150
+
+    0.0428
+
+time: neqn: step count: residual: 
+    6.9538
+
+    35
+
+       24200
+
+    0.0421
+
+time: neqn: step count: residual: 
+    6.9682
+
+    35
+
+       24250
+
+    0.0414
+
+time: neqn: step count: residual: 
+    6.9826
+
+    35
+
+       24300
+
+    0.0406
+
+time: neqn: step count: residual: 
+    6.9969
+
+    35
+
+       24350
+
+    0.0398
+
+time: neqn: step count: residual: 
+    7.0113
+
+    35
+
+       24400
+
+    0.0389
+
+time: neqn: step count: residual: 
+    7.0257
+
+    35
+
+       24450
+
+    0.0380
+
+time: neqn: step count: residual: 
+    7.0400
+
+    35
+
+       24500
+
+    0.0370
+
+time: neqn: step count: residual: 
+    7.0544
+
+    35
+
+       24550
+
+    0.0360
+
+time: neqn: step count: residual: 
+    7.0688
+
+    35
+
+       24600
+
+    0.0350
+
+time: neqn: step count: residual: 
+    7.0831
+
+    35
+
+       24650
+
+    0.0340
+
+time: neqn: step count: residual: 
+    7.0975
+
+    35
+
+       24700
+
+    0.0329
+
+time: neqn: step count: residual: 
+    7.1119
+
+    35
+
+       24750
+
+    0.0319
+
+time: neqn: step count: residual: 
+    7.1262
+
+    35
+
+       24800
+
+    0.0308
+
+time: neqn: step count: residual: 
+    7.1406
+
+    35
+
+       24850
+
+    0.0297
+
+time: neqn: step count: residual: 
+    7.1550
+
+    35
+
+       24900
+
+    0.0287
+
+time: neqn: step count: residual: 
+    7.1693
+
+    35
+
+       24950
+
+    0.0276
+
+time: neqn: step count: residual: 
+    7.1837
+
+    35
+
+       25000
+
+    0.0266
+
+time: neqn: step count: residual: 
+    7.1981
+
+    35
+
+       25050
+
+    0.0256
+
+time: neqn: step count: residual: 
+    7.2124
+
+    35
+
+       25100
+
+    0.0247
+
+time: neqn: step count: residual: 
+    7.2268
+
+    35
+
+       25150
+
+    0.0238
+
+time: neqn: step count: residual: 
+    7.2412
+
+    35
+
+       25200
+
+    0.0229
+
+time: neqn: step count: residual: 
+    7.2555
+
+    35
+
+       25250
+
+    0.0221
+
+time: neqn: step count: residual: 
+    7.2699
+
+    35
+
+       25300
+
+    0.0214
+
+time: neqn: step count: residual: 
+    7.2843
+
+    35
+
+       25350
+
+    0.0207
+
+time: neqn: step count: residual: 
+    7.2986
+
+    35
+
+       25400
+
+    0.0201
+
+time: neqn: step count: residual: 
+    7.3130
+
+    35
+
+       25450
+
+    0.0196
+
+time: neqn: step count: residual: 
+    7.3274
+
+    35
+
+       25500
+
+    0.0192
+
+time: neqn: step count: residual: 
+    7.3417
+
+    35
+
+       25550
+
+    0.0188
+
+time: neqn: step count: residual: 
+    7.3561
+
+    35
+
+       25600
+
+    0.0186
+
+time: neqn: step count: residual: 
+    7.3705
+
+    35
+
+       25650
+
+    0.0184
+
+time: neqn: step count: residual: 
+    7.3848
+
+    35
+
+       25700
+
+    0.0182
+
+time: neqn: step count: residual: 
+    7.3992
+
+    35
+
+       25750
+
+    0.0182
+
+time: neqn: step count: residual: 
+    7.4136
+
+    35
+
+       25800
+
+    0.0182
+
+time: neqn: step count: residual: 
+    7.4279
+
+    35
+
+       25850
+
+    0.0182
+
+time: neqn: step count: residual: 
+    7.4423
+
+    35
+
+       25900
+
+    0.0183
+
+time: neqn: step count: residual: 
+    7.4567
+
+    35
+
+       25950
+
+    0.0185
+
+time: neqn: step count: residual: 
+    7.4710
+
+    35
+
+       26000
+
+    0.0186
+
+time: neqn: step count: residual: 
+    7.4854
+
+    35
+
+       26050
+
+    0.0188
+
+time: neqn: step count: residual: 
+    7.4998
+
+    35
+
+       26100
+
+    0.0190
+
+time: neqn: step count: residual: 
+    7.5142
+
+    35
+
+       26150
+
+    0.0192
+
+time: neqn: step count: residual: 
+    7.5285
+
+    35
+
+       26200
+
+    0.0194
+
+time: neqn: step count: residual: 
+    7.5429
+
+    35
+
+       26250
+
+    0.0196
+
+time: neqn: step count: residual: 
+    7.5573
+
+    35
+
+       26300
+
+    0.0198
+
+time: neqn: step count: residual: 
+    7.5716
+
+    35
+
+       26350
+
+    0.0199
+
+time: neqn: step count: residual: 
+    7.5860
+
+    35
+
+       26400
+
+    0.0201
+
+time: neqn: step count: residual: 
+    7.6004
+
+    35
+
+       26450
+
+    0.0202
+
+time: neqn: step count: residual: 
+    7.6147
+
+    35
+
+       26500
+
+    0.0203
+
+time: neqn: step count: residual: 
+    7.6291
+
+    35
+
+       26550
+
+    0.0203
+
+time: neqn: step count: residual: 
+    7.6435
+
+    35
+
+       26600
+
+    0.0204
+
+time: neqn: step count: residual: 
+    7.6578
+
+    35
+
+       26650
+
+    0.0204
+
+time: neqn: step count: residual: 
+    7.6722
+
+    35
+
+       26700
+
+    0.0203
+
+time: neqn: step count: residual: 
+    7.6866
+
+    35
+
+       26750
+
+    0.0203
+
+time: neqn: step count: residual: 
+    7.7009
+
+    35
+
+       26800
+
+    0.0202
+
+time: neqn: step count: residual: 
+    7.7153
+
+    35
+
+       26850
+
+    0.0201
+
+time: neqn: step count: residual: 
+    7.7297
+
+    35
+
+       26900
+
+    0.0199
+
+time: neqn: step count: residual: 
+    7.7440
+
+    35
+
+       26950
+
+    0.0197
+
+time: neqn: step count: residual: 
+    7.7584
+
+    35
+
+       27000
+
+    0.0195
+
+time: neqn: step count: residual: 
+    7.7728
+
+    35
+
+       27050
+
+    0.0193
+
+time: neqn: step count: residual: 
+    7.7871
+
+    35
+
+       27100
+
+    0.0190
+
+time: neqn: step count: residual: 
+    7.8015
+
+    35
+
+       27150
+
+    0.0187
+
+time: neqn: step count: residual: 
+    7.8159
+
+    35
+
+       27200
+
+    0.0184
+
+time: neqn: step count: residual: 
+    7.8302
+
+    35
+
+       27250
+
+    0.0180
+
+time: neqn: step count: residual: 
+    7.8446
+
+    35
+
+       27300
+
+    0.0176
+
+time: neqn: step count: residual: 
+    7.8590
+
+    35
+
+       27350
+
+    0.0172
+
+time: neqn: step count: residual: 
+    7.8733
+
+    35
+
+       27400
+
+    0.0168
+
+time: neqn: step count: residual: 
+    7.8877
+
+    35
+
+       27450
+
+    0.0164
+
+time: neqn: step count: residual: 
+    7.9021
+
+    35
+
+       27500
+
+    0.0159
+
+time: neqn: step count: residual: 
+    7.9164
+
+    35
+
+       27550
+
+    0.0155
+
+time: neqn: step count: residual: 
+    7.9308
+
+    35
+
+       27600
+
+    0.0150
+
+time: neqn: step count: residual: 
+    7.9452
+
+    35
+
+       27650
+
+    0.0146
+
+time: neqn: step count: residual: 
+    7.9595
+
+    35
+
+       27700
+
+    0.0141
+
+time: neqn: step count: residual: 
+    7.9739
+
+    35
+
+       27750
+
+    0.0136
+
+time: neqn: step count: residual: 
+    7.9883
+
+    35
+
+       27800
+
+    0.0131
+
+time: neqn: step count: residual: 
+    8.0026
+
+    35
+
+       27850
+
+    0.0127
+
+time: neqn: step count: residual: 
+    8.0170
+
+    35
+
+       27900
+
+    0.0122
+
+time: neqn: step count: residual: 
+    8.0314
+
+    35
+
+       27950
+
+    0.0118
+
+time: neqn: step count: residual: 
+    8.0457
+
+    35
+
+       28000
+
+    0.0113
+
+time: neqn: step count: residual: 
+    8.0601
+
+    35
+
+       28050
+
+    0.0109
+
+time: neqn: step count: residual: 
+    8.0745
+
+    35
+
+       28100
+
+    0.0105
+
+time: neqn: step count: residual: 
+    8.0888
+
+    35
+
+       28150
+
+    0.0101
+
+time: neqn: step count: residual: 
+    8.1032
+
+    35
+
+       28200
+
+    0.0098
+
+time: neqn: step count: residual: 
+    8.1176
+
+    35
+
+       28250
+
+    0.0095
+
+time: neqn: step count: residual: 
+    8.1319
+
+    35
+
+       28300
+
+    0.0092
+
+time: neqn: step count: residual: 
+    8.1463
+
+    35
+
+       28350
+
+    0.0089
+
+time: neqn: step count: residual: 
+    8.1607
+
+    35
+
+       28400
+
+    0.0087
+
+time: neqn: step count: residual: 
+    8.1751
+
+    35
+
+       28450
+
+    0.0085
+
+time: neqn: step count: residual: 
+    8.1894
+
+    35
+
+       28500
+
+    0.0084
+
+time: neqn: step count: residual: 
+    8.2038
+
+    35
+
+       28550
+
+    0.0082
+
+time: neqn: step count: residual: 
+    8.2182
+
+    35
+
+       28600
+
+    0.0082
+
+time: neqn: step count: residual: 
+    8.2325
+
+    35
+
+       28650
+
+    0.0081
+
+time: neqn: step count: residual: 
+    8.2469
+
+    35
+
+       28700
+
+    0.0081
+
+time: neqn: step count: residual: 
+    8.2613
+
+    35
+
+       28750
+
+    0.0081
+
+time: neqn: step count: residual: 
+    8.2756
+
+    35
+
+       28800
+
+    0.0081
+
+time: neqn: step count: residual: 
+    8.2900
+
+    35
+
+       28850
+
+    0.0082
+
+time: neqn: step count: residual: 
+    8.3044
+
+    35
+
+       28900
+
+    0.0082
+
+time: neqn: step count: residual: 
+    8.3187
+
+    35
+
+       28950
+
+    0.0083
+
+time: neqn: step count: residual: 
+    8.3331
+
+    35
+
+       29000
+
+    0.0084
+
+time: neqn: step count: residual: 
+    8.3475
+
+    35
+
+       29050
+
+    0.0085
+
+time: neqn: step count: residual: 
+    8.3618
+
+    35
+
+       29100
+
+    0.0086
+
+time: neqn: step count: residual: 
+    8.3762
+
+    35
+
+       29150
+
+    0.0087
+
+time: neqn: step count: residual: 
+    8.3906
+
+    35
+
+       29200
+
+    0.0087
+
+time: neqn: step count: residual: 
+    8.4049
+
+    35
+
+       29250
+
+    0.0088
+
+time: neqn: step count: residual: 
+    8.4193
+
+    35
+
+       29300
+
+    0.0089
+
+time: neqn: step count: residual: 
+    8.4337
+
+    35
+
+       29350
+
+    0.0089
+
+time: neqn: step count: residual: 
+    8.4480
+
+    35
+
+       29400
+
+    0.0090
+
+time: neqn: step count: residual: 
+    8.4624
+
+    35
+
+       29450
+
+    0.0090
+
+time: neqn: step count: residual: 
+    8.4768
+
+    35
+
+       29500
+
+    0.0091
+
+time: neqn: step count: residual: 
+    8.4911
+
+    35
+
+       29550
+
+    0.0091
+
+time: neqn: step count: residual: 
+    8.5055
+
+    35
+
+       29600
+
+    0.0091
+
+time: neqn: step count: residual: 
+    8.5199
+
+    35
+
+       29650
+
+    0.0091
+
+time: neqn: step count: residual: 
+    8.5342
+
+    35
+
+       29700
+
+    0.0090
+
+time: neqn: step count: residual: 
+    8.5486
+
+    35
+
+       29750
+
+    0.0090
+
+time: neqn: step count: residual: 
+    8.5630
+
+    35
+
+       29800
+
+    0.0089
+
+time: neqn: step count: residual: 
+    8.5773
+
+    35
+
+       29850
+
+    0.0089
+
+time: neqn: step count: residual: 
+    8.5917
+
+    35
+
+       29900
+
+    0.0088
+
+time: neqn: step count: residual: 
+    8.6061
+
+    35
+
+       29950
+
+    0.0087
+
+time: neqn: step count: residual: 
+    8.6204
+
+    35
+
+       30000
+
+    0.0086
+
+time: neqn: step count: residual: 
+    8.6348
+
+    35
+
+       30050
+
+    0.0084
+
+time: neqn: step count: residual: 
+    8.6492
+
+    35
+
+       30100
+
+    0.0083
+
+time: neqn: step count: residual: 
+    8.6635
+
+    35
+
+       30150
+
+    0.0081
+
+time: neqn: step count: residual: 
+    8.6779
+
+    35
+
+       30200
+
+    0.0080
+
+time: neqn: step count: residual: 
+    8.6923
+
+    35
+
+       30250
+
+    0.0078
+
+time: neqn: step count: residual: 
+    8.7066
+
+    35
+
+       30300
+
+    0.0076
+
+time: neqn: step count: residual: 
+    8.7210
+
+    35
+
+       30350
+
+    0.0075
+
+time: neqn: step count: residual: 
+    8.7354
+
+    35
+
+       30400
+
+    0.0073
+
+time: neqn: step count: residual: 
+    8.7497
+
+    35
+
+       30450
+
+    0.0071
+
+time: neqn: step count: residual: 
+    8.7641
+
+    35
+
+       30500
+
+    0.0069
+
+time: neqn: step count: residual: 
+    8.7785
+
+    35
+
+       30550
+
+    0.0067
+
+time: neqn: step count: residual: 
+    8.7928
+
+    35
+
+       30600
+
+    0.0064
+
+time: neqn: step count: residual: 
+    8.8072
+
+    35
+
+       30650
+
+    0.0062
+
+time: neqn: step count: residual: 
+    8.8216
+
+    35
+
+       30700
+
+    0.0060
+
+time: neqn: step count: residual: 
+    8.8360
+
+    35
+
+       30750
+
+    0.0058
+
+time: neqn: step count: residual: 
+    8.8503
+
+    35
+
+       30800
+
+    0.0056
+
+time: neqn: step count: residual: 
+    8.8647
+
+    35
+
+       30850
+
+    0.0054
+
+time: neqn: step count: residual: 
+    8.8791
+
+    35
+
+       30900
+
+    0.0052
+
+time: neqn: step count: residual: 
+    8.8934
+
+    35
+
+       30950
+
+    0.0050
+
+time: neqn: step count: residual: 
+    8.9078
+
+    35
+
+       31000
+
+    0.0048
+
+time: neqn: step count: residual: 
+    8.9222
+
+    35
+
+       31050
+
+    0.0046
+
+time: neqn: step count: residual: 
+    8.9365
+
+    35
+
+       31100
+
+    0.0045
+
+time: neqn: step count: residual: 
+    8.9509
+
+    35
+
+       31150
+
+    0.0043
+
+time: neqn: step count: residual: 
+    8.9653
+
+    35
+
+       31200
+
+    0.0042
+
+time: neqn: step count: residual: 
+    8.9796
+
+    35
+
+       31250
+
+    0.0041
+
+time: neqn: step count: residual: 
+    8.9940
+
+    35
+
+       31300
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.0084
+
+    35
+
+       31350
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.0227
+
+    35
+
+       31400
+
+    0.0038
+
+time: neqn: step count: residual: 
+    9.0371
+
+    35
+
+       31450
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.0515
+
+    35
+
+       31500
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.0658
+
+    35
+
+       31550
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.0802
+
+    35
+
+       31600
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.0946
+
+    35
+
+       31650
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.1089
+
+    35
+
+       31700
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.1233
+
+    35
+
+       31750
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.1377
+
+    35
+
+       31800
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.1520
+
+    35
+
+       31850
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.1664
+
+    35
+
+       31900
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.1808
+
+    35
+
+       31950
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.1951
+
+    35
+
+       32000
+
+    0.0038
+
+time: neqn: step count: residual: 
+    9.2095
+
+    35
+
+       32050
+
+    0.0038
+
+time: neqn: step count: residual: 
+    9.2239
+
+    35
+
+       32100
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.2382
+
+    35
+
+       32150
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.2526
+
+    35
+
+       32200
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.2670
+
+    35
+
+       32250
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.2813
+
+    35
+
+       32300
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.2957
+
+    35
+
+       32350
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3101
+
+    35
+
+       32400
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3244
+
+    35
+
+       32450
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3388
+
+    35
+
+       32500
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3532
+
+    35
+
+       32550
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3675
+
+    35
+
+       32600
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3819
+
+    35
+
+       32650
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.3963
+
+    35
+
+       32700
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.4106
+
+    35
+
+       32750
+
+    0.0040
+
+time: neqn: step count: residual: 
+    9.4250
+
+    35
+
+       32800
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.4394
+
+    35
+
+       32850
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.4538
+
+    35
+
+       32900
+
+    0.0039
+
+time: neqn: step count: residual: 
+    9.4681
+
+    35
+
+       32950
+
+    0.0038
+
+time: neqn: step count: residual: 
+    9.4825
+
+    35
+
+       33000
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.4969
+
+    35
+
+       33050
+
+    0.0037
+
+time: neqn: step count: residual: 
+    9.5112
+
+    35
+
+       33100
+
+    0.0036
+
+time: neqn: step count: residual: 
+    9.5256
+
+    35
+
+       33150
+
+    0.0035
+
+time: neqn: step count: residual: 
+    9.5400
+
+    35
+
+       33200
+
+    0.0035
+
+time: neqn: step count: residual: 
+    9.5543
+
+    35
+
+       33250
+
+    0.0034
+
+time: neqn: step count: residual: 
+    9.5687
+
+    35
+
+       33300
+
+    0.0033
+
+time: neqn: step count: residual: 
+    9.5831
+
+    35
+
+       33350
+
+    0.0032
+
+time: neqn: step count: residual: 
+    9.5974
+
+    35
+
+       33400
+
+    0.0031
+
+time: neqn: step count: residual: 
+    9.6118
+
+    35
+
+       33450
+
+    0.0030
+
+time: neqn: step count: residual: 
+    9.6262
+
+    35
+
+       33500
+
+    0.0029
+
+time: neqn: step count: residual: 
+    9.6405
+
+    35
+
+       33550
+
+    0.0028
+
+time: neqn: step count: residual: 
+    9.6549
+
+    35
+
+       33600
+
+    0.0028
+
+time: neqn: step count: residual: 
+    9.6693
+
+    35
+
+       33650
+
+    0.0027
+
+time: neqn: step count: residual: 
+    9.6836
+
+    35
+
+       33700
+
+    0.0026
+
+time: neqn: step count: residual: 
+    9.6980
+
+    35
+
+       33750
+
+    0.0025
+
+time: neqn: step count: residual: 
+    9.7124
+
+    35
+
+       33800
+
+    0.0024
+
+time: neqn: step count: residual: 
+    9.7267
+
+    35
+
+       33850
+
+    0.0023
+
+time: neqn: step count: residual: 
+    9.7411
+
+    35
+
+       33900
+
+    0.0022
+
+time: neqn: step count: residual: 
+    9.7555
+
+    35
+
+       33950
+
+    0.0021
+
+time: neqn: step count: residual: 
+    9.7698
+
+    35
+
+       34000
+
+    0.0021
+
+time: neqn: step count: residual: 
+    9.7842
+
+    35
+
+       34050
+
+    0.0020
+
+time: neqn: step count: residual: 
+    9.7986
+
+    35
+
+       34100
+
+    0.0019
+
+time: neqn: step count: residual: 
+    9.8129
+
+    35
+
+       34150
+
+    0.0019
+
+time: neqn: step count: residual: 
+    9.8273
+
+    35
+
+       34200
+
+    0.0018
+
+time: neqn: step count: residual: 
+    9.8417
+
+    35
+
+       34250
+
+    0.0017
+
+time: neqn: step count: residual: 
+    9.8560
+
+    35
+
+       34300
+
+    0.0017
+
+time: neqn: step count: residual: 
+    9.8704
+
+    35
+
+       34350
+
+    0.0017
+
+time: neqn: step count: residual: 
+    9.8848
+
+    35
+
+       34400
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.8991
+
+    35
+
+       34450
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9135
+
+    35
+
+       34500
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9279
+
+    35
+
+       34550
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9422
+
+    35
+
+       34600
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9566
+
+    35
+
+       34650
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9710
+
+    35
+
+       34700
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9853
+
+    35
+
+       34750
+
+    0.0016
+
+time: neqn: step count: residual: 
+    9.9997
+
+    35
+
+       34800
+
+    0.0016
+
+time: neqn: step count: residual: 
+   10.0141
+
+    35
+
+       34850
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.0284
+
+    35
+
+       34900
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.0428
+
+    35
+
+       34950
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.0572
+
+    35
+
+       35000
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.0715
+
+    35
+
+       35050
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.0859
+
+    35
+
+       35100
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.1003
+
+    35
+
+       35150
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.1147
+
+    35
+
+       35200
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.1290
+
+    35
+
+       35250
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.1434
+
+    35
+
+       35300
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.1578
+
+    35
+
+       35350
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.1721
+
+    35
+
+       35400
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.1865
+
+    35
+
+       35450
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2009
+
+    35
+
+       35500
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2152
+
+    35
+
+       35550
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2296
+
+    35
+
+       35600
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2440
+
+    35
+
+       35650
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2583
+
+    35
+
+       35700
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2727
+
+    35
+
+       35750
+
+    0.0018
+
+time: neqn: step count: residual: 
+   10.2871
+
+    35
+
+       35800
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.3014
+
+    35
+
+       35850
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.3158
+
+    35
+
+       35900
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.3302
+
+    35
+
+       35950
+
+    0.0017
+
+time: neqn: step count: residual: 
+   10.3445
+
+    35
+
+       36000
+
+    0.0016
+
+time: neqn: step count: residual: 
+   10.3589
+
+    35
+
+       36050
+
+    0.0016
+
+time: neqn: step count: residual: 
+   10.3733
+
+    35
+
+       36100
+
+    0.0016
+
+time: neqn: step count: residual: 
+   10.3876
+
+    35
+
+       36150
+
+    0.0015
+
+time: neqn: step count: residual: 
+   10.4020
+
+    35
+
+       36200
+
+    0.0015
+
+time: neqn: step count: residual: 
+   10.4164
+
+    35
+
+       36250
+
+    0.0015
+
+time: neqn: step count: residual: 
+   10.4307
+
+    35
+
+       36300
+
+    0.0014
+
+time: neqn: step count: residual: 
+   10.4451
+
+    35
+
+       36350
+
+    0.0014
+
+time: neqn: step count: residual: 
+   10.4595
+
+    35
+
+       36400
+
+    0.0013
+
+time: neqn: step count: residual: 
+   10.4738
+
+    35
+
+       36450
+
+    0.0013
+
+time: neqn: step count: residual: 
+   10.4882
+
+    35
+
+       36500
+
+    0.0013
+
+time: neqn: step count: residual: 
+   10.5026
+
+    35
+
+       36550
+
+    0.0012
+
+time: neqn: step count: residual: 
+   10.5169
+
+    35
+
+       36600
+
+    0.0012
+
+time: neqn: step count: residual: 
+   10.5313
+
+    35
+
+       36650
+
+    0.0011
+
+time: neqn: step count: residual: 
+   10.5457
+
+    35
+
+       36700
+
+    0.0011
+
+time: neqn: step count: residual: 
+   10.5600
+
+    35
+
+       36750
+
+    0.0011
+
+time: neqn: step count: residual: 
+   10.5744
+
+    35
+
+       36800
+
+    0.0010
+
+time: neqn: step count: residual: 
+   10.5888
+
+    35
+
+       36850
+
+   9.7653e-04
+
+time: neqn: step count: residual: 
+   10.6031
+
+    35
+
+       36900
+
+   9.4062e-04
+
+time: neqn: step count: residual: 
+   10.6175
+
+    35
+
+       36950
+
+   9.0668e-04
+
+time: neqn: step count: residual: 
+   10.6319
+
+    35
+
+       37000
+
+   8.7497e-04
+
+time: neqn: step count: residual: 
+   10.6462
+
+    35
+
+       37050
+
+   8.4574e-04
+
+time: neqn: step count: residual: 
+   10.6606
+
+    35
+
+       37100
+
+   8.1922e-04
+
+time: neqn: step count: residual: 
+   10.6750
+
+    35
+
+       37150
+
+   7.9560e-04
+
+time: neqn: step count: residual: 
+   10.6893
+
+    35
+
+       37200
+
+   7.7502e-04
+
+time: neqn: step count: residual: 
+   10.7037
+
+    35
+
+       37250
+
+   7.5758e-04
+
+time: neqn: step count: residual: 
+   10.7181
+
+    35
+
+       37300
+
+   7.4331e-04
+
+time: neqn: step count: residual: 
+   10.7324
+
+    35
+
+       37350
+
+   7.3216e-04
+
+time: neqn: step count: residual: 
+   10.7468
+
+    35
+
+       37400
+
+   7.2406e-04
+
+time: neqn: step count: residual: 
+   10.7612
+
+    35
+
+       37450
+
+   7.1882e-04
+
+time: neqn: step count: residual: 
+   10.7756
+
+    35
+
+       37500
+
+   7.1624e-04
+
+time: neqn: step count: residual: 
+   10.7899
+
+    35
+
+       37550
+
+   7.1604e-04
+
+time: neqn: step count: residual: 
+   10.8043
+
+    35
+
+       37600
+
+   7.1793e-04
+
+time: neqn: step count: residual: 
+   10.8187
+
+    35
+
+       37650
+
+   7.2159e-04
+
+time: neqn: step count: residual: 
+   10.8330
+
+    35
+
+       37700
+
+   7.2669e-04
+
+time: neqn: step count: residual: 
+   10.8474
+
+    35
+
+       37750
+
+   7.3290e-04
+
+time: neqn: step count: residual: 
+   10.8618
+
+    35
+
+       37800
+
+   7.3991e-04
+
+time: neqn: step count: residual: 
+   10.8761
+
+    35
+
+       37850
+
+   7.4743e-04
+
+time: neqn: step count: residual: 
+   10.8905
+
+    35
+
+       37900
+
+   7.5517e-04
+
+time: neqn: step count: residual: 
+   10.9049
+
+    35
+
+       37950
+
+   7.6289e-04
+
+time: neqn: step count: residual: 
+   10.9192
+
+    35
+
+       38000
+
+   7.7037e-04
+
+time: neqn: step count: residual: 
+   10.9336
+
+    35
+
+       38050
+
+   7.7741e-04
+
+time: neqn: step count: residual: 
+   10.9480
+
+    35
+
+       38100
+
+   7.8383e-04
+
+time: neqn: step count: residual: 
+   10.9623
+
+    35
+
+       38150
+
+   7.8948e-04
+
+time: neqn: step count: residual: 
+   10.9767
+
+    35
+
+       38200
+
+   7.9424e-04
+
+time: neqn: step count: residual: 
+   10.9911
+
+    35
+
+       38250
+
+   7.9801e-04
+
+time: neqn: step count: residual: 
+   11.0054
+
+    35
+
+       38300
+
+   8.0070e-04
+
+time: neqn: step count: residual: 
+   11.0198
+
+    35
+
+       38350
+
+   8.0223e-04
+
+time: neqn: step count: residual: 
+   11.0342
+
+    35
+
+       38400
+
+   8.0257e-04
+
+time: neqn: step count: residual: 
+   11.0485
+
+    35
+
+       38450
+
+   8.0166e-04
+
+time: neqn: step count: residual: 
+   11.0629
+
+    35
+
+       38500
+
+   7.9950e-04
+
+time: neqn: step count: residual: 
+   11.0773
+
+    35
+
+       38550
+
+   7.9606e-04
+
+time: neqn: step count: residual: 
+   11.0916
+
+    35
+
+       38600
+
+   7.9135e-04
+
+time: neqn: step count: residual: 
+   11.1060
+
+    35
+
+       38650
+
+   7.8538e-04
+
+time: neqn: step count: residual: 
+   11.1204
+
+    35
+
+       38700
+
+   7.7817e-04
+
+time: neqn: step count: residual: 
+   11.1347
+
+    35
+
+       38750
+
+   7.6975e-04
+
+time: neqn: step count: residual: 
+   11.1491
+
+    35
+
+       38800
+
+   7.6016e-04
+
+time: neqn: step count: residual: 
+   11.1635
+
+    35
+
+       38850
+
+   7.4944e-04
+
+time: neqn: step count: residual: 
+   11.1778
+
+    35
+
+       38900
+
+   7.3764e-04
+
+time: neqn: step count: residual: 
+   11.1922
+
+    35
+
+       38950
+
+   7.2482e-04
+
+time: neqn: step count: residual: 
+   11.2066
+
+    35
+
+       39000
+
+   7.1106e-04
+
+time: neqn: step count: residual: 
+   11.2209
+
+    35
+
+       39050
+
+   6.9640e-04
+
+time: neqn: step count: residual: 
+   11.2353
+
+    35
+
+       39100
+
+   6.8094e-04
+
+time: neqn: step count: residual: 
+   11.2497
+
+    35
+
+       39150
+
+   6.6475e-04
+
+time: neqn: step count: residual: 
+   11.2640
+
+    35
+
+       39200
+
+   6.4791e-04
+
+time: neqn: step count: residual: 
+   11.2784
+
+    35
+
+       39250
+
+   6.3051e-04
+
+time: neqn: step count: residual: 
+   11.2928
+
+    35
+
+       39300
+
+   6.1264e-04
+
+time: neqn: step count: residual: 
+   11.3071
+
+    35
+
+       39350
+
+   5.9441e-04
+
+time: neqn: step count: residual: 
+   11.3215
+
+    35
+
+       39400
+
+   5.7591e-04
+
+time: neqn: step count: residual: 
+   11.3359
+
+    35
+
+       39450
+
+   5.5724e-04
+
+time: neqn: step count: residual: 
+   11.3502
+
+    35
+
+       39500
+
+   5.3852e-04
+
+time: neqn: step count: residual: 
+   11.3646
+
+    35
+
+       39550
+
+   5.1986e-04
+
+time: neqn: step count: residual: 
+   11.3790
+
+    35
+
+       39600
+
+   5.0136e-04
+
+time: neqn: step count: residual: 
+   11.3933
+
+    35
+
+       39650
+
+   4.8316e-04
+
+time: neqn: step count: residual: 
+   11.4077
+
+    35
+
+       39700
+
+   4.6537e-04
+
+time: neqn: step count: residual: 
+   11.4221
+
+    35
+
+       39750
+
+   4.4811e-04
+
+time: neqn: step count: residual: 
+   11.4365
+
+    35
+
+       39800
+
+   4.3150e-04
+
+time: neqn: step count: residual: 
+   11.4508
+
+    35
+
+       39850
+
+   4.1569e-04
+
+time: neqn: step count: residual: 
+   11.4652
+
+    35
+
+       39900
+
+   4.0077e-04
+
+time: neqn: step count: residual: 
+   11.4796
+
+    35
+
+       39950
+
+   3.8688e-04
+
+time: neqn: step count: residual: 
+   11.4939
+
+    35
+
+       40000
+
+   3.7411e-04
+
+time: neqn: step count: residual: 
+   11.5083
+
+    35
+
+       40050
+
+   3.6257e-04
+
+time: neqn: step count: residual: 
+   11.5227
+
+    35
+
+       40100
+
+   3.5234e-04
+
+time: neqn: step count: residual: 
+   11.5370
+
+    35
+
+       40150
+
+   3.4347e-04
+
+time: neqn: step count: residual: 
+   11.5514
+
+    35
+
+       40200
+
+   3.3601e-04
+
+time: neqn: step count: residual: 
+   11.5658
+
+    35
+
+       40250
+
+   3.2996e-04
+
+time: neqn: step count: residual: 
+   11.5801
+
+    35
+
+       40300
+
+   3.2529e-04
+
+time: neqn: step count: residual: 
+   11.5945
+
+    35
+
+       40350
+
+   3.2197e-04
+
+time: neqn: step count: residual: 
+   11.6089
+
+    35
+
+       40400
+
+   3.1990e-04
+
+time: neqn: step count: residual: 
+   11.6232
+
+    35
+
+       40450
+
+   3.1900e-04
+
+time: neqn: step count: residual: 
+   11.6376
+
+    35
+
+       40500
+
+   3.1912e-04
+
+time: neqn: step count: residual: 
+   11.6520
+
+    35
+
+       40550
+
+   3.2015e-04
+
+time: neqn: step count: residual: 
+   11.6663
+
+    35
+
+       40600
+
+   3.2193e-04
+
+time: neqn: step count: residual: 
+   11.6807
+
+    35
+
+       40650
+
+   3.2432e-04
+
+time: neqn: step count: residual: 
+   11.6951
+
+    35
+
+       40700
+
+   3.2718e-04
+
+time: neqn: step count: residual: 
+   11.7094
+
+    35
+
+       40750
+
+   3.3036e-04
+
+time: neqn: step count: residual: 
+   11.7238
+
+    35
+
+       40800
+
+   3.3374e-04
+
+time: neqn: step count: residual: 
+   11.7382
+
+    35
+
+       40850
+
+   3.3720e-04
+
+time: neqn: step count: residual: 
+   11.7525
+
+    35
+
+       40900
+
+   3.4063e-04
+
+time: neqn: step count: residual: 
+   11.7669
+
+    35
+
+       40950
+
+   3.4392e-04
+
+time: neqn: step count: residual: 
+   11.7813
+
+    35
+
+       41000
+
+   3.4700e-04
+
+time: neqn: step count: residual: 
+   11.7956
+
+    35
+
+       41050
+
+   3.4979e-04
+
+time: neqn: step count: residual: 
+   11.8100
+
+    35
+
+       41100
+
+   3.5223e-04
+
+time: neqn: step count: residual: 
+   11.8244
+
+    35
+
+       41150
+
+   3.5426e-04
+
+time: neqn: step count: residual: 
+   11.8387
+
+    35
+
+       41200
+
+   3.5584e-04
+
+time: neqn: step count: residual: 
+   11.8531
+
+    35
+
+       41250
+
+   3.5692e-04
+
+time: neqn: step count: residual: 
+   11.8675
+
+    35
+
+       41300
+
+   3.5749e-04
+
+time: neqn: step count: residual: 
+   11.8818
+
+    35
+
+       41350
+
+   3.5752e-04
+
+time: neqn: step count: residual: 
+   11.8962
+
+    35
+
+       41400
+
+   3.5700e-04
+
+time: neqn: step count: residual: 
+   11.9106
+
+    35
+
+       41450
+
+   3.5591e-04
+
+time: neqn: step count: residual: 
+   11.9249
+
+    35
+
+       41500
+
+   3.5425e-04
+
+time: neqn: step count: residual: 
+   11.9393
+
+    35
+
+       41550
+
+   3.5203e-04
+
+time: neqn: step count: residual: 
+   11.9537
+
+    35
+
+       41600
+
+   3.4925e-04
+
+time: neqn: step count: residual: 
+   11.9680
+
+    35
+
+       41650
+
+   3.4592e-04
+
+time: neqn: step count: residual: 
+   11.9824
+
+    35
+
+       41700
+
+   3.4205e-04
+
+time: neqn: step count: residual: 
+   11.9968
+
+    35
+
+       41750
+
+   3.3767e-04
+
+time: neqn: step count: residual: 
+   12.0111
+
+    35
+
+       41800
+
+   3.3278e-04
+
+time: neqn: step count: residual: 
+   12.0255
+
+    35
+
+       41850
+
+   3.2743e-04
+
+time: neqn: step count: residual: 
+   12.0399
+
+    35
+
+       41900
+
+   3.2162e-04
+
+time: neqn: step count: residual: 
+   12.0543
+
+    35
+
+       41950
+
+   3.1540e-04
+
+time: neqn: step count: residual: 
+   12.0686
+
+    35
+
+       42000
+
+   3.0879e-04
+
+time: neqn: step count: residual: 
+   12.0830
+
+    35
+
+       42050
+
+   3.0183e-04
+
+time: neqn: step count: residual: 
+   12.0974
+
+    35
+
+       42100
+
+   2.9455e-04
+
+time: neqn: step count: residual: 
+   12.1117
+
+    35
+
+       42150
+
+   2.8699e-04
+
+time: neqn: step count: residual: 
+   12.1261
+
+    35
+
+       42200
+
+   2.7919e-04
+
+time: neqn: step count: residual: 
+   12.1405
+
+    35
+
+       42250
+
+   2.7119e-04
+
+time: neqn: step count: residual: 
+   12.1548
+
+    35
+
+       42300
+
+   2.6303e-04
+
+time: neqn: step count: residual: 
+   12.1692
+
+    35
+
+       42350
+
+   2.5477e-04
+
+time: neqn: step count: residual: 
+   12.1836
+
+    35
+
+       42400
+
+   2.4645e-04
+
+time: neqn: step count: residual: 
+   12.1979
+
+    35
+
+       42450
+
+   2.3811e-04
+
+time: neqn: step count: residual: 
+   12.2123
+
+    35
+
+       42500
+
+   2.2980e-04
+
+time: neqn: step count: residual: 
+   12.2267
+
+    35
+
+       42550
+
+   2.2159e-04
+
+time: neqn: step count: residual: 
+   12.2410
+
+    35
+
+       42600
+
+   2.1351e-04
+
+time: neqn: step count: residual: 
+   12.2554
+
+    35
+
+       42650
+
+   2.0563e-04
+
+time: neqn: step count: residual: 
+   12.2698
+
+    35
+
+       42700
+
+   1.9800e-04
+
+time: neqn: step count: residual: 
+   12.2841
+
+    35
+
+       42750
+
+   1.9068e-04
+
+time: neqn: step count: residual: 
+   12.2985
+
+    35
+
+       42800
+
+   1.8371e-04
+
+time: neqn: step count: residual: 
+   12.3129
+
+    35
+
+       42850
+
+   1.7716e-04
+
+time: neqn: step count: residual: 
+   12.3272
+
+    35
+
+       42900
+
+   1.7108e-04
+
+time: neqn: step count: residual: 
+   12.3416
+
+    35
+
+       42950
+
+   1.6551e-04
+
+time: neqn: step count: residual: 
+   12.3560
+
+    35
+
+       43000
+
+   1.6049e-04
+
+time: neqn: step count: residual: 
+   12.3703
+
+    35
+
+       43050
+
+   1.5606e-04
+
+time: neqn: step count: residual: 
+   12.3847
+
+    35
+
+       43100
+
+   1.5225e-04
+
+time: neqn: step count: residual: 
+   12.3991
+
+    35
+
+       43150
+
+   1.4906e-04
+
+time: neqn: step count: residual: 
+   12.4134
+
+    35
+
+       43200
+
+   1.4650e-04
+
+time: neqn: step count: residual: 
+   12.4278
+
+    35
+
+       43250
+
+   1.4455e-04
+
+time: neqn: step count: residual: 
+   12.4422
+
+    35
+
+       43300
+
+   1.4320e-04
+
+time: neqn: step count: residual: 
+   12.4565
+
+    35
+
+       43350
+
+   1.4239e-04
+
+time: neqn: step count: residual: 
+   12.4709
+
+    35
+
+       43400
+
+   1.4209e-04
+
+time: neqn: step count: residual: 
+   12.4853
+
+    35
+
+       43450
+
+   1.4224e-04
+
+time: neqn: step count: residual: 
+   12.4996
+
+    35
+
+       43500
+
+   1.4278e-04
+
+time: neqn: step count: residual: 
+   12.5140
+
+    35
+
+       43550
+
+   1.4364e-04
+
+time: neqn: step count: residual: 
+   12.5284
+
+    35
+
+       43600
+
+   1.4475e-04
+
+time: neqn: step count: residual: 
+   12.5427
+
+    35
+
+       43650
+
+   1.4606e-04
+
+time: neqn: step count: residual: 
+   12.5571
+
+    35
+
+       43700
+
+   1.4751e-04
+
+time: neqn: step count: residual: 
+   12.5715
+
+    35
+
+       43750
+
+   1.4902e-04
+
+time: neqn: step count: residual: 
+   12.5858
+
+    35
+
+       43800
+
+   1.5056e-04
+
+time: neqn: step count: residual: 
+   12.6002
+
+    35
+
+       43850
+
+   1.5208e-04
+
+time: neqn: step count: residual: 
+   12.6146
+
+    35
+
+       43900
+
+   1.5353e-04
+
+time: neqn: step count: residual: 
+   12.6289
+
+    35
+
+       43950
+
+   1.5488e-04
+
+time: neqn: step count: residual: 
+   12.6433
+
+    35
+
+       44000
+
+   1.5609e-04
+
+time: neqn: step count: residual: 
+   12.6577
+
+    35
+
+       44050
+
+   1.5714e-04
+
+time: neqn: step count: residual: 
+   12.6720
+
+    35
+
+       44100
+
+   1.5800e-04
+
+time: neqn: step count: residual: 
+   12.6864
+
+    35
+
+       44150
+
+   1.5866e-04
+
+time: neqn: step count: residual: 
+   12.7008
+
+    35
+
+       44200
+
+   1.5909e-04
+
+time: neqn: step count: residual: 
+   12.7152
+
+    35
+
+       44250
+
+   1.5929e-04
+
+time: neqn: step count: residual: 
+   12.7295
+
+    35
+
+       44300
+
+   1.5925e-04
+
+time: neqn: step count: residual: 
+   12.7439
+
+    35
+
+       44350
+
+   1.5896e-04
+
+time: neqn: step count: residual: 
+   12.7583
+
+    35
+
+       44400
+
+   1.5842e-04
+
+time: neqn: step count: residual: 
+   12.7726
+
+    35
+
+       44450
+
+   1.5763e-04
+
+time: neqn: step count: residual: 
+   12.7870
+
+    35
+
+       44500
+
+   1.5659e-04
+
+time: neqn: step count: residual: 
+   12.8014
+
+    35
+
+       44550
+
+   1.5529e-04
+
+time: neqn: step count: residual: 
+   12.8157
+
+    35
+
+       44600
+
+   1.5376e-04
+
+time: neqn: step count: residual: 
+   12.8301
+
+    35
+
+       44650
+
+   1.5198e-04
+
+time: neqn: step count: residual: 
+   12.8445
+
+    35
+
+       44700
+
+   1.4998e-04
+
+time: neqn: step count: residual: 
+   12.8588
+
+    35
+
+       44750
+
+   1.4776e-04
+
+time: neqn: step count: residual: 
+   12.8732
+
+    35
+
+       44800
+
+   1.4533e-04
+
+time: neqn: step count: residual: 
+   12.8876
+
+    35
+
+       44850
+
+   1.4270e-04
+
+time: neqn: step count: residual: 
+   12.9019
+
+    35
+
+       44900
+
+   1.3989e-04
+
+time: neqn: step count: residual: 
+   12.9163
+
+    35
+
+       44950
+
+   1.3691e-04
+
+time: neqn: step count: residual: 
+   12.9307
+
+    35
+
+       45000
+
+   1.3377e-04
+
+time: neqn: step count: residual: 
+   12.9450
+
+    35
+
+       45050
+
+   1.3050e-04
+
+time: neqn: step count: residual: 
+   12.9594
+
+    35
+
+       45100
+
+   1.2711e-04
+
+time: neqn: step count: residual: 
+   12.9738
+
+    35
+
+       45150
+
+   1.2361e-04
+
+time: neqn: step count: residual: 
+   12.9881
+
+    35
+
+       45200
+
+   1.2003e-04
+
+time: neqn: step count: residual: 
+   13.0025
+
+    35
+
+       45250
+
+   1.1639e-04
+
+time: neqn: step count: residual: 
+   13.0169
+
+    35
+
+       45300
+
+   1.1270e-04
+
+time: neqn: step count: residual: 
+   13.0312
+
+    35
+
+       45350
+
+   1.0899e-04
+
+time: neqn: step count: residual: 
+   13.0456
+
+    35
+
+       45400
+
+   1.0527e-04
+
+time: neqn: step count: residual: 
+   13.0600
+
+    35
+
+       45450
+
+   1.0158e-04
+
+time: neqn: step count: residual: 
+   13.0743
+
+    35
+
+       45500
+
+   9.7931e-05
+
+time: neqn: step count: residual: 
+   13.0887
+
+    35
+
+       45550
+
+   9.4350e-05
+
+time: neqn: step count: residual: 
+   13.1031
+
+    35
+
+       45600
+
+   9.0861e-05
+
+time: neqn: step count: residual: 
+   13.1174
+
+    35
+
+       45650
+
+   8.7489e-05
+
+time: neqn: step count: residual: 
+   13.1318
+
+    35
+
+       45700
+
+   8.4259e-05
+
+time: neqn: step count: residual: 
+   13.1462
+
+    35
+
+       45750
+
+   8.1194e-05
+
+time: neqn: step count: residual: 
+   13.1605
+
+    35
+
+       45800
+
+   7.8319e-05
+
+time: neqn: step count: residual: 
+   13.1749
+
+    35
+
+       45850
+
+   7.5657e-05
+
+time: neqn: step count: residual: 
+   13.1893
+
+    35
+
+       45900
+
+   7.3227e-05
+
+time: neqn: step count: residual: 
+   13.2036
+
+    35
+
+       45950
+
+   7.1048e-05
+
+time: neqn: step count: residual: 
+   13.2180
+
+    35
+
+       46000
+
+   6.9134e-05
+
+time: neqn: step count: residual: 
+   13.2324
+
+    35
+
+       46050
+
+   6.7495e-05
+
+time: neqn: step count: residual: 
+   13.2467
+
+    35
+
+       46100
+
+   6.6136e-05
+
+time: neqn: step count: residual: 
+   13.2611
+
+    35
+
+       46150
+
+   6.5055e-05
+
+time: neqn: step count: residual: 
+   13.2755
+
+    35
+
+       46200
+
+   6.4247e-05
+
+time: neqn: step count: residual: 
+   13.2898
+
+    35
+
+       46250
+
+   6.3699e-05
+
+time: neqn: step count: residual: 
+   13.3042
+
+    35
+
+       46300
+
+   6.3392e-05
+
+time: neqn: step count: residual: 
+   13.3186
+
+    35
+
+       46350
+
+   6.3304e-05
+
+time: neqn: step count: residual: 
+   13.3329
+
+    35
+
+       46400
+
+   6.3411e-05
+
+time: neqn: step count: residual: 
+   13.3473
+
+    35
+
+       46450
+
+   6.3683e-05
+
+time: neqn: step count: residual: 
+   13.3617
+
+    35
+
+       46500
+
+   6.4093e-05
+
+time: neqn: step count: residual: 
+   13.3761
+
+    35
+
+       46550
+
+   6.4612e-05
+
+time: neqn: step count: residual: 
+   13.3904
+
+    35
+
+       46600
+
+   6.5210e-05
+
+time: neqn: step count: residual: 
+   13.4048
+
+    35
+
+       46650
+
+   6.5862e-05
+
+time: neqn: step count: residual: 
+   13.4192
+
+    35
+
+       46700
+
+   6.6543e-05
+
+time: neqn: step count: residual: 
+   13.4335
+
+    35
+
+       46750
+
+   6.7229e-05
+
+time: neqn: step count: residual: 
+   13.4479
+
+    35
+
+       46800
+
+   6.7900e-05
+
+time: neqn: step count: residual: 
+   13.4623
+
+    35
+
+       46850
+
+   6.8537e-05
+
+time: neqn: step count: residual: 
+   13.4766
+
+    35
+
+       46900
+
+   6.9125e-05
+
+time: neqn: step count: residual: 
+   13.4910
+
+    35
+
+       46950
+
+   6.9650e-05
+
+time: neqn: step count: residual: 
+   13.5054
+
+    35
+
+       47000
+
+   7.0100e-05
+
+time: neqn: step count: residual: 
+   13.5197
+
+    35
+
+       47050
+
+   7.0464e-05
+
+time: neqn: step count: residual: 
+   13.5341
+
+    35
+
+       47100
+
+   7.0736e-05
+
+time: neqn: step count: residual: 
+   13.5485
+
+    35
+
+       47150
+
+   7.0907e-05
+
+time: neqn: step count: residual: 
+   13.5628
+
+    35
+
+       47200
+
+   7.0974e-05
+
+time: neqn: step count: residual: 
+   13.5772
+
+    35
+
+       47250
+
+   7.0932e-05
+
+time: neqn: step count: residual: 
+   13.5916
+
+    35
+
+       47300
+
+   7.0779e-05
+
+time: neqn: step count: residual: 
+   13.6059
+
+    35
+
+       47350
+
+   7.0514e-05
+
+time: neqn: step count: residual: 
+   13.6203
+
+    35
+
+       47400
+
+   7.0136e-05
+
+time: neqn: step count: residual: 
+   13.6347
+
+    35
+
+       47450
+
+   6.9647e-05
+
+time: neqn: step count: residual: 
+   13.6490
+
+    35
+
+       47500
+
+   6.9047e-05
+
+time: neqn: step count: residual: 
+   13.6634
+
+    35
+
+       47550
+
+   6.8339e-05
+
+time: neqn: step count: residual: 
+   13.6778
+
+    35
+
+       47600
+
+   6.7526e-05
+
+time: neqn: step count: residual: 
+   13.6921
+
+    35
+
+       47650
+
+   6.6612e-05
+
+time: neqn: step count: residual: 
+   13.7065
+
+    35
+
+       47700
+
+   6.5601e-05
+
+time: neqn: step count: residual: 
+   13.7209
+
+    35
+
+       47750
+
+   6.4499e-05
+
+time: neqn: step count: residual: 
+   13.7352
+
+    35
+
+       47800
+
+   6.3310e-05
+
+time: neqn: step count: residual: 
+   13.7496
+
+    35
+
+       47850
+
+   6.2040e-05
+
+time: neqn: step count: residual: 
+   13.7640
+
+    35
+
+       47900
+
+   6.0697e-05
+
+time: neqn: step count: residual: 
+   13.7783
+
+    35
+
+       47950
+
+   5.9286e-05
+
+time: neqn: step count: residual: 
+   13.7927
+
+    35
+
+       48000
+
+   5.7816e-05
+
+time: neqn: step count: residual: 
+   13.8071
+
+    35
+
+       48050
+
+   5.6293e-05
+
+time: neqn: step count: residual: 
+   13.8214
+
+    35
+
+       48100
+
+   5.4727e-05
+
+time: neqn: step count: residual: 
+   13.8358
+
+    35
+
+       48150
+
+   5.3125e-05
+
+time: neqn: step count: residual: 
+   13.8502
+
+    35
+
+       48200
+
+   5.1496e-05
+
+time: neqn: step count: residual: 
+   13.8645
+
+    35
+
+       48250
+
+   4.9849e-05
+
+time: neqn: step count: residual: 
+   13.8789
+
+    35
+
+       48300
+
+   4.8195e-05
+
+time: neqn: step count: residual: 
+   13.8933
+
+    35
+
+       48350
+
+   4.6541e-05
+
+time: neqn: step count: residual: 
+   13.9076
+
+    35
+
+       48400
+
+   4.4899e-05
+
+time: neqn: step count: residual: 
+   13.9220
+
+    35
+
+       48450
+
+   4.3279e-05
+
+time: neqn: step count: residual: 
+   13.9364
+
+    35
+
+       48500
+
+   4.1692e-05
+
+time: neqn: step count: residual: 
+   13.9507
+
+    35
+
+       48550
+
+   4.0148e-05
+
+time: neqn: step count: residual: 
+   13.9651
+
+    35
+
+       48600
+
+   3.8659e-05
+
+time: neqn: step count: residual: 
+   13.9795
+
+    35
+
+       48650
+
+   3.7235e-05
+
+time: neqn: step count: residual: 
+   13.9938
+
+    35
+
+       48700
+
+   3.5887e-05
+
+time: neqn: step count: residual: 
+   14.0082
+
+    35
+
+       48750
+
+   3.4626e-05
+
+time: neqn: step count: residual: 
+   14.0226
+
+    35
+
+       48800
+
+   3.3461e-05
+
+time: neqn: step count: residual: 
+   14.0370
+
+    35
+
+       48850
+
+   3.2403e-05
+
+time: neqn: step count: residual: 
+   14.0513
+
+    35
+
+       48900
+
+   3.1457e-05
+
+time: neqn: step count: residual: 
+   14.0657
+
+    35
+
+       48950
+
+   3.0631e-05
+
+time: neqn: step count: residual: 
+   14.0801
+
+    35
+
+       49000
+
+   2.9928e-05
+
+time: neqn: step count: residual: 
+   14.0944
+
+    35
+
+       49050
+
+   2.9349e-05
+
+time: neqn: step count: residual: 
+   14.1088
+
+    35
+
+       49100
+
+   2.8895e-05
+
+time: neqn: step count: residual: 
+   14.1232
+
+    35
+
+       49150
+
+   2.8561e-05
+
+time: neqn: step count: residual: 
+   14.1375
+
+    35
+
+       49200
+
+   2.8340e-05
+
+time: neqn: step count: residual: 
+   14.1519
+
+    35
+
+       49250
+
+   2.8226e-05
+
+time: neqn: step count: residual: 
+   14.1663
+
+    35
+
+       49300
+
+   2.8207e-05
+
+time: neqn: step count: residual: 
+   14.1806
+
+    35
+
+       49350
+
+   2.8271e-05
+
+time: neqn: step count: residual: 
+   14.1950
+
+    35
+
+       49400
+
+   2.8407e-05
+
+time: neqn: step count: residual: 
+   14.2094
+
+    35
+
+       49450
+
+   2.8602e-05
+
+time: neqn: step count: residual: 
+   14.2237
+
+    35
+
+       49500
+
+   2.8841e-05
+
+time: neqn: step count: residual: 
+   14.2381
+
+    35
+
+       49550
+
+   2.9114e-05
+
+time: neqn: step count: residual: 
+   14.2525
+
+    35
+
+       49600
+
+   2.9408e-05
+
+time: neqn: step count: residual: 
+   14.2668
+
+    35
+
+       49650
+
+   2.9713e-05
+
+time: neqn: step count: residual: 
+   14.2812
+
+    35
+
+       49700
+
+   3.0018e-05
+
+time: neqn: step count: residual: 
+   14.2956
+
+    35
+
+       49750
+
+   3.0314e-05
+
+time: neqn: step count: residual: 
+   14.3099
+
+    35
+
+       49800
+
+   3.0594e-05
+
+time: neqn: step count: residual: 
+   14.3243
+
+    35
+
+       49850
+
+   3.0850e-05
+
+time: neqn: step count: residual: 
+   14.3387
+
+    35
+
+       49900
+
+   3.1077e-05
+
+time: neqn: step count: residual: 
+   14.3530
+
+    35
+
+       49950
+
+   3.1270e-05
+
+time: neqn: step count: residual: 
+   14.3674
+
+    35
+
+       50000
+
+   3.1423e-05
+
+time: neqn: step count: residual: 
+   14.3818
+
+    35
+
+       50050
+
+   3.1535e-05
+
+time: neqn: step count: residual: 
+   14.3961
+
+    35
+
+       50100
+
+   3.1601e-05
+
+time: neqn: step count: residual: 
+   14.4105
+
+    35
+
+       50150
+
+   3.1620e-05
+
+time: neqn: step count: residual: 
+   14.4249
+
+    35
+
+       50200
+
+   3.1591e-05
+
+time: neqn: step count: residual: 
+   14.4392
+
+    35
+
+       50250
+
+   3.1512e-05
+
+time: neqn: step count: residual: 
+   14.4536
+
+    35
+
+       50300
+
+   3.1383e-05
+
+time: neqn: step count: residual: 
+   14.4680
+
+    35
+
+       50350
+
+   3.1204e-05
+
+time: neqn: step count: residual: 
+   14.4823
+
+    35
+
+       50400
+
+   3.0975e-05
+
+time: neqn: step count: residual: 
+   14.4967
+
+    35
+
+       50450
+
+   3.0697e-05
+
+time: neqn: step count: residual: 
+   14.5111
+
+    35
+
+       50500
+
+   3.0371e-05
+
+time: neqn: step count: residual: 
+   14.5254
+
+    35
+
+       50550
+
+   2.9999e-05
+
+time: neqn: step count: residual: 
+   14.5398
+
+    35
+
+       50600
+
+   2.9582e-05
+
+time: neqn: step count: residual: 
+   14.5542
+
+    35
+
+       50650
+
+   2.9123e-05
+
+time: neqn: step count: residual: 
+   14.5685
+
+    35
+
+       50700
+
+   2.8623e-05
+
+time: neqn: step count: residual: 
+   14.5829
+
+    35
+
+       50750
+
+   2.8085e-05
+
+time: neqn: step count: residual: 
+   14.5973
+
+    35
+
+       50800
+
+   2.7512e-05
+
+time: neqn: step count: residual: 
+   14.6116
+
+    35
+
+       50850
+
+   2.6907e-05
+
+time: neqn: step count: residual: 
+   14.6260
+
+    35
+
+       50900
+
+   2.6272e-05
+
+time: neqn: step count: residual: 
+   14.6404
+
+    35
+
+       50950
+
+   2.5612e-05
+
+time: neqn: step count: residual: 
+   14.6547
+
+    35
+
+       51000
+
+   2.4929e-05
+
+time: neqn: step count: residual: 
+   14.6691
+
+    35
+
+       51050
+
+   2.4228e-05
+
+time: neqn: step count: residual: 
+   14.6835
+
+    35
+
+       51100
+
+   2.3511e-05
+
+time: neqn: step count: residual: 
+   14.6979
+
+    35
+
+       51150
+
+   2.2783e-05
+
+time: neqn: step count: residual: 
+   14.7122
+
+    35
+
+       51200
+
+   2.2048e-05
+
+time: neqn: step count: residual: 
+   14.7266
+
+    35
+
+       51250
+
+   2.1311e-05
+
+time: neqn: step count: residual: 
+   14.7410
+
+    35
+
+       51300
+
+   2.0575e-05
+
+time: neqn: step count: residual: 
+   14.7553
+
+    35
+
+       51350
+
+   1.9845e-05
+
+time: neqn: step count: residual: 
+   14.7697
+
+    35
+
+       51400
+
+   1.9126e-05
+
+time: neqn: step count: residual: 
+   14.7841
+
+    35
+
+       51450
+
+   1.8423e-05
+
+time: neqn: step count: residual: 
+   14.7984
+
+    35
+
+       51500
+
+   1.7740e-05
+
+time: neqn: step count: residual: 
+   14.8128
+
+    35
+
+       51550
+
+   1.7082e-05
+
+time: neqn: step count: residual: 
+   14.8272
+
+    35
+
+       51600
+
+   1.6455e-05
+
+time: neqn: step count: residual: 
+   14.8415
+
+    35
+
+       51650
+
+   1.5862e-05
+
+time: neqn: step count: residual: 
+   14.8559
+
+    35
+
+       51700
+
+   1.5310e-05
+
+time: neqn: step count: residual: 
+   14.8703
+
+    35
+
+       51750
+
+   1.4801e-05
+
+time: neqn: step count: residual: 
+   14.8846
+
+    35
+
+       51800
+
+   1.4340e-05
+
+time: neqn: step count: residual: 
+   14.8990
+
+    35
+
+       51850
+
+   1.3930e-05
+
+time: neqn: step count: residual: 
+   14.9134
+
+    35
+
+       51900
+
+   1.3574e-05
+
+time: neqn: step count: residual: 
+   14.9277
+
+    35
+
+       51950
+
+   1.3272e-05
+
+time: neqn: step count: residual: 
+   14.9421
+
+    35
+
+       52000
+
+   1.3027e-05
+
+time: neqn: step count: residual: 
+   14.9565
+
+    35
+
+       52050
+
+   1.2836e-05
+
+time: neqn: step count: residual: 
+   14.9708
+
+    35
+
+       52100
+
+   1.2699e-05
+
+time: neqn: step count: residual: 
+   14.9852
+
+    35
+
+       52150
+
+   1.2611e-05
+
+time: neqn: step count: residual: 
+   14.9996
+
+    35
+
+       52200
+
+   1.2570e-05
+
+time: neqn: step count: residual: 
+   15.0139
+
+    35
+
+       52250
+
+   1.2570e-05
+
+time: neqn: step count: residual: 
+   15.0283
+
+    35
+
+       52300
+
+   1.2606e-05
+
+time: neqn: step count: residual: 
+   15.0427
+
+    35
+
+       52350
+
+   1.2673e-05
+
+time: neqn: step count: residual: 
+   15.0570
+
+    35
+
+       52400
+
+   1.2764e-05
+
+time: neqn: step count: residual: 
+   15.0714
+
+    35
+
+       52450
+
+   1.2875e-05
+
+time: neqn: step count: residual: 
+   15.0858
+
+    35
+
+       52500
+
+   1.2999e-05
+
+time: neqn: step count: residual: 
+   15.1001
+
+    35
+
+       52550
+
+   1.3131e-05
+
+time: neqn: step count: residual: 
+   15.1145
+
+    35
+
+       52600
+
+   1.3267e-05
+
+time: neqn: step count: residual: 
+   15.1289
+
+    35
+
+       52650
+
+   1.3403e-05
+
+time: neqn: step count: residual: 
+   15.1432
+
+    35
+
+       52700
+
+   1.3533e-05
+
+time: neqn: step count: residual: 
+   15.1576
+
+    35
+
+       52750
+
+   1.3656e-05
+
+time: neqn: step count: residual: 
+   15.1720
+
+    35
+
+       52800
+
+   1.3768e-05
+
+time: neqn: step count: residual: 
+   15.1863
+
+    35
+
+       52850
+
+   1.3866e-05
+
+time: neqn: step count: residual: 
+   15.2007
+
+    35
+
+       52900
+
+   1.3948e-05
+
+time: neqn: step count: residual: 
+   15.2151
+
+    35
+
+       52950
+
+   1.4012e-05
+
+time: neqn: step count: residual: 
+   15.2294
+
+    35
+
+       53000
+
+   1.4058e-05
+
+time: neqn: step count: residual: 
+   15.2438
+
+    35
+
+       53050
+
+   1.4083e-05
+
+time: neqn: step count: residual: 
+   15.2582
+
+    35
+
+       53100
+
+   1.4087e-05
+
+time: neqn: step count: residual: 
+   15.2725
+
+    35
+
+       53150
+
+   1.4069e-05
+
+time: neqn: step count: residual: 
+   15.2869
+
+    35
+
+       53200
+
+   1.4029e-05
+
+time: neqn: step count: residual: 
+   15.3013
+
+    35
+
+       53250
+
+   1.3966e-05
+
+time: neqn: step count: residual: 
+   15.3157
+
+    35
+
+       53300
+
+   1.3882e-05
+
+time: neqn: step count: residual: 
+   15.3300
+
+    35
+
+       53350
+
+   1.3775e-05
+
+time: neqn: step count: residual: 
+   15.3444
+
+    35
+
+       53400
+
+   1.3646e-05
+
+time: neqn: step count: residual: 
+   15.3588
+
+    35
+
+       53450
+
+   1.3497e-05
+
+time: neqn: step count: residual: 
+   15.3731
+
+    35
+
+       53500
+
+   1.3326e-05
+
+time: neqn: step count: residual: 
+   15.3875
+
+    35
+
+       53550
+
+   1.3137e-05
+
+time: neqn: step count: residual: 
+   15.4019
+
+    35
+
+       53600
+
+   1.2928e-05
+
+time: neqn: step count: residual: 
+   15.4162
+
+    35
+
+       53650
+
+   1.2701e-05
+
+time: neqn: step count: residual: 
+   15.4306
+
+    35
+
+       53700
+
+   1.2458e-05
+
+time: neqn: step count: residual: 
+   15.4450
+
+    35
+
+       53750
+
+   1.2200e-05
+
+time: neqn: step count: residual: 
+   15.4593
+
+    35
+
+       53800
+
+   1.1927e-05
+
+time: neqn: step count: residual: 
+   15.4737
+
+    35
+
+       53850
+
+   1.1642e-05
+
+time: neqn: step count: residual: 
+   15.4881
+
+    35
+
+       53900
+
+   1.1345e-05
+
+time: neqn: step count: residual: 
+   15.5024
+
+    35
+
+       53950
+
+   1.1039e-05
+
+time: neqn: step count: residual: 
+   15.5168
+
+    35
+
+       54000
+
+   1.0725e-05
+
+time: neqn: step count: residual: 
+   15.5312
+
+    35
+
+       54050
+
+   1.0404e-05
+
+time: neqn: step count: residual: 
+   15.5455
+
+    35
+
+       54100
+
+   1.0079e-05
+
+time: neqn: step count: residual: 
+   15.5599
+
+    35
+
+       54150
+
+   9.7514e-06
+
+time: neqn: step count: residual: 
+   15.5743
+
+    35
+
+       54200
+
+   9.4228e-06
+
+time: neqn: step count: residual: 
+   15.5886
+
+    35
+
+       54250
+
+   9.0953e-06
+
+time: neqn: step count: residual: 
+   15.6030
+
+    35
+
+       54300
+
+   8.7711e-06
+
+time: neqn: step count: residual: 
+   15.6174
+
+    35
+
+       54350
+
+   8.4521e-06
+
+time: neqn: step count: residual: 
+   15.6317
+
+    35
+
+       54400
+
+   8.1405e-06
+
+time: neqn: step count: residual: 
+   15.6461
+
+    35
+
+       54450
+
+   7.8385e-06
+
+time: neqn: step count: residual: 
+   15.6605
+
+    35
+
+       54500
+
+   7.5483e-06
+
+time: neqn: step count: residual: 
+   15.6748
+
+    35
+
+       54550
+
+   7.2720e-06
+
+time: neqn: step count: residual: 
+   15.6892
+
+    35
+
+       54600
+
+   7.0117e-06
+
+time: neqn: step count: residual: 
+   15.7036
+
+    35
+
+       54650
+
+   6.7696e-06
+
+time: neqn: step count: residual: 
+   15.7179
+
+    35
+
+       54700
+
+   6.5474e-06
+
+time: neqn: step count: residual: 
+   15.7323
+
+    35
+
+       54750
+
+   6.3468e-06
+
+time: neqn: step count: residual: 
+   15.7467
+
+    35
+
+       54800
+
+   6.1694e-06
+
+time: neqn: step count: residual: 
+   15.7610
+
+    35
+
+       54850
+
+   6.0160e-06
+
+time: neqn: step count: residual: 
+   15.7754
+
+    35
+
+       54900
+
+   5.8872e-06
+
+time: neqn: step count: residual: 
+   15.7898
+
+    35
+
+       54950
+
+   5.7832e-06
+
+time: neqn: step count: residual: 
+   15.8041
+
+    35
+
+       55000
+
+   5.7035e-06
+
+time: neqn: step count: residual: 
+   15.8185
+
+    35
+
+       55050
+
+   5.6472e-06
+
+time: neqn: step count: residual: 
+   15.8329
+
+    35
+
+       55100
+
+   5.6128e-06
+
+time: neqn: step count: residual: 
+   15.8472
+
+    35
+
+       55150
+
+   5.5986e-06
+
+time: neqn: step count: residual: 
+   15.8616
+
+    35
+
+       55200
+
+   5.6024e-06
+
+time: neqn: step count: residual: 
+   15.8760
+
+    35
+
+       55250
+
+   5.6217e-06
+
+time: neqn: step count: residual: 
+   15.8903
+
+    35
+
+       55300
+
+   5.6541e-06
+
+time: neqn: step count: residual: 
+   15.9047
+
+    35
+
+       55350
+
+   5.6969e-06
+
+time: neqn: step count: residual: 
+   15.9191
+
+    35
+
+       55400
+
+   5.7476e-06
+
+time: neqn: step count: residual: 
+   15.9334
+
+    35
+
+       55450
+
+   5.8039e-06
+
+time: neqn: step count: residual: 
+   15.9478
+
+    35
+
+       55500
+
+   5.8635e-06
+
+time: neqn: step count: residual: 
+   15.9622
+
+    35
+
+       55550
+
+   5.9242e-06
+
+time: neqn: step count: residual: 
+   15.9766
+
+    35
+
+       55600
+
+   5.9842e-06
+
+time: neqn: step count: residual: 
+   15.9909
+
+    35
+
+       55650
+
+   6.0417e-06
+
+time: neqn: step count: residual: 
+   16.0053
+
+    35
+
+       55700
+
+   6.0954e-06
+
+time: neqn: step count: residual: 
+   16.0197
+
+    35
+
+       55750
+
+   6.1439e-06
+
+time: neqn: step count: residual: 
+   16.0340
+
+    35
+
+       55800
+
+   6.1860e-06
+
+time: neqn: step count: residual: 
+   16.0484
+
+    35
+
+       55850
+
+   6.2209e-06
+
+time: neqn: step count: residual: 
+   16.0628
+
+    35
+
+       55900
+
+   6.2479e-06
+
+time: neqn: step count: residual: 
+   16.0771
+
+    35
+
+       55950
+
+   6.2661e-06
+
+time: neqn: step count: residual: 
+   16.0915
+
+    35
+
+       56000
+
+   6.2753e-06
+
+time: neqn: step count: residual: 
+   16.1059
+
+    35
+
+       56050
+
+   6.2749e-06
+
+time: neqn: step count: residual: 
+   16.1202
+
+    35
+
+       56100
+
+   6.2648e-06
+
+time: neqn: step count: residual: 
+   16.1346
+
+    35
+
+       56150
+
+   6.2448e-06
+
+time: neqn: step count: residual: 
+   16.1490
+
+    35
+
+       56200
+
+   6.2149e-06
+
+time: neqn: step count: residual: 
+   16.1633
+
+    35
+
+       56250
+
+   6.1750e-06
+
+time: neqn: step count: residual: 
+   16.1777
+
+    35
+
+       56300
+
+   6.1253e-06
+
+time: neqn: step count: residual: 
+   16.1921
+
+    35
+
+       56350
+
+   6.0660e-06
+
+time: neqn: step count: residual: 
+   16.2064
+
+    35
+
+       56400
+
+   5.9973e-06
+
+time: neqn: step count: residual: 
+   16.2208
+
+    35
+
+       56450
+
+   5.9195e-06
+
+time: neqn: step count: residual: 
+   16.2352
+
+    35
+
+       56500
+
+   5.8330e-06
+
+time: neqn: step count: residual: 
+   16.2495
+
+    35
+
+       56550
+
+   5.7383e-06
+
+time: neqn: step count: residual: 
+   16.2639
+
+    35
+
+       56600
+
+   5.6357e-06
+
+time: neqn: step count: residual: 
+   16.2783
+
+    35
+
+       56650
+
+   5.5258e-06
+
+time: neqn: step count: residual: 
+   16.2926
+
+    35
+
+       56700
+
+   5.4092e-06
+
+time: neqn: step count: residual: 
+   16.3070
+
+    35
+
+       56750
+
+   5.2865e-06
+
+time: neqn: step count: residual: 
+   16.3214
+
+    35
+
+       56800
+
+   5.1582e-06
+
+time: neqn: step count: residual: 
+   16.3357
+
+    35
+
+       56850
+
+   5.0251e-06
+
+time: neqn: step count: residual: 
+   16.3501
+
+    35
+
+       56900
+
+   4.8878e-06
+
+time: neqn: step count: residual: 
+   16.3645
+
+    35
+
+       56950
+
+   4.7472e-06
+
+time: neqn: step count: residual: 
+   16.3788
+
+    35
+
+       57000
+
+   4.6039e-06
+
+time: neqn: step count: residual: 
+   16.3932
+
+    35
+
+       57050
+
+   4.4587e-06
+
+time: neqn: step count: residual: 
+   16.4076
+
+    35
+
+       57100
+
+   4.3125e-06
+
+time: neqn: step count: residual: 
+   16.4219
+
+    35
+
+       57150
+
+   4.1661e-06
+
+time: neqn: step count: residual: 
+   16.4363
+
+    35
+
+       57200
+
+   4.0205e-06
+
+time: neqn: step count: residual: 
+   16.4507
+
+    35
+
+       57250
+
+   3.8765e-06
+
+time: neqn: step count: residual: 
+   16.4650
+
+    35
+
+       57300
+
+   3.7350e-06
+
+time: neqn: step count: residual: 
+   16.4794
+
+    35
+
+       57350
+
+   3.5970e-06
+
+time: neqn: step count: residual: 
+   16.4938
+
+    35
+
+       57400
+
+   3.4636e-06
+
+time: neqn: step count: residual: 
+   16.5081
+
+    35
+
+       57450
+
+   3.3355e-06
+
+time: neqn: step count: residual: 
+   16.5225
+
+    35
+
+       57500
+
+   3.2139e-06
+
+time: neqn: step count: residual: 
+   16.5369
+
+    35
+
+       57550
+
+   3.0996e-06
+
+time: neqn: step count: residual: 
+   16.5512
+
+    35
+
+       57600
+
+   2.9936e-06
+
+time: neqn: step count: residual: 
+   16.5656
+
+    35
+
+       57650
+
+   2.8967e-06
+
+time: neqn: step count: residual: 
+   16.5800
+
+    35
+
+       57700
+
+   2.8095e-06
+
+time: neqn: step count: residual: 
+   16.5943
+
+    35
+
+       57750
+
+   2.7327e-06
+
+time: neqn: step count: residual: 
+   16.6087
+
+    35
+
+       57800
+
+   2.6668e-06
+
+time: neqn: step count: residual: 
+   16.6231
+
+    35
+
+       57850
+
+   2.6118e-06
+
+time: neqn: step count: residual: 
+   16.6375
+
+    35
+
+       57900
+
+   2.5679e-06
+
+time: neqn: step count: residual: 
+   16.6518
+
+    35
+
+       57950
+
+   2.5347e-06
+
+time: neqn: step count: residual: 
+   16.6662
+
+    35
+
+       58000
+
+   2.5118e-06
+
+time: neqn: step count: residual: 
+   16.6806
+
+    35
+
+       58050
+
+   2.4985e-06
+
+time: neqn: step count: residual: 
+   16.6949
+
+    35
+
+       58100
+
+   2.4940e-06
+
+time: neqn: step count: residual: 
+   16.7093
+
+    35
+
+       58150
+
+   2.4973e-06
+
+time: neqn: step count: residual: 
+   16.7237
+
+    35
+
+       58200
+
+   2.5073e-06
+
+time: neqn: step count: residual: 
+   16.7380
+
+    35
+
+       58250
+
+   2.5228e-06
+
+time: neqn: step count: residual: 
+   16.7524
+
+    35
+
+       58300
+
+   2.5427e-06
+
+time: neqn: step count: residual: 
+   16.7668
+
+    35
+
+       58350
+
+   2.5660e-06
+
+time: neqn: step count: residual: 
+   16.7811
+
+    35
+
+       58400
+
+   2.5915e-06
+
+time: neqn: step count: residual: 
+   16.7955
+
+    35
+
+       58450
+
+   2.6182e-06
+
+time: neqn: step count: residual: 
+   16.8099
+
+    35
+
+       58500
+
+   2.6452e-06
+
+time: neqn: step count: residual: 
+   16.8242
+
+    35
+
+       58550
+
+   2.6718e-06
+
+time: neqn: step count: residual: 
+   16.8386
+
+    35
+
+       58600
+
+   2.6971e-06
+
+time: neqn: step count: residual: 
+   16.8530
+
+    35
+
+       58650
+
+   2.7205e-06
+
+time: neqn: step count: residual: 
+   16.8673
+
+    35
+
+       58700
+
+   2.7416e-06
+
+time: neqn: step count: residual: 
+   16.8817
+
+    35
+
+       58750
+
+   2.7597e-06
+
+time: neqn: step count: residual: 
+   16.8961
+
+    35
+
+       58800
+
+   2.7745e-06
+
+time: neqn: step count: residual: 
+   16.9104
+
+    35
+
+       58850
+
+   2.7857e-06
+
+time: neqn: step count: residual: 
+   16.9248
+
+    35
+
+       58900
+
+   2.7929e-06
+
+time: neqn: step count: residual: 
+   16.9392
+
+    35
+
+       58950
+
+   2.7961e-06
+
+time: neqn: step count: residual: 
+   16.9535
+
+    35
+
+       59000
+
+   2.7950e-06
+
+time: neqn: step count: residual: 
+   16.9679
+
+    35
+
+       59050
+
+   2.7896e-06
+
+time: neqn: step count: residual: 
+   16.9823
+
+    35
+
+       59100
+
+   2.7797e-06
+
+time: neqn: step count: residual: 
+   16.9966
+
+    35
+
+       59150
+
+   2.7654e-06
+
+time: neqn: step count: residual: 
+   17.0110
+
+    35
+
+       59200
+
+   2.7466e-06
+
+time: neqn: step count: residual: 
+   17.0254
+
+    35
+
+       59250
+
+   2.7235e-06
+
+time: neqn: step count: residual: 
+   17.0397
+
+    35
+
+       59300
+
+   2.6962e-06
+
+time: neqn: step count: residual: 
+   17.0541
+
+    35
+
+       59350
+
+   2.6647e-06
+
+time: neqn: step count: residual: 
+   17.0685
+
+    35
+
+       59400
+
+   2.6292e-06
+
+time: neqn: step count: residual: 
+   17.0828
+
+    35
+
+       59450
+
+   2.5898e-06
+
+time: neqn: step count: residual: 
+   17.0972
+
+    35
+
+       59500
+
+   2.5468e-06
+
+time: neqn: step count: residual: 
+   17.1116
+
+    35
+
+       59550
+
+   2.5004e-06
+
+time: neqn: step count: residual: 
+   17.1259
+
+    35
+
+       59600
+
+   2.4508e-06
+
+time: neqn: step count: residual: 
+   17.1403
+
+    35
+
+       59650
+
+   2.3982e-06
+
+time: neqn: step count: residual: 
+   17.1547
+
+    35
+
+       59700
+
+   2.3430e-06
+
+time: neqn: step count: residual: 
+   17.1690
+
+    35
+
+       59750
+
+   2.2853e-06
+
+time: neqn: step count: residual: 
+   17.1834
+
+    35
+
+       59800
+
+   2.2256e-06
+
+time: neqn: step count: residual: 
+   17.1978
+
+    35
+
+       59850
+
+   2.1641e-06
+
+time: neqn: step count: residual: 
+   17.2121
+
+    35
+
+       59900
+
+   2.1011e-06
+
+time: neqn: step count: residual: 
+   17.2265
+
+    35
+
+       59950
+
+   2.0371e-06
+
+time: neqn: step count: residual: 
+   17.2409
+
+    35
+
+       60000
+
+   1.9723e-06
+
+time: neqn: step count: residual: 
+   17.2552
+
+    35
+
+       60050
+
+   1.9071e-06
+
+time: neqn: step count: residual: 
+   17.2696
+
+    35
+
+       60100
+
+   1.8419e-06
+
+time: neqn: step count: residual: 
+   17.2840
+
+    35
+
+       60150
+
+   1.7771e-06
+
+time: neqn: step count: residual: 
+   17.2984
+
+    35
+
+       60200
+
+   1.7132e-06
+
+time: neqn: step count: residual: 
+   17.3127
+
+    35
+
+       60250
+
+   1.6505e-06
+
+time: neqn: step count: residual: 
+   17.3271
+
+    35
+
+       60300
+
+   1.5894e-06
+
+time: neqn: step count: residual: 
+   17.3415
+
+    35
+
+       60350
+
+   1.5304e-06
+
+time: neqn: step count: residual: 
+   17.3558
+
+    35
+
+       60400
+
+   1.4740e-06
+
+time: neqn: step count: residual: 
+   17.3702
+
+    35
+
+       60450
+
+   1.4205e-06
+
+time: neqn: step count: residual: 
+   17.3846
+
+    35
+
+       60500
+
+   1.3703e-06
+
+time: neqn: step count: residual: 
+   17.3989
+
+    35
+
+       60550
+
+   1.3239e-06
+
+time: neqn: step count: residual: 
+   17.4133
+
+    35
+
+       60600
+
+   1.2817e-06
+
+time: neqn: step count: residual: 
+   17.4277
+
+    35
+
+       60650
+
+   1.2438e-06
+
+time: neqn: step count: residual: 
+   17.4420
+
+    35
+
+       60700
+
+   1.2107e-06
+
+time: neqn: step count: residual: 
+   17.4564
+
+    35
+
+       60750
+
+   1.1823e-06
+
+time: neqn: step count: residual: 
+   17.4708
+
+    35
+
+       60800
+
+   1.1589e-06
+
+time: neqn: step count: residual: 
+   17.4851
+
+    35
+
+       60850
+
+   1.1404e-06
+
+time: neqn: step count: residual: 
+   17.4995
+
+    35
+
+       60900
+
+   1.1266e-06
+
+time: neqn: step count: residual: 
+   17.5139
+
+    35
+
+       60950
+
+   1.1174e-06
+
+time: neqn: step count: residual: 
+   17.5282
+
+    35
+
+       61000
+
+   1.1124e-06
+
+time: neqn: step count: residual: 
+   17.5426
+
+    35
+
+       61050
+
+   1.1112e-06
+
+time: neqn: step count: residual: 
+   17.5570
+
+    35
+
+       61100
+
+   1.1133e-06
+
+time: neqn: step count: residual: 
+   17.5713
+
+    35
+
+       61150
+
+   1.1184e-06
+
+time: neqn: step count: residual: 
+   17.5857
+
+    35
+
+       61200
+
+   1.1257e-06
+
+time: neqn: step count: residual: 
+   17.6001
+
+    35
+
+       61250
+
+   1.1350e-06
+
+time: neqn: step count: residual: 
+   17.6144
+
+    35
+
+       61300
+
+   1.1456e-06
+
+time: neqn: step count: residual: 
+   17.6288
+
+    35
+
+       61350
+
+   1.1571e-06
+
+time: neqn: step count: residual: 
+   17.6432
+
+    35
+
+       61400
+
+   1.1691e-06
+
+time: neqn: step count: residual: 
+   17.6575
+
+    35
+
+       61450
+
+   1.1811e-06
+
+time: neqn: step count: residual: 
+   17.6719
+
+    35
+
+       61500
+
+   1.1928e-06
+
+time: neqn: step count: residual: 
+   17.6863
+
+    35
+
+       61550
+
+   1.2040e-06
+
+time: neqn: step count: residual: 
+   17.7006
+
+    35
+
+       61600
+
+   1.2142e-06
+
+time: neqn: step count: residual: 
+   17.7150
+
+    35
+
+       61650
+
+   1.2233e-06
+
+time: neqn: step count: residual: 
+   17.7294
+
+    35
+
+       61700
+
+   1.2311e-06
+
+time: neqn: step count: residual: 
+   17.7437
+
+    35
+
+       61750
+
+   1.2373e-06
+
+time: neqn: step count: residual: 
+   17.7581
+
+    35
+
+       61800
+
+   1.2419e-06
+
+time: neqn: step count: residual: 
+   17.7725
+
+    35
+
+       61850
+
+   1.2448e-06
+
+time: neqn: step count: residual: 
+   17.7868
+
+    35
+
+       61900
+
+   1.2458e-06
+
+time: neqn: step count: residual: 
+   17.8012
+
+    35
+
+       61950
+
+   1.2449e-06
+
+time: neqn: step count: residual: 
+   17.8156
+
+    35
+
+       62000
+
+   1.2420e-06
+
+time: neqn: step count: residual: 
+   17.8299
+
+    35
+
+       62050
+
+   1.2372e-06
+
+time: neqn: step count: residual: 
+   17.8443
+
+    35
+
+       62100
+
+   1.2304e-06
+
+time: neqn: step count: residual: 
+   17.8587
+
+    35
+
+       62150
+
+   1.2216e-06
+
+time: neqn: step count: residual: 
+   17.8730
+
+    35
+
+       62200
+
+   1.2109e-06
+
+time: neqn: step count: residual: 
+   17.8874
+
+    35
+
+       62250
+
+   1.1983e-06
+
+time: neqn: step count: residual: 
+   17.9018
+
+    35
+
+       62300
+
+   1.1839e-06
+
+time: neqn: step count: residual: 
+   17.9162
+
+    35
+
+       62350
+
+   1.1677e-06
+
+time: neqn: step count: residual: 
+   17.9305
+
+    35
+
+       62400
+
+   1.1498e-06
+
+time: neqn: step count: residual: 
+   17.9449
+
+    35
+
+       62450
+
+   1.1303e-06
+
+time: neqn: step count: residual: 
+   17.9593
+
+    35
+
+       62500
+
+   1.1093e-06
+
+time: neqn: step count: residual: 
+   17.9736
+
+    35
+
+       62550
+
+   1.0869e-06
+
+time: neqn: step count: residual: 
+   17.9880
+
+    35
+
+       62600
+
+   1.0632e-06
+
+time: neqn: step count: residual: 
+   18.0024
+
+    35
+
+       62650
+
+   1.0383e-06
+
+time: neqn: step count: residual: 
+   18.0167
+
+    35
+
+       62700
+
+   1.0124e-06
+
+time: neqn: step count: residual: 
+   18.0311
+
+    35
+
+       62750
+
+   9.8563e-07
+
+time: neqn: step count: residual: 
+   18.0455
+
+    35
+
+       62800
+
+   9.5808e-07
+
+time: neqn: step count: residual: 
+   18.0598
+
+    35
+
+       62850
+
+   9.2991e-07
+
+time: neqn: step count: residual: 
+   18.0742
+
+    35
+
+       62900
+
+   9.0128e-07
+
+time: neqn: step count: residual: 
+   18.0886
+
+    35
+
+       62950
+
+   8.7236e-07
+
+time: neqn: step count: residual: 
+   18.1029
+
+    35
+
+       63000
+
+   8.4331e-07
+
+time: neqn: step count: residual: 
+   18.1173
+
+    35
+
+       63050
+
+   8.1430e-07
+
+time: neqn: step count: residual: 
+   18.1317
+
+    35
+
+       63100
+
+   7.8550e-07
+
+time: neqn: step count: residual: 
+   18.1460
+
+    35
+
+       63150
+
+   7.5711e-07
+
+time: neqn: step count: residual: 
+   18.1604
+
+    35
+
+       63200
+
+   7.2931e-07
+
+time: neqn: step count: residual: 
+   18.1748
+
+    35
+
+       63250
+
+   7.0229e-07
+
+time: neqn: step count: residual: 
+   18.1891
+
+    35
+
+       63300
+
+   6.7625e-07
+
+time: neqn: step count: residual: 
+   18.2035
+
+    35
+
+       63350
+
+   6.5136e-07
+
+time: neqn: step count: residual: 
+   18.2179
+
+    35
+
+       63400
+
+   6.2784e-07
+
+time: neqn: step count: residual: 
+   18.2322
+
+    35
+
+       63450
+
+   6.0585e-07
+
+time: neqn: step count: residual: 
+   18.2466
+
+    35
+
+       63500
+
+   5.8557e-07
+
+time: neqn: step count: residual: 
+   18.2610
+
+    35
+
+       63550
+
+   5.6716e-07
+
+time: neqn: step count: residual: 
+   18.2753
+
+    35
+
+       63600
+
+   5.5075e-07
+
+time: neqn: step count: residual: 
+   18.2897
+
+    35
+
+       63650
+
+   5.3644e-07
+
+time: neqn: step count: residual: 
+   18.3041
+
+    35
+
+       63700
+
+   5.2430e-07
+
+time: neqn: step count: residual: 
+   18.3184
+
+    35
+
+       63750
+
+   5.1434e-07
+
+time: neqn: step count: residual: 
+   18.3328
+
+    35
+
+       63800
+
+   5.0656e-07
+
+time: neqn: step count: residual: 
+   18.3472
+
+    35
+
+       63850
+
+   5.0088e-07
+
+time: neqn: step count: residual: 
+   18.3615
+
+    35
+
+       63900
+
+   4.9719e-07
+
+time: neqn: step count: residual: 
+   18.3759
+
+    35
+
+       63950
+
+   4.9534e-07
+
+time: neqn: step count: residual: 
+   18.3903
+
+    35
+
+       64000
+
+   4.9514e-07
+
+time: neqn: step count: residual: 
+   18.4046
+
+    35
+
+       64050
+
+   4.9640e-07
+
+time: neqn: step count: residual: 
+   18.4190
+
+    35
+
+       64100
+
+   4.9889e-07
+
+time: neqn: step count: residual: 
+   18.4334
+
+    35
+
+       64150
+
+   5.0238e-07
+
+time: neqn: step count: residual: 
+   18.4477
+
+    35
+
+       64200
+
+   5.0665e-07
+
+time: neqn: step count: residual: 
+   18.4621
+
+    35
+
+       64250
+
+   5.1148e-07
+
+time: neqn: step count: residual: 
+   18.4765
+
+    35
+
+       64300
+
+   5.1667e-07
+
+time: neqn: step count: residual: 
+   18.4908
+
+    35
+
+       64350
+
+   5.2202e-07
+
+time: neqn: step count: residual: 
+   18.5052
+
+    35
+
+       64400
+
+   5.2737e-07
+
+time: neqn: step count: residual: 
+   18.5196
+
+    35
+
+       64450
+
+   5.3255e-07
+
+time: neqn: step count: residual: 
+   18.5339
+
+    35
+
+       64500
+
+   5.3742e-07
+
+time: neqn: step count: residual: 
+   18.5483
+
+    35
+
+       64550
+
+   5.4188e-07
+
+time: neqn: step count: residual: 
+   18.5627
+
+    35
+
+       64600
+
+   5.4581e-07
+
+time: neqn: step count: residual: 
+   18.5771
+
+    35
+
+       64650
+
+   5.4913e-07
+
+time: neqn: step count: residual: 
+   18.5914
+
+    35
+
+       64700
+
+   5.5176e-07
+
+time: neqn: step count: residual: 
+   18.6058
+
+    35
+
+       64750
+
+   5.5365e-07
+
+time: neqn: step count: residual: 
+   18.6202
+
+    35
+
+       64800
+
+   5.5474e-07
+
+time: neqn: step count: residual: 
+   18.6345
+
+    35
+
+       64850
+
+   5.5500e-07
+
+time: neqn: step count: residual: 
+   18.6489
+
+    35
+
+       64900
+
+   5.5441e-07
+
+time: neqn: step count: residual: 
+   18.6633
+
+    35
+
+       64950
+
+   5.5295e-07
+
+time: neqn: step count: residual: 
+   18.6776
+
+    35
+
+       65000
+
+   5.5060e-07
+
+time: neqn: step count: residual: 
+   18.6920
+
+    35
+
+       65050
+
+   5.4738e-07
+
+time: neqn: step count: residual: 
+   18.7064
+
+    35
+
+       65100
+
+   5.4328e-07
+
+time: neqn: step count: residual: 
+   18.7207
+
+    35
+
+       65150
+
+   5.3833e-07
+
+time: neqn: step count: residual: 
+   18.7351
+
+    35
+
+       65200
+
+   5.3254e-07
+
+time: neqn: step count: residual: 
+   18.7495
+
+    35
+
+       65250
+
+   5.2593e-07
+
+time: neqn: step count: residual: 
+   18.7638
+
+    35
+
+       65300
+
+   5.1855e-07
+
+time: neqn: step count: residual: 
+   18.7782
+
+    35
+
+       65350
+
+   5.1042e-07
+
+time: neqn: step count: residual: 
+   18.7926
+
+    35
+
+       65400
+
+   5.0158e-07
+
+time: neqn: step count: residual: 
+   18.8069
+
+    35
+
+       65450
+
+   4.9208e-07
+
+time: neqn: step count: residual: 
+   18.8213
+
+    35
+
+       65500
+
+   4.8197e-07
+
+time: neqn: step count: residual: 
+   18.8357
+
+    35
+
+       65550
+
+   4.7130e-07
+
+time: neqn: step count: residual: 
+   18.8500
+
+    35
+
+       65600
+
+   4.6012e-07
+
+time: neqn: step count: residual: 
+   18.8644
+
+    35
+
+       65650
+
+   4.4849e-07
+
+time: neqn: step count: residual: 
+   18.8788
+
+    35
+
+       65700
+
+   4.3647e-07
+
+time: neqn: step count: residual: 
+   18.8931
+
+    35
+
+       65750
+
+   4.2413e-07
+
+time: neqn: step count: residual: 
+   18.9075
+
+    35
+
+       65800
+
+   4.1153e-07
+
+time: neqn: step count: residual: 
+   18.9219
+
+    35
+
+       65850
+
+   3.9874e-07
+
+time: neqn: step count: residual: 
+   18.9362
+
+    35
+
+       65900
+
+   3.8583e-07
+
+time: neqn: step count: residual: 
+   18.9506
+
+    35
+
+       65950
+
+   3.7289e-07
+
+time: neqn: step count: residual: 
+   18.9650
+
+    35
+
+       66000
+
+   3.5998e-07
+
+time: neqn: step count: residual: 
+   18.9793
+
+    35
+
+       66050
+
+   3.4718e-07
+
+time: neqn: step count: residual: 
+   18.9937
+
+    35
+
+       66100
+
+   3.3458e-07
+
+time: neqn: step count: residual: 
+   19.0081
+
+    35
+
+       66150
+
+   3.2227e-07
+
+time: neqn: step count: residual: 
+   19.0224
+
+    35
+
+       66200
+
+   3.1032e-07
+
+time: neqn: step count: residual: 
+   19.0368
+
+    35
+
+       66250
+
+   2.9882e-07
+
+time: neqn: step count: residual: 
+   19.0512
+
+    35
+
+       66300
+
+   2.8786e-07
+
+time: neqn: step count: residual: 
+   19.0655
+
+    35
+
+       66350
+
+   2.7752e-07
+
+time: neqn: step count: residual: 
+   19.0799
+
+    35
+
+       66400
+
+   2.6788e-07
+
+time: neqn: step count: residual: 
+   19.0943
+
+    35
+
+       66450
+
+   2.5902e-07
+
+time: neqn: step count: residual: 
+   19.1086
+
+    35
+
+       66500
+
+   2.5101e-07
+
+time: neqn: step count: residual: 
+   19.1230
+
+    35
+
+       66550
+
+   2.4390e-07
+
+time: neqn: step count: residual: 
+   19.1374
+
+    35
+
+       66600
+
+   2.3773e-07
+
+time: neqn: step count: residual: 
+   19.1517
+
+    35
+
+       66650
+
+   2.3253e-07
+
+time: neqn: step count: residual: 
+   19.1661
+
+    35
+
+       66700
+
+   2.2831e-07
+
+time: neqn: step count: residual: 
+   19.1805
+
+    35
+
+       66750
+
+   2.2505e-07
+
+time: neqn: step count: residual: 
+   19.1948
+
+    35
+
+       66800
+
+   2.2272e-07
+
+time: neqn: step count: residual: 
+   19.2092
+
+    35
+
+       66850
+
+   2.2126e-07
+
+time: neqn: step count: residual: 
+   19.2236
+
+    35
+
+       66900
+
+   2.2060e-07
+
+time: neqn: step count: residual: 
+   19.2380
+
+    35
+
+       66950
+
+   2.2067e-07
+
+time: neqn: step count: residual: 
+   19.2523
+
+    35
+
+       67000
+
+   2.2135e-07
+
+time: neqn: step count: residual: 
+   19.2667
+
+    35
+
+       67050
+
+   2.2257e-07
+
+time: neqn: step count: residual: 
+   19.2811
+
+    35
+
+       67100
+
+   2.2421e-07
+
+time: neqn: step count: residual: 
+   19.2954
+
+    35
+
+       67150
+
+   2.2617e-07
+
+time: neqn: step count: residual: 
+   19.3098
+
+    35
+
+       67200
+
+   2.2837e-07
+
+time: neqn: step count: residual: 
+   19.3242
+
+    35
+
+       67250
+
+   2.3070e-07
+
+time: neqn: step count: residual: 
+   19.3385
+
+    35
+
+       67300
+
+   2.3309e-07
+
+time: neqn: step count: residual: 
+   19.3529
+
+    35
+
+       67350
+
+   2.3546e-07
+
+time: neqn: step count: residual: 
+   19.3673
+
+    35
+
+       67400
+
+   2.3775e-07
+
+time: neqn: step count: residual: 
+   19.3816
+
+    35
+
+       67450
+
+   2.3988e-07
+
+time: neqn: step count: residual: 
+   19.3960
+
+    35
+
+       67500
+
+   2.4182e-07
+
+time: neqn: step count: residual: 
+   19.4104
+
+    35
+
+       67550
+
+   2.4352e-07
+
+time: neqn: step count: residual: 
+   19.4247
+
+    35
+
+       67600
+
+   2.4493e-07
+
+time: neqn: step count: residual: 
+   19.4391
+
+    35
+
+       67650
+
+   2.4603e-07
+
+time: neqn: step count: residual: 
+   19.4535
+
+    35
+
+       67700
+
+   2.4680e-07
+
+time: neqn: step count: residual: 
+   19.4678
+
+    35
+
+       67750
+
+   2.4721e-07
+
+time: neqn: step count: residual: 
+   19.4822
+
+    35
+
+       67800
+
+   2.4724e-07
+
+time: neqn: step count: residual: 
+   19.4966
+
+    35
+
+       67850
+
+   2.4689e-07
+
+time: neqn: step count: residual: 
+   19.5109
+
+    35
+
+       67900
+
+   2.4615e-07
+
+time: neqn: step count: residual: 
+   19.5253
+
+    35
+
+       67950
+
+   2.4502e-07
+
+time: neqn: step count: residual: 
+   19.5397
+
+    35
+
+       68000
+
+   2.4350e-07
+
+time: neqn: step count: residual: 
+   19.5540
+
+    35
+
+       68050
+
+   2.4159e-07
+
+time: neqn: step count: residual: 
+   19.5684
+
+    35
+
+       68100
+
+   2.3930e-07
+
+time: neqn: step count: residual: 
+   19.5828
+
+    35
+
+       68150
+
+   2.3664e-07
+
+time: neqn: step count: residual: 
+   19.5971
+
+    35
+
+       68200
+
+   2.3362e-07
+
+time: neqn: step count: residual: 
+   19.6115
+
+    35
+
+       68250
+
+   2.3026e-07
+
+time: neqn: step count: residual: 
+   19.6259
+
+    35
+
+       68300
+
+   2.2657e-07
+
+time: neqn: step count: residual: 
+   19.6402
+
+    35
+
+       68350
+
+   2.2257e-07
+
+time: neqn: step count: residual: 
+   19.6546
+
+    35
+
+       68400
+
+   2.1827e-07
+
+time: neqn: step count: residual: 
+   19.6690
+
+    35
+
+       68450
+
+   2.1371e-07
+
+time: neqn: step count: residual: 
+   19.6833
+
+    35
+
+       68500
+
+   2.0890e-07
+
+time: neqn: step count: residual: 
+   19.6977
+
+    35
+
+       68550
+
+   2.0388e-07
+
+time: neqn: step count: residual: 
+   19.7121
+
+    35
+
+       68600
+
+   1.9866e-07
+
+time: neqn: step count: residual: 
+   19.7264
+
+    35
+
+       68650
+
+   1.9327e-07
+
+time: neqn: step count: residual: 
+   19.7408
+
+    35
+
+       68700
+
+   1.8774e-07
+
+time: neqn: step count: residual: 
+   19.7552
+
+    35
+
+       68750
+
+   1.8211e-07
+
+time: neqn: step count: residual: 
+   19.7695
+
+    35
+
+       68800
+
+   1.7640e-07
+
+time: neqn: step count: residual: 
+   19.7839
+
+    35
+
+       68850
+
+   1.7064e-07
+
+time: neqn: step count: residual: 
+   19.7983
+
+    35
+
+       68900
+
+   1.6487e-07
+
+time: neqn: step count: residual: 
+   19.8126
+
+    35
+
+       68950
+
+   1.5913e-07
+
+time: neqn: step count: residual: 
+   19.8270
+
+    35
+
+       69000
+
+   1.5344e-07
+
+time: neqn: step count: residual: 
+   19.8414
+
+    35
+
+       69050
+
+   1.4786e-07
+
+time: neqn: step count: residual: 
+   19.8557
+
+    35
+
+       69100
+
+   1.4240e-07
+
+time: neqn: step count: residual: 
+   19.8701
+
+    35
+
+       69150
+
+   1.3712e-07
+
+time: neqn: step count: residual: 
+   19.8845
+
+    35
+
+       69200
+
+   1.3204e-07
+
+time: neqn: step count: residual: 
+   19.8989
+
+    35
+
+       69250
+
+   1.2722e-07
+
+time: neqn: step count: residual: 
+   19.9132
+
+    35
+
+       69300
+
+   1.2268e-07
+
+time: neqn: step count: residual: 
+   19.9276
+
+    35
+
+       69350
+
+   1.1846e-07
+
+time: neqn: step count: residual: 
+   19.9420
+
+    35
+
+       69400
+
+   1.1459e-07
+
+time: neqn: step count: residual: 
+   19.9563
+
+    35
+
+       69450
+
+   1.1110e-07
+
+time: neqn: step count: residual: 
+   19.9707
+
+    35
+
+       69500
+
+   1.0803e-07
+
+time: neqn: step count: residual: 
+   19.9851
+
+    35
+
+       69550
+
+   1.0537e-07
+
+time: neqn: step count: residual: 
+   19.9994
+
+    35
+
+       69600
+
+   1.0315e-07
+
+time: neqn: step count: residual: 
+   20.0138
+
+    35
+
+       69650
+
+   1.0137e-07
+
+time: neqn: step count: residual: 
+   20.0282
+
+    35
+
+       69700
+
+   1.0000e-07
+
+time: neqn: step count: residual: 
+   20.0425
+
+    35
+
+       69750
+
+   9.9052e-08
+
+time: neqn: step count: residual: 
+   20.0569
+
+    35
+
+       69800
+
+   9.8483e-08
+
+time: neqn: step count: residual: 
+   20.0713
+
+    35
+
+       69850
+
+   9.8263e-08
+
+time: neqn: step count: residual: 
+   20.0856
+
+    35
+
+       69900
+
+   9.8356e-08
+
+time: neqn: step count: residual: 
+   20.1000
+
+    35
+
+       69950
+
+   9.8718e-08
+
+time: neqn: step count: residual: 
+   20.1144
+
+    35
+
+       70000
+
+   9.9304e-08
+
+time: neqn: step count: residual: 
+   20.1287
+
+    35
+
+       70050
+
+   1.0007e-07
+
+time: neqn: step count: residual: 
+   20.1431
+
+    35
+
+       70100
+
+   1.0097e-07
+
+time: neqn: step count: residual: 
+   20.1575
+
+    35
+
+       70150
+
+   1.0197e-07
+
+time: neqn: step count: residual: 
+   20.1718
+
+    35
+
+       70200
+
+   1.0301e-07
+
+time: neqn: step count: residual: 
+   20.1862
+
+    35
+
+       70250
+
+   1.0408e-07
+
+time: neqn: step count: residual: 
+   20.2006
+
+    35
+
+       70300
+
+   1.0513e-07
+
+time: neqn: step count: residual: 
+   20.2149
+
+    35
+
+       70350
+
+   1.0614e-07
+
+time: neqn: step count: residual: 
+   20.2293
+
+    35
+
+       70400
+
+   1.0707e-07
+
+time: neqn: step count: residual: 
+   20.2437
+
+    35
+
+       70450
+
+   1.0791e-07
+
+time: neqn: step count: residual: 
+   20.2580
+
+    35
+
+       70500
+
+   1.0864e-07
+
+time: neqn: step count: residual: 
+   20.2724
+
+    35
+
+       70550
+
+   1.0924e-07
+
+time: neqn: step count: residual: 
+   20.2868
+
+    35
+
+       70600
+
+   1.0970e-07
+
+time: neqn: step count: residual: 
+   20.3011
+
+    35
+
+       70650
+
+   1.1001e-07
+
+time: neqn: step count: residual: 
+   20.3155
+
+    35
+
+       70700
+
+   1.1015e-07
+
+time: neqn: step count: residual: 
+   20.3299
+
+    35
+
+       70750
+
+   1.1013e-07
+
+time: neqn: step count: residual: 
+   20.3442
+
+    35
+
+       70800
+
+   1.0994e-07
+
+time: neqn: step count: residual: 
+   20.3586
+
+    35
+
+       70850
+
+   1.0957e-07
+
+time: neqn: step count: residual: 
+   20.3730
+
+    35
+
+       70900
+
+   1.0903e-07
+
+time: neqn: step count: residual: 
+   20.3873
+
+    35
+
+       70950
+
+   1.0831e-07
+
+time: neqn: step count: residual: 
+   20.4017
+
+    35
+
+       71000
+
+   1.0743e-07
+
+time: neqn: step count: residual: 
+   20.4161
+
+    35
+
+       71050
+
+   1.0637e-07
+
+time: neqn: step count: residual: 
+   20.4304
+
+    35
+
+       71100
+
+   1.0515e-07
+
+time: neqn: step count: residual: 
+   20.4448
+
+    35
+
+       71150
+
+   1.0377e-07
+
+time: neqn: step count: residual: 
+   20.4592
+
+    35
+
+       71200
+
+   1.0224e-07
+
+time: neqn: step count: residual: 
+   20.4735
+
+    35
+
+       71250
+
+   1.0056e-07
+
+time: neqn: step count: residual: 
+   20.4879
+
+    35
+
+       71300
+
+   9.8751e-08
+
+time: neqn: step count: residual: 
+   20.5023
+
+    35
+
+       71350
+
+   9.6812e-08
+
+time: neqn: step count: residual: 
+   20.5166
+
+    35
+
+       71400
+
+   9.4755e-08
+
+time: neqn: step count: residual: 
+   20.5310
+
+    35
+
+       71450
+
+   9.2591e-08
+
+time: neqn: step count: residual: 
+   20.5454
+
+    35
+
+       71500
+
+   9.0331e-08
+
+time: neqn: step count: residual: 
+   20.5598
+
+    35
+
+       71550
+
+   8.7988e-08
+
+time: neqn: step count: residual: 
+   20.5741
+
+    35
+
+       71600
+
+   8.5573e-08
+
+time: neqn: step count: residual: 
+   20.5885
+
+    35
+
+       71650
+
+   8.3099e-08
+
+time: neqn: step count: residual: 
+   20.6029
+
+    35
+
+       71700
+
+   8.0580e-08
+
+time: neqn: step count: residual: 
+   20.6172
+
+    35
+
+       71750
+
+   7.8030e-08
+
+time: neqn: step count: residual: 
+   20.6316
+
+    35
+
+       71800
+
+   7.5463e-08
+
+time: neqn: step count: residual: 
+   20.6460
+
+    35
+
+       71850
+
+   7.2894e-08
+
+time: neqn: step count: residual: 
+   20.6603
+
+    35
+
+       71900
+
+   7.0340e-08
+
+time: neqn: step count: residual: 
+   20.6747
+
+    35
+
+       71950
+
+   6.7815e-08
+
+time: neqn: step count: residual: 
+   20.6891
+
+    35
+
+       72000
+
+   6.5337e-08
+
+time: neqn: step count: residual: 
+   20.7034
+
+    35
+
+       72050
+
+   6.2922e-08
+
+time: neqn: step count: residual: 
+   20.7178
+
+    35
+
+       72100
+
+   6.0587e-08
+
+time: neqn: step count: residual: 
+   20.7322
+
+    35
+
+       72150
+
+   5.8349e-08
+
+time: neqn: step count: residual: 
+   20.7465
+
+    35
+
+       72200
+
+   5.6225e-08
+
+time: neqn: step count: residual: 
+   20.7609
+
+    35
+
+       72250
+
+   5.4232e-08
+
+time: neqn: step count: residual: 
+   20.7753
+
+    35
+
+       72300
+
+   5.2385e-08
+
+time: neqn: step count: residual: 
+   20.7896
+
+    35
+
+       72350
+
+   5.0698e-08
+
+time: neqn: step count: residual: 
+   20.8040
+
+    35
+
+       72400
+
+   4.9184e-08
+
+time: neqn: step count: residual: 
+   20.8184
+
+    35
+
+       72450
+
+   4.7854e-08
+
+time: neqn: step count: residual: 
+   20.8327
+
+    35
+
+       72500
+
+   4.6713e-08
+
+time: neqn: step count: residual: 
+   20.8471
+
+    35
+
+       72550
+
+   4.5766e-08
+
+time: neqn: step count: residual: 
+   20.8615
+
+    35
+
+       72600
+
+   4.5012e-08
+
+time: neqn: step count: residual: 
+   20.8758
+
+    35
+
+       72650
+
+   4.4446e-08
+
+time: neqn: step count: residual: 
+   20.8902
+
+    35
+
+       72700
+
+   4.4060e-08
+
+time: neqn: step count: residual: 
+   20.9046
+
+    35
+
+       72750
+
+   4.3842e-08
+
+time: neqn: step count: residual: 
+   20.9189
+
+    35
+
+       72800
+
+   4.3776e-08
+
+time: neqn: step count: residual: 
+   20.9333
+
+    35
+
+       72850
+
+   4.3845e-08
+
+time: neqn: step count: residual: 
+   20.9477
+
+    35
+
+       72900
+
+   4.4030e-08
+
+time: neqn: step count: residual: 
+   20.9620
+
+    35
+
+       72950
+
+   4.4310e-08
+
+time: neqn: step count: residual: 
+   20.9764
+
+    35
+
+       73000
+
+   4.4666e-08
+
+time: neqn: step count: residual: 
+   20.9908
+
+    35
+
+       73050
+
+   4.5078e-08
+
+time: neqn: step count: residual: 
+   21.0051
+
+    35
+
+       73100
+
+   4.5528e-08
+
+time: neqn: step count: residual: 
+   21.0195
+
+    35
+
+       73150
+
+   4.5998e-08
+
+time: neqn: step count: residual: 
+   21.0339
+
+    35
+
+       73200
+
+   4.6473e-08
+
+time: neqn: step count: residual: 
+   21.0482
+
+    35
+
+       73250
+
+   4.6937e-08
+
+time: neqn: step count: residual: 
+   21.0626
+
+    35
+
+       73300
+
+   4.7379e-08
+
+time: neqn: step count: residual: 
+   21.0770
+
+    35
+
+       73350
+
+   4.7787e-08
+
+time: neqn: step count: residual: 
+   21.0913
+
+    35
+
+       73400
+
+   4.8152e-08
+
+time: neqn: step count: residual: 
+   21.1057
+
+    35
+
+       73450
+
+   4.8465e-08
+
+time: neqn: step count: residual: 
+   21.1201
+
+    35
+
+       73500
+
+   4.8719e-08
+
+time: neqn: step count: residual: 
+   21.1344
+
+    35
+
+       73550
+
+   4.8910e-08
+
+time: neqn: step count: residual: 
+   21.1488
+
+    35
+
+       73600
+
+   4.9031e-08
+
+time: neqn: step count: residual: 
+   21.1632
+
+    35
+
+       73650
+
+   4.9080e-08
+
+time: neqn: step count: residual: 
+   21.1776
+
+    35
+
+       73700
+
+   4.9054e-08
+
+time: neqn: step count: residual: 
+   21.1919
+
+    35
+
+       73750
+
+   4.8951e-08
+
+time: neqn: step count: residual: 
+   21.2063
+
+    35
+
+       73800
+
+   4.8771e-08
+
+time: neqn: step count: residual: 
+   21.2207
+
+    35
+
+       73850
+
+   4.8512e-08
+
+time: neqn: step count: residual: 
+   21.2350
+
+    35
+
+       73900
+
+   4.8177e-08
+
+time: neqn: step count: residual: 
+   21.2494
+
+    35
+
+       73950
+
+   4.7765e-08
+
+time: neqn: step count: residual: 
+   21.2638
+
+    35
+
+       74000
+
+   4.7278e-08
+
+time: neqn: step count: residual: 
+   21.2781
+
+    35
+
+       74050
+
+   4.6718e-08
+
+time: neqn: step count: residual: 
+   21.2925
+
+    35
+
+       74100
+
+   4.6089e-08
+
+time: neqn: step count: residual: 
+   21.3069
+
+    35
+
+       74150
+
+   4.5392e-08
+
+time: neqn: step count: residual: 
+   21.3212
+
+    35
+
+       74200
+
+   4.4632e-08
+
+time: neqn: step count: residual: 
+   21.3356
+
+    35
+
+       74250
+
+   4.3812e-08
+
+time: neqn: step count: residual: 
+   21.3500
+
+    35
+
+       74300
+
+   4.2936e-08
+
+time: neqn: step count: residual: 
+   21.3643
+
+    35
+
+       74350
+
+   4.2009e-08
+
+time: neqn: step count: residual: 
+   21.3787
+
+    35
+
+       74400
+
+   4.1035e-08
+
+time: neqn: step count: residual: 
+   21.3931
+
+    35
+
+       74450
+
+   4.0020e-08
+
+time: neqn: step count: residual: 
+   21.4074
+
+    35
+
+       74500
+
+   3.8968e-08
+
+time: neqn: step count: residual: 
+   21.4218
+
+    35
+
+       74550
+
+   3.7886e-08
+
+time: neqn: step count: residual: 
+   21.4362
+
+    35
+
+       74600
+
+   3.6779e-08
+
+time: neqn: step count: residual: 
+   21.4505
+
+    35
+
+       74650
+
+   3.5653e-08
+
+time: neqn: step count: residual: 
+   21.4649
+
+    35
+
+       74700
+
+   3.4515e-08
+
+time: neqn: step count: residual: 
+   21.4793
+
+    35
+
+       74750
+
+   3.3370e-08
+
+time: neqn: step count: residual: 
+   21.4936
+
+    35
+
+       74800
+
+   3.2227e-08
+
+time: neqn: step count: residual: 
+   21.5080
+
+    35
+
+       74850
+
+   3.1091e-08
+
+time: neqn: step count: residual: 
+   21.5224
+
+    35
+
+       74900
+
+   2.9970e-08
+
+time: neqn: step count: residual: 
+   21.5367
+
+    35
+
+       74950
+
+   2.8872e-08
+
+time: neqn: step count: residual: 
+   21.5511
+
+    35
+
+       75000
+
+   2.7803e-08
+
+time: neqn: step count: residual: 
+   21.5655
+
+    35
+
+       75050
+
+   2.6771e-08
+
+time: neqn: step count: residual: 
+   21.5798
+
+    35
+
+       75100
+
+   2.5785e-08
+
+time: neqn: step count: residual: 
+   21.5942
+
+    35
+
+       75150
+
+   2.4850e-08
+
+time: neqn: step count: residual: 
+   21.6086
+
+    35
+
+       75200
+
+   2.3976e-08
+
+time: neqn: step count: residual: 
+   21.6229
+
+    35
+
+       75250
+
+   2.3168e-08
+
+time: neqn: step count: residual: 
+   21.6373
+
+    35
+
+       75300
+
+   2.2433e-08
+
+time: neqn: step count: residual: 
+   21.6517
+
+    35
+
+       75350
+
+   2.1776e-08
+
+time: neqn: step count: residual: 
+   21.6660
+
+    35
+
+       75400
+
+   2.1202e-08
+
+time: neqn: step count: residual: 
+   21.6804
+
+    35
+
+       75450
+
+   2.0712e-08
+
+time: neqn: step count: residual: 
+   21.6948
+
+    35
+
+       75500
+
+   2.0309e-08
+
+time: neqn: step count: residual: 
+   21.7091
+
+    35
+
+       75550
+
+   1.9992e-08
+
+time: neqn: step count: residual: 
+   21.7235
+
+    35
+
+       75600
+
+   1.9758e-08
+
+time: neqn: step count: residual: 
+   21.7379
+
+    35
+
+       75650
+
+   1.9602e-08
+
+time: neqn: step count: residual: 
+   21.7522
+
+    35
+
+       75700
+
+   1.9521e-08
+
+time: neqn: step count: residual: 
+   21.7666
+
+    35
+
+       75750
+
+   1.9505e-08
+
+time: neqn: step count: residual: 
+   21.7810
+
+    35
+
+       75800
+
+   1.9548e-08
+
+time: neqn: step count: residual: 
+   21.7953
+
+    35
+
+       75850
+
+   1.9640e-08
+
+time: neqn: step count: residual: 
+   21.8097
+
+    35
+
+       75900
+
+   1.9773e-08
+
+time: neqn: step count: residual: 
+   21.8241
+
+    35
+
+       75950
+
+   1.9938e-08
+
+time: neqn: step count: residual: 
+   21.8385
+
+    35
+
+       76000
+
+   2.0126e-08
+
+time: neqn: step count: residual: 
+   21.8528
+
+    35
+
+       76050
+
+   2.0329e-08
+
+time: neqn: step count: residual: 
+   21.8672
+
+    35
+
+       76100
+
+   2.0539e-08
+
+time: neqn: step count: residual: 
+   21.8816
+
+    35
+
+       76150
+
+   2.0750e-08
+
+time: neqn: step count: residual: 
+   21.8959
+
+    35
+
+       76200
+
+   2.0955e-08
+
+time: neqn: step count: residual: 
+   21.9103
+
+    35
+
+       76250
+
+   2.1149e-08
+
+time: neqn: step count: residual: 
+   21.9247
+
+    35
+
+       76300
+
+   2.1327e-08
+
+time: neqn: step count: residual: 
+   21.9390
+
+    35
+
+       76350
+
+   2.1485e-08
+
+time: neqn: step count: residual: 
+   21.9534
+
+    35
+
+       76400
+
+   2.1619e-08
+
+time: neqn: step count: residual: 
+   21.9678
+
+    35
+
+       76450
+
+   2.1727e-08
+
+time: neqn: step count: residual: 
+   21.9821
+
+    35
+
+       76500
+
+   2.1805e-08
+
+time: neqn: step count: residual: 
+   21.9965
+
+    35
+
+       76550
+
+   2.1852e-08
+
+time: neqn: step count: residual: 
+   22.0109
+
+    35
+
+       76600
+
+   2.1866e-08
+
+time: neqn: step count: residual: 
+   22.0252
+
+    35
+
+       76650
+
+   2.1847e-08
+
+time: neqn: step count: residual: 
+   22.0396
+
+    35
+
+       76700
+
+   2.1794e-08
+
+time: neqn: step count: residual: 
+   22.0540
+
+    35
+
+       76750
+
+   2.1706e-08
+
+time: neqn: step count: residual: 
+   22.0683
+
+    35
+
+       76800
+
+   2.1584e-08
+
+time: neqn: step count: residual: 
+   22.0827
+
+    35
+
+       76850
+
+   2.1427e-08
+
+time: neqn: step count: residual: 
+   22.0971
+
+    35
+
+       76900
+
+   2.1236e-08
+
+time: neqn: step count: residual: 
+   22.1114
+
+    35
+
+       76950
+
+   2.1012e-08
+
+time: neqn: step count: residual: 
+   22.1258
+
+    35
+
+       77000
+
+   2.0756e-08
+
+time: neqn: step count: residual: 
+   22.1402
+
+    35
+
+       77050
+
+   2.0468e-08
+
+time: neqn: step count: residual: 
+   22.1545
+
+    35
+
+       77100
+
+   2.0152e-08
+
+time: neqn: step count: residual: 
+   22.1689
+
+    35
+
+       77150
+
+   1.9807e-08
+
+time: neqn: step count: residual: 
+   22.1833
+
+    35
+
+       77200
+
+   1.9436e-08
+
+time: neqn: step count: residual: 
+   22.1976
+
+    35
+
+       77250
+
+   1.9041e-08
+
+time: neqn: step count: residual: 
+   22.2120
+
+    35
+
+       77300
+
+   1.8623e-08
+
+time: neqn: step count: residual: 
+   22.2264
+
+    35
+
+       77350
+
+   1.8185e-08
+
+time: neqn: step count: residual: 
+   22.2407
+
+    35
+
+       77400
+
+   1.7729e-08
+
+time: neqn: step count: residual: 
+   22.2551
+
+    35
+
+       77450
+
+   1.7257e-08
+
+time: neqn: step count: residual: 
+   22.2695
+
+    35
+
+       77500
+
+   1.6772e-08
+
+time: neqn: step count: residual: 
+   22.2838
+
+    35
+
+       77550
+
+   1.6277e-08
+
+time: neqn: step count: residual: 
+   22.2982
+
+    35
+
+       77600
+
+   1.5774e-08
+
+time: neqn: step count: residual: 
+   22.3126
+
+    35
+
+       77650
+
+   1.5266e-08
+
+time: neqn: step count: residual: 
+   22.3269
+
+    35
+
+       77700
+
+   1.4756e-08
+
+time: neqn: step count: residual: 
+   22.3413
+
+    35
+
+       77750
+
+   1.4247e-08
+
+time: neqn: step count: residual: 
+   22.3557
+
+    35
+
+       77800
+
+   1.3742e-08
+
+time: neqn: step count: residual: 
+   22.3700
+
+    35
+
+       77850
+
+   1.3245e-08
+
+time: neqn: step count: residual: 
+   22.3844
+
+    35
+
+       77900
+
+   1.2758e-08
+
+time: neqn: step count: residual: 
+   22.3988
+
+    35
+
+       77950
+
+   1.2285e-08
+
+time: neqn: step count: residual: 
+   22.4131
+
+    35
+
+       78000
+
+   1.1829e-08
+
+time: neqn: step count: residual: 
+   22.4275
+
+    35
+
+       78050
+
+   1.1395e-08
+
+time: neqn: step count: residual: 
+   22.4419
+
+    35
+
+       78100
+
+   1.0984e-08
+
+time: neqn: step count: residual: 
+   22.4562
+
+    35
+
+       78150
+
+   1.0601e-08
+
+time: neqn: step count: residual: 
+   22.4706
+
+    35
+
+       78200
+
+   1.0248e-08
+
+78239 time steps
+CPU-times
+ advection:        4789.71s  100%
+plotting:            0.50s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:>> 
