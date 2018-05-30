@@ -11,7 +11,7 @@ if par.num_bc ~=2
 end   
 
 % find which of the given data is time dependent
-time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>5];
+time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>7];
         
 % if the number of arguments are greater than 3 then definitely we have 
 % an anisotropic source term.
@@ -88,7 +88,8 @@ t = 0; step_count = 0;
 for i = 1 : 2
     for j = 1:par.num_bc
         % need to convert to cell for the computations which follow
-        bc_g{j,i} = num2cell(capargs(par.bc_inhomo,par.B{j},j,par.Ax,par.Ay,i,t));
+        bc_g{j,i} = num2cell(capargs(par.bc_inhomo,par.B{j},j,par.Ax, ...
+                            par.Ay,i,U,par.all_w,t));
         
     end
 end
@@ -117,7 +118,7 @@ while t < par.t_end
                  for j = 1:par.num_bc
                      % need to convert to cell for the computations which follow
                      bc_g{j,i} = num2cell(capargs(par.bc_inhomo,par.B{j}, ...
-                                            j,par.Ax,par.Ay,i,t_temp(RK)));
+                                            j,par.Ax,par.Ay,i,UTemp,par.all_w,t_temp(RK)));
                      
                  end
              end

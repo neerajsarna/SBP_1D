@@ -1,5 +1,5 @@
 % we solve the Heat Conduction problem using discrete velocity method 
-function solve_Inflow2D_DVM(nc)
+function solve_wall2D_DVM(nc)
 
 par = struct(...
 'name','Inflow DVM',... % name of example
@@ -78,54 +78,54 @@ for i = 1 : 2
     end
 end
 
-density = compute_density(temp,par.Ax,par.Ay,par.all_w);
-[ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
-theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
-sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
-
-filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_theta1_Kn0p1.txt';
-dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
-dlmwrite(filename,density','delimiter','\t','-append','precision',10);
-dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
-dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
-dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
-dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
+% density = compute_density(temp,par.Ax,par.Ay,par.all_w);
+% [ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
+% theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
+% sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
+% 
+% filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_theta1_Kn0p1.txt';
+% dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
+% dlmwrite(filename,density','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
 
 end
 
 
-% working on inflow boundaries, we consider vacuum boundary conditions
-function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,t)
+% working on wall boundary conditions
+function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,all_weights,t)
 
-    rho = 0;
+    % tangential velocity and normal velocity of the wall
     ux = 0;
     uy = 0;
     
+    f = diag(B) * 0;
+    
     if t <= 1
-        thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+        thetaW = exp(-1/(1-(t-1)^2)) * exp(1);
     else
-        thetaIn = 1;
+        thetaW = 1;
     end
   
    
-    
     id = find(diag(B) == 1);
     
     switch bc_id
         % boundary at x = x_start
         case 1
             % thetaIn = -1 at x = 0
-            thetaIn = -thetaIn;
-    
-            for i = 1 : length(id)
-                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-            end
+            thetaW = -thetaW;
+  
+            rhoW = compute_rhoW(Ax,U,thetaW,all_weights,bc_id);
             
         case 2
-            
-            for i = 1 : length(id)
-                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-            end
+            rhoW = compute_rhoW(Ax,U,thetaW,all_weights,bc_id);
+    end
+    
+    for i = 1 : length(id)
+        f(id(i)) = compute_fM(Ax,Ay,rhoW,ux,uy,thetaW,id(i),id_sys);
     end
 
 end
@@ -197,10 +197,13 @@ all_weights_y = diag(Ay).*all_weights;
 
 % loop over the grid
 for i = 1 : grid_points
+    
+    % we only require g in the computation of velocity
     temp = cell2mat(cellfun(@(a) a(i),U(1,:),'Un',0));
     if size(temp,1) ~= size(all_weights_x,1)
         temp = reshape(temp,size(all_weights_x));
     end
+    
     vx(i) = sum(all_weights_x.*temp);
     vy(i) = sum(all_weights_y.*temp);
 end
@@ -271,7 +274,6 @@ end
 
 end
 
-
 % compute the Maxwellian, there are two maxellians, one corresponding to
 % g and one for h
 function f = compute_fM(Ax,Ay,rho,ux,uy,theta,id,id_sys)
@@ -288,6 +290,61 @@ switch id_sys
     % maxwellian for h
     case 2
         f = theta * f0(vx,vy)/sqrt(2);
+end
+
+end
+
+% we need to compute rho at the wall
+function rhoW = compute_rhoW(Ax,U,thetaW,all_weights,bc_id)
+
+all_vx = diag(Ax);
+
+switch bc_id
+    % at x = 1
+    case 2
+        
+        % position of positive velocities
+        pos_vp = find(all_vx>0);
+        
+        % scale by velocity
+        all_weights_x = all_vx(pos_vp).*all_weights(pos_vp);
+        
+        % we only require g in the computation of velocity
+        temp = cell2mat(cellfun(@(a) a(end),U(1,:),'Un',0));
+        if size(temp,1) ~= size(all_vx,1)
+            temp = reshape(temp,size(all_vx));
+        end
+        
+        % velocity along x correponding to positive molecular velocities
+        vx_p = sum(all_weights_x.*temp(pos_vp));
+        
+        % now compute rhoW
+        rhoW = vx_p - thetaW * HermiteHalfSpace(2,1)/sqrt(2);
+        
+        rhoW = rhoW/HermiteHalfSpace(1,0);
+        
+            % at x = 0
+    case 1
+        
+        % position of negative velocities
+        pos_vm = find(all_vx<0);
+        
+        % scale by velocity
+        all_weights_x = all_vx(pos_vm).*all_weights(pos_vm);
+        
+        % we only require g in the computation of velocity
+        temp = cell2mat(cellfun(@(a) a(1),U(1,:),'Un',0));
+        if size(temp,1) ~= size(all_vx,1)
+            temp = reshape(temp,size(all_vx));
+        end
+        
+        % velocity along x correponding to positive molecular velocities
+        vx_m = sum(all_weights_x.*temp(pos_vm));
+        
+        % now compute rhoW
+        rhoW = -vx_m - thetaW * HermiteHalfSpace(2,1)/sqrt(2);
+        
+        rhoW = rhoW/HermiteHalfSpace(1,0);
 end
 
 end

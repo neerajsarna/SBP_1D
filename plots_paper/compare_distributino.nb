@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    215215,       4708]
-NotebookOptionsPosition[    208298,       4529]
-NotebookOutlinePosition[    208653,       4545]
-CellTagsIndexPosition[    208610,       4542]
+NotebookDataLength[    215894,       4732]
+NotebookOptionsPosition[    208737,       4547]
+NotebookOutlinePosition[    209092,       4563]
+CellTagsIndexPosition[    209049,       4560]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -4523,8 +4523,26 @@ byDjvr6Axx8k/F7C4xccPLav4PEP8e4rePoAO6/1NTz9QML3DTx9nT0DAm/g
  CellChangeTimes->{3.736607963183063*^9, 
   3.736608020425805*^9},ExpressionUUID->"99adb683-e8c7-4b1b-a637-\
 3de7da6f7012"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"HSpcInt", "[", 
+  RowBox[{"2", ",", "1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.736611414696485*^9, 
+  3.736611415904561*^9}},ExpressionUUID->"9eb4bd84-37c9-4141-947e-\
+cb6425fc34bb"],
+
+Cell[BoxData[
+ FractionBox["1", 
+  RowBox[{"2", " ", 
+   SqrtBox["\[Pi]"]}]]], "Output",
+ CellChangeTimes->{
+  3.736611416258244*^9},ExpressionUUID->"5048c6a6-94d4-4dea-955c-\
+845f36377fe1"]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1041, 689},
@@ -4707,8 +4725,14 @@ Cell[176293, 3849, 1738, 43, 96, "Input", "ExpressionUUID" -> \
 "226e476e-fbfa-48e9-a43e-db40588663fa"],
 Cell[178034, 3894, 30224, 630, 391, "Output", "ExpressionUUID" -> \
 "99adb683-e8c7-4b1b-a637-3de7da6f7012"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[208295, 4529, 209, 5, 32, "Input", "ExpressionUUID" -> \
+"9eb4bd84-37c9-4141-947e-cb6425fc34bb"],
+Cell[208507, 4536, 190, 6, 52, "Output", "ExpressionUUID" -> \
+"5048c6a6-94d4-4dea-955c-845f36377fe1"]
 }, Open  ]]
-}, Closed]]
+}, Open  ]]
 }, Open  ]]
 }
 ]

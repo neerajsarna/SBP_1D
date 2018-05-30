@@ -54,7 +54,7 @@ par.B{1} = dvlp_B_ID1(par.B{2},M);
 [par.penalty{2}] = dvlp_penalty_odd(par.Ax,M);
 par.penalty{1} = par.penalty{2};
 
-%we remove the variables which are not coupled to density
+% we remove the variables which are not coupled to density
 [par.id_all,par.id_local_odd,par.idx_trun,par.idx_trun_odd,par.idx_trun_even] =  Trun_id(M);
 par.Ax = par.Ax(par.id_all,par.id_all);
 par.P = par.P(par.id_all,par.id_all);
