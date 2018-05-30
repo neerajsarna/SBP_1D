@@ -270,7 +270,7 @@ while t < par.t_end
         
         %plot(X,U{1},'-o');
         xlim(par.ax);
-        ylim([-0.2 0.2]);        
+        ylim([-1 1]);        
         drawnow;
     end
     

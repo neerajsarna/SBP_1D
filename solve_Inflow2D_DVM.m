@@ -7,7 +7,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.5,... % the end time of the computation
+ 't_end',0.3,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -22,11 +22,9 @@ par = struct(...
 'compute_fM',@compute_fM ...
 );
 
-par.Kn = 0.1;
+par.Kn = inf;
 par.t_plot = false;
 par.n_eqn = (2 * nc) * (2 * nc);
-%par.n_eqn =nc;
-
 % number of points in the spatial discretization
 par.n = 50;
 
@@ -67,6 +65,7 @@ for i = 1 : par.num_bc
     par.penalty_B{i} = par.penalty{i} * par.B{i};
 end
 
+par.mass_matrix = mass_matrix_quad(par.Ax,par.Ay,par.all_w);
 result= solver_DVM_3D(par);
 
 %two different systems and so two rows
@@ -83,7 +82,7 @@ density = compute_density(temp,par.Ax,par.Ay,par.all_w);
 theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
 sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
 
-filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_theta1_Kn0p1.txt';
+filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_nc5_KnInf.txt';
 dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
 dlmwrite(filename,density','delimiter','\t','-append','precision',10);
 dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
@@ -107,31 +106,25 @@ function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,t)
         thetaIn = 1;
     end
   
-   
-    
     id = find(diag(B) == 1);
     
-    switch bc_id
-        % boundary at x = x_start
-        case 1
-            % thetaIn = -1 at x = 0
-            thetaIn = -thetaIn;
+    f = diag(B) * 0;
     
-            for i = 1 : length(id)
-                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-            end
-            
-        case 2
-            
-            for i = 1 : length(id)
-                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-            end
-    end
-
+%     switch bc_id
+%         % boundary at x = x_start
+%         case 1
+%             % thetaIn = -1 at x = 0
+%             thetaIn = -thetaIn;
+%             
+%     end
+%     
+%     for i = 1 : length(id)
+%         f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
+%     end
 end
         
 % we have two systems of the same type 
-function f = ic(x,id,Ax,Ay,sys_id)
+function f = ic(x,id,Ax,Ay,sys_id,mass_matrix)
 
 density = exp(-(x-0.5).*(x-0.5)*100);
 %density = zeros(length(x),1);
@@ -142,17 +135,21 @@ vx = Ax(id,id);
 % velocity in the y-direction
 vy = Ay(id,id);
 
+temp = arrayfun(@(a) minimize_entropy(Ax,Ay,mass_matrix,...
+                                     a,0,0,0,sys_id),density,'Un',0);
+
 switch sys_id
     % value for g
     case 1  
         %f = density * f0(vx,vy);
-        f = density * 0;
+        f = cell2mat(cellfun(@(a) a(id),temp(:),'Un',0));
         
     % value for h
     case 2
         f = density * 0;
 
 end
+f = reshape(f,size(density));
 
 end
 

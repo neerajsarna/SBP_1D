@@ -144,9 +144,6 @@ end
 residual = 100 * ones(length(X),1);
 
 while norm(residual) > 10^(-7) || step_count < 500
-
-    
-   
     
     residual = 0 * ones(length(X),1);
     

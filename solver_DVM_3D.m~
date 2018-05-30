@@ -72,10 +72,6 @@ bc_scaling = InvPX(1,1);
 
 % we have two systems now, one corresponding to g and the other to h
 U = cell(2,par.n_eqn); dxU = U; UTemp = U; 
-fM = cell(2);
-
-fM{1} = zeros(par.n_eqn,length(X));
-fM{2} = zeros(par.n_eqn,length(X));
 
 % data structure for storing the values at the boundaries. The one coming
 % from Sigma * B and the one coming from Sigma * g are both stored in
@@ -85,7 +81,7 @@ k_RK = cell(4,2);
 
 for i = 1 : 2
     for j = 1:par.n_eqn
-        U{i,j} = X*0 + capargs(par.ic,X,j,par.Ax,par.Ay,i,par.mass_matrix);
+        U{i,j} = X*0 + capargs(par.ic,X,j,par.Ax,par.Ay,i);
         bc_values{i,j} = X*0;
     end
 end
@@ -141,25 +137,13 @@ while t < par.t_end || residual > 10^(-6)
              end
          end
          
-         rho = par.compute_density(UTemp,par.Ax,par.Ay,par.all_w);
-         [ux,uy] = par.compute_velocity(UTemp,par.Ax,par.Ay,par.all_w);
-         theta = par.compute_theta(UTemp,par.Ax,par.Ay,par.all_w);
-        
-         % we need to reconstruct the maxwellian
-         for i = 1 : 2
-             for k = 1 : length(X)
-                 fM{i}(:,k) = minimize_entropy(par.Ax,par.Ay,...
-                              par.mass_matrix,rho(k),ux(k),uy(k),theta(k),i);
-             end
-         end
-             
          % compute the derivatives for g and h
          for i = 1 : 2
              for j = 1 : par.n_eqn
                  dxU{i,j} = DX * UTemp{i,j};
              end
              
-          % extract all the value at x = x_start.
+             % extract all the value at x = x_start.
              bc_ID = 1;
              values = cellfun(@(a) a(1),UTemp(i,:),'Un',0);
              
@@ -193,7 +177,16 @@ while t < par.t_end || residual > 10^(-6)
                  end
              end
              
-            
+             rho = par.compute_density(UTemp,par.Ax,par.Ay,par.all_w);
+             [ux,uy] = par.compute_velocity(UTemp,par.Ax,par.Ay,par.all_w);
+             theta = par.compute_theta(UTemp,par.Ax,par.Ay,par.all_w);
+             
+             temp_fM = zeros(par.n_eqn,length(X));
+             
+             for k = 1 : length(X)
+                 temp_fM(:,k) = minimize_entropy(par.Ax,par.Ay,...
+                                        par.mass_matrix,rho(k),ux(k),uy(k),theta(k),i);
+             end
              
              for j = 1 : par.n_eqn
                  
@@ -202,9 +195,17 @@ while t < par.t_end || residual > 10^(-6)
                  
                  
                  k_RK{RK,i}{j} = (W + bc_values{i,j});
+                 
+                 % adding relaxation
+%                  k_RK{RK,i}{j} = k_RK{RK,i}{j} + ...
+%                      (-UTemp{i,j}+par.compute_fM(par.Ax,par.Ay,rho,ux,uy,theta,j,i))/par.Kn;
+                 
+             rho1 = par.compute_density(k_RK{RK,i},par.Ax,par.Ay,par.all_w);
+             [ux1,uy1] = par.compute_velocity(UTemp,par.Ax,par.Ay,par.all_w);
+             theta1 = par.compute_theta(UTemp,par.Ax,par.Ay,par.all_w);
              
                  k_RK{RK,i}{j} = k_RK{RK,i}{j} + ...
-                                 (-UTemp{i,j}+fM{i}(j,:)')/par.Kn;
+                                 (-UTemp{i,j}+temp_fM(j,:)')/par.Kn;
              end
          end
          
@@ -242,14 +243,18 @@ while t < par.t_end || residual > 10^(-6)
     t = t + par.dt;
     cputime(1) = cputime(1) + toc;
 
-
-    if mod(step_count,50) == 0
-        disp('time: neqn: step_count: residual: ');
-        disp(t);
-        disp(par.n_eqn);
-        disp(step_count);
-        disp(residual);
-    end
+    disp('residual:');
+    disp(residual);
+    
+    disp('time:');
+    disp(t);
+%     if mod(step_count,50) == 0
+%         disp('time: neqn: step_count: residual: ');
+%         disp(t);
+%         disp(par.n_eqn);
+%         disp(step_count);
+%         disp(residual);
+%     end
     
     tic
     

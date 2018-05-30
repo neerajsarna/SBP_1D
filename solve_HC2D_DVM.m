@@ -1,5 +1,5 @@
 % we solve the Heat Conduction problem using discrete velocity method 
-function solve_wall2D_DVM(nc)
+function solve_HC2D_DVM(nc)
 
 par = struct(...
 'name','Inflow DVM',... % name of example
@@ -15,6 +15,7 @@ par = struct(...
  'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
 'save_during',false, ... % should we save during the computation
+'steady_state',true,... % are we looking for the steady state solution
 'compute_during', @compute_during, ...
 'compute_density',@compute_density, ...
 'compute_velocity',@compute_velocity, ...
@@ -67,7 +68,9 @@ for i = 1 : par.num_bc
     par.penalty_B{i} = par.penalty{i} * par.B{i};
 end
 
-result= solver_DVM_3D(par);
+par.mass_matrix = mass_matrix_quad(par.Ax,par.Ay,par.all_w);
+
+result = solver_DVM_3D(par);
 
 %two different systems and so two rows
 temp = cell(2,par.n_eqn);
@@ -78,18 +81,18 @@ for i = 1 : 2
     end
 end
 
-% density = compute_density(temp,par.Ax,par.Ay,par.all_w);
-% [ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
-% theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
-% sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
-% 
-% filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_theta1_Kn0p1.txt';
-% dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
-% dlmwrite(filename,density','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
+density = compute_density(temp,par.Ax,par.Ay,par.all_w);
+[ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
+theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
+sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
+
+filename = 'result_Comp_DVM_Mom/result_HC2D_DVM_theta1_Kn0p1.txt';
+dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
+dlmwrite(filename,density','delimiter','\t','-append','precision',10);
+dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
+dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
+dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
+dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
 
 end
 
@@ -117,16 +120,35 @@ function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,all_weights,t)
         case 1
             % thetaIn = -1 at x = 0
             thetaW = -thetaW;
-  
-            rhoW = compute_rhoW(Ax,U,thetaW,all_weights,bc_id);
+            temp = cell2mat(cellfun(@(a) a(1),U(1,:),'Un',0));
             
         case 2
-            rhoW = compute_rhoW(Ax,U,thetaW,all_weights,bc_id);
+            temp = cell2mat(cellfun(@(a) a(end),U(1,:),'Un',0));
+            
     end
+
+    rhoW = compute_rhoW(Ax,Ay,...
+          temp,thetaW,all_weights,bc_id);
     
     for i = 1 : length(id)
         f(id(i)) = compute_fM(Ax,Ay,rhoW,ux,uy,thetaW,id(i),id_sys);
     end
+    
+    % we check for the rho computation
+%     if bc_id == 2 && id_sys == 1 
+%         % value at the boundary
+%         temp = cell2mat(cellfun(@(a) a(end),U(1,:),'Un',0));
+%         
+%         temp = temp';
+%         
+%         % replace by the boundary conditions for negative velocities
+%         temp(id) = f(id);
+%         
+%         % compute the velocity corresponding to temp
+%         disp('wall velocity');
+%         disp(sum((diag(Ax).*all_weights).*temp));
+%     end
+    
 
 end
         
@@ -294,57 +316,68 @@ end
 
 end
 
-% we need to compute rho at the wall
-function rhoW = compute_rhoW(Ax,U,thetaW,all_weights,bc_id)
+function rhoW = compute_rhoW(Ax,Ay,U,thetaW,all_weights,bc_id)
+
+U = U';
 
 all_vx = diag(Ax);
+all_vy = diag(Ay);
+
+pos_vx_p = find(all_vx > 0);
+pos_vx_m = find(all_vx < 0);
+
+vx_p = all_vx(pos_vx_p);
+vx_m = all_vx(pos_vx_m);
+
+vy_p = all_vy(pos_vx_p);
+vy_m = all_vy(pos_vx_m);
+
+num_pos = length(vx_p);
+num_neg = length(vx_m);
+
+weight_vx_m = all_weights(pos_vx_m);
+weight_vx_p = all_weights(pos_vx_p);
+
+int_f0 = 0;
+int_f0_sq_vx = 0;
+int_f0_sq_vy = 0;
+
+int_f_vx = 0;
 
 switch bc_id
-    % at x = 1
+    
+    % x = 1
     case 2
         
-        % position of positive velocities
-        pos_vp = find(all_vx>0);
-        
-        % scale by velocity
-        all_weights_x = all_vx(pos_vp).*all_weights(pos_vp);
-        
-        % we only require g in the computation of velocity
-        temp = cell2mat(cellfun(@(a) a(end),U(1,:),'Un',0));
-        if size(temp,1) ~= size(all_vx,1)
-            temp = reshape(temp,size(all_vx));
+        % integrate the maxwellian
+        for i = 1 : num_neg
+            int_f0 = int_f0 + vx_m(i) * f0(vx_m(i),vy_m(i)) * weight_vx_m(i);
+            int_f0_sq_vx = int_f0_sq_vx + vx_m(i) * vx_m(i)^2 * f0(vx_m(i),vy_m(i)) * weight_vx_m(i);
+            int_f0_sq_vy = int_f0_sq_vy + vx_m(i) * vy_m(i)^2 * f0(vx_m(i),vy_m(i)) * weight_vx_m(i);
         end
         
-        % velocity along x correponding to positive molecular velocities
-        vx_p = sum(all_weights_x.*temp(pos_vp));
+        % integrate the kinetic solution
+        int_f_vx = sum((vx_p.*U(pos_vx_p)).*weight_vx_p);
+       
         
-        % now compute rhoW
-        rhoW = vx_p - thetaW * HermiteHalfSpace(2,1)/sqrt(2);
-        
-        rhoW = rhoW/HermiteHalfSpace(1,0);
-        
-            % at x = 0
     case 1
-        
-        % position of negative velocities
-        pos_vm = find(all_vx<0);
-        
-        % scale by velocity
-        all_weights_x = all_vx(pos_vm).*all_weights(pos_vm);
-        
-        % we only require g in the computation of velocity
-        temp = cell2mat(cellfun(@(a) a(1),U(1,:),'Un',0));
-        if size(temp,1) ~= size(all_vx,1)
-            temp = reshape(temp,size(all_vx));
+        % integrate the maxwellian
+        for i = 1 : num_pos
+            int_f0 = int_f0 + vx_p(i) * f0(vx_p(i),vy_p(i)) * weight_vx_p(i);
+            int_f0_sq_vx = int_f0_sq_vx + vx_p(i) * vx_p(i)^2 * f0(vx_p(i),vy_p(i)) * weight_vx_p(i);
+            int_f0_sq_vy = int_f0_sq_vy + vx_p(i) * vy_p(i)^2 * f0(vx_p(i),vy_p(i)) * weight_vx_p(i);
         end
         
-        % velocity along x correponding to positive molecular velocities
-        vx_m = sum(all_weights_x.*temp(pos_vm));
+        int_f_vx = sum((vx_m.*U(pos_vx_m)).*weight_vx_m);
         
-        % now compute rhoW
-        rhoW = -vx_m - thetaW * HermiteHalfSpace(2,1)/sqrt(2);
-        
-        rhoW = rhoW/HermiteHalfSpace(1,0);
 end
 
+        rhoW = -int_f_vx-thetaW * ((int_f0_sq_vx + int_f0_sq_vy)/2-int_f0);
+        
+        rhoW = rhoW/int_f0;
+
 end
+
+
+
+
