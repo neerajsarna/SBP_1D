@@ -23,7 +23,7 @@ par = struct(...
 );
 
 par.Kn = 0.1;
-par.t_plot = true;
+par.t_plot = false;
 par.n_eqn = (2 * nc) * (2 * nc);
 %par.n_eqn =nc;
 
