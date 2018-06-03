@@ -42,7 +42,7 @@ par.penalty = cell(par.num_bc,1);
 par.B{2} = dvlp_BInflow2D(M);
 par.Ax = dvlp_Ax2D(M);
 par.P = dvlp_Prod2D(M);
-par.Kn = 0.1;
+par.Kn = inf;
 
 % stabilise the boundary conditions with Onsager
 par.B{2} = stabilize_boundary(par.Ax,par.B{2},M);
@@ -85,8 +85,8 @@ end
 function f = ic(x,id)
 
 if id == 1
-    %f = exp(-(x-0.5).*(x-0.5)*100);
-    f = zeros(length(x),1);
+    f = exp(-(x-0.5).*(x-0.5)*100);
+    %f = zeros(length(x),1);
     
 else
     f = zeros(length(x),1);
@@ -123,7 +123,7 @@ function f = bc_inhomo(B,bc_id,t)
             
     end
     
-    f = thetaIn * (B(:,3)+B(:,4)+B(:,5))/sqrt(2); 
+    f = 0 * (B(:,3)+B(:,4)+B(:,5))/sqrt(2); 
 
 end
 

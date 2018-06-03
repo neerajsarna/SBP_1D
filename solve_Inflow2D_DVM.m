@@ -23,10 +23,10 @@ par = struct(...
 );
 
 par.Kn = inf;
-par.t_plot = false;
+par.t_plot = true;
 par.n_eqn = (2 * nc) * (2 * nc);
 % number of points in the spatial discretization
-par.n = 50;
+par.n = 20;
 
 %[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-5,0);
@@ -82,7 +82,7 @@ density = compute_density(temp,par.Ax,par.Ay,par.all_w);
 theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
 sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
 
-filename = 'result_Comp_DVM_Mom/result_Inflow2D_DVM_nc5_KnInf.txt';
+filename = '/Users/neerajsarna/sciebo/StaRMAP_ver1p9/SBP_Traditional/generic_2D/sbp_sat/DVM/result_1D.txt';
 dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
 dlmwrite(filename,density','delimiter','\t','-append','precision',10);
 dlmwrite(filename,ux','delimiter','\t','-append','precision',10);

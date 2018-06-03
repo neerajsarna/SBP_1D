@@ -34,6 +34,9 @@ h = (par.ax(2)-par.ax(1))/par.n;
 % a crude approximation for delta_t
 par.dt = min(h)/abs(eigs(par.Ax,1,'lm'))/par.CFL;
 
+disp('delta t');
+disp(par.dt);
+
 % the grid in the x-direction 
 X = par.ax(1):h(1):par.ax(2);
 X = X';
@@ -107,8 +110,11 @@ end
 
 residual = 0;
 
-while t < par.t_end || residual > 10^(-6)
+%while t < par.t_end || residual > 10^(-6) || step_count > 1
+while step_count < 2
     
+    disp('STEP COUNT');
+    disp(step_count);
     
     residual = 0;
     
@@ -199,7 +205,6 @@ while t < par.t_end || residual > 10^(-6)
                  
                  % multiplication of the derivatives and the system matrices
                  W = -sumcell(dxU(i,Ix{j}),par.Ax(j,Ix{j}));
-                 
                  
                  k_RK{RK,i}{j} = (W + bc_values{i,j});
              
