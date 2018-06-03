@@ -110,12 +110,8 @@ end
 
 residual = 0;
 
-%while t < par.t_end || residual > 10^(-6) || step_count > 1
-while step_count < 2
-    
-    disp('STEP COUNT');
-    disp(step_count);
-    
+while t < par.t_end || residual > 10^(-5)
+   
     residual = 0;
     
     if ~par.steady_state
