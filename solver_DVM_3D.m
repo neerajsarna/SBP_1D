@@ -107,7 +107,7 @@ end
 
 residual = 0;
 
-while t < par.t_end || residual > 10^(-6)
+while t < par.t_end || residual > 10^(-5)
     
     
     residual = 0;
