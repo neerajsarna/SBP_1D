@@ -1,4 +1,4 @@
-function solve_inflow2D(M)
+function solve_inflow_1x3v(M)
 
 par = struct(...
 'name','Inflow2D',... % name of example
