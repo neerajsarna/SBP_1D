@@ -1,0 +1,185 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2017 The MathWorks, Inc.
+                   R2017b (9.3.0.713579) 64-bit (glnxa64)
+                             September 14, 2017
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: 
+    0.0278
+
+   200
+
+    50
+
+time: neqn: 
+    0.0556
+
+   200
+
+   100
+
+time: neqn: 
+    0.0833
+
+   200
+
+   150
+
+time: neqn: 
+    0.1111
+
+   200
+
+   200
+
+time: neqn: 
+    0.1389
+
+   200
+
+   250
+
+time: neqn: 
+    0.1667
+
+   200
+
+   300
+
+time: neqn: 
+    0.1945
+
+   200
+
+   350
+
+time: neqn: 
+    0.2223
+
+   200
+
+   400
+
+time: neqn: 
+    0.2500
+
+   200
+
+   450
+
+time: neqn: 
+    0.2778
+
+   200
+
+   500
+
+time: neqn: 
+    0.3056
+
+   200
+
+   550
+
+time: neqn: 
+    0.3334
+
+   200
+
+   600
+
+time: neqn: 
+    0.3612
+
+   200
+
+   650
+
+time: neqn: 
+    0.3889
+
+   200
+
+   700
+
+time: neqn: 
+    0.4167
+
+   200
+
+   750
+
+time: neqn: 
+    0.4445
+
+   200
+
+   800
+
+time: neqn: 
+    0.4723
+
+   200
+
+   850
+
+time: neqn: 
+    0.5001
+
+   200
+
+   900
+
+time: neqn: 
+    0.5279
+
+   200
+
+   950
+
+time: neqn: 
+    0.5556
+
+   200
+
+        1000
+
+time: neqn: 
+    0.5834
+
+   200
+
+        1050
+
+time: neqn: 
+    0.6112
+
+   200
+
+        1100
+
+time: neqn: 
+    0.6390
+
+   200
+
+        1150
+
+time: neqn: 
+    0.6667
+
+   200
+
+        1200
+
+1200 time steps
+CPU-times
+ advection:         202.25s   89%
+plotting:           26.11s   11%
+CPU-times
+ advection:           0.00s    0%
+plotting:

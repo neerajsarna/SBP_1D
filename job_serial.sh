@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[4,14,24,34,5,25,35,45,200]"
+#BSUB -J "MATLAB_ARRAY[100]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_inflow_fluctuateT_%I
@@ -24,6 +24,6 @@ module load matlab
  
 # start non-interactive batch job
 matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_inflow_fluctuateT_1x1v_$LSB_JOBINDEX.log <<EOF
-run solve_inflow_fluctuateT_1x1v($LSB_JOBINDEX);
+run solve_inflow_fluctuateT_1x1v_DVM($LSB_JOBINDEX);
 quit();
 EOF
