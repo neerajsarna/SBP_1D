@@ -20,7 +20,7 @@ par = struct(...
 
 par.t_plot = true;
 
-par.n = 300;
+par.n = 50;
 
 par.n_eqn = neqn;
 
@@ -56,10 +56,9 @@ end
 
 result = solver(par);
 
-output_filename = strcat('result_Inflow_fluctuateT_1x1v/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-write_result(result,output_filename);
-
+% output_filename = strcat('result_Inflow_fluctuateT_1x1v/inflow_tend_',...num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
+% write_result(result,output_filename);
 
 end
 
@@ -132,6 +131,7 @@ end
 int_f = norm_f * (t-t_Old);
 int_dx_f = norm_dx_f * (t-t_Old);
 int_dt_f = norm_dt_f * (t-t_Old);
+
 end
 
 function save_norms(int_f,int_dx_f,int_dt_f,n)

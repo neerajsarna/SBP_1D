@@ -261,7 +261,7 @@ while t < par.t_end
     
     if par.t_plot
         %plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
-        plot(X,U{2},'-o');
+        plot(X,U{1},'-o',X,U{2},X,U{3},X,U{4},X,U{5},X,U{6},X,U{7},X,U{7},X,U{8},X,U{9});
         
         %plot(X,U{1},'-o');
         xlim(par.ax);

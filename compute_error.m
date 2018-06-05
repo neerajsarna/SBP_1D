@@ -1,4 +1,4 @@
-function [convg_rate,expected_rate] = compute_error(M_values,n,n_ref,n_ref2, ...
+function [convg_rate,expected_rate] = compute_error(M_values,n,n_ref, ...
                                                     t_end,filename,foldername)
     
 
@@ -52,17 +52,16 @@ end
    %% compute the expected rate of convergence
    
     disp('regularity of reference ...');
-   [expected_rate,loc_truncate] = expected_convg_rate(n_ref,n_ref2,t_end,n,foldername,filename);
+   [expected_rate] = expected_convg_rate(n_ref, ...
+                                    t_end,n,foldername,filename);
 
-   disp('truncated at');
-   disp(loc_truncate);
    
-   [P_error,y_error] = polyfit_linear(log(M_values(find(M_values<loc_truncate))),log(errorTot(find(M_values<loc_truncate)))');
+   [P_error,y_error] = polyfit_linear(log(M_values),log(errorTot)');
     convg_rate = abs(P_error(1));
     
    %% plotting 
    figure(5);
-   loglog(M_values,errorTot,'-o',M_values(find(M_values<loc_truncate)),exp(y_error),'k-','MarkerSize',3);
+   loglog(M_values,errorTot,'-o',M_values,exp(y_error),'k-','MarkerSize',3);
    xlabel('M','FontSize',10);
    ylabel('||E_M||', 'FontSize',10);
    xlim([M_values(1) M_values(end)]);
