@@ -13,7 +13,7 @@ par = struct(...
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
  'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
-'save_during',true, ... % should we save during the computation
+'save_during',false, ... % should we save during the computation
 'compute_during', @compute_during, ...
 'save_norms', @save_norms ...
 );
@@ -85,7 +85,7 @@ f = zeros(length(x),1);
 end
 
 function f = relax(x,id)
-Kn = inf;
+Kn = 0.1;
 f = zeros(length(x),1);
 
 % anything above temperature has to be relaxed
