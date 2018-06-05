@@ -1,4 +1,4 @@
-function output = solver_DVM(par)
+function output = solver_DVM_1x1v(par)
 
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 
@@ -16,7 +16,7 @@ if par.num_bc ~=2
 end   
 
 % find which of the given data is time dependent
-time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>2];
+time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>3];
         
 % if the number of arguments are greater than 3 then definitely we have 
 % an anisotropic source term.
@@ -104,7 +104,7 @@ end
 % compute the boundary inhomogeneity
 for j = 1:par.num_bc
     % need to convert to cell for the computations which follow
-    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,t));
+    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,par.Ax,t));
    
 end
 
@@ -139,7 +139,8 @@ while t < par.t_end
             if evaluate(2)
                 for j = 1:par.num_bc
                  % need to convert to cell for the computations which follow
-                    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,t_temp(RK)));
+                    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j}, ...
+                                    j,par.Ax,t_temp(RK)));
    
                 end
             end
@@ -230,13 +231,13 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        var_plot = par.compute_density(U,par.Ax,par.all_w);
+        var_plot = par.compute_alpha2(U,par.Ax,par.all_w);
         %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
         %plot(diag(par.Ax),var_plot,'-o');
         plot(X,var_plot,'-o');
         %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
-        ylim([0 0.1]);        
+        ylim([0 1]);        
         drawnow;
     end
     

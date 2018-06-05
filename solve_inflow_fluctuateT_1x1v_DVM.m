@@ -1,5 +1,5 @@
 % we solve the inflow problem using discrete velocity method 
-function solve_inflow_1x1v_DVM(nc)
+function solve_inflow_fluctuateT_1x1v_DVM(nc)
 
 par = struct(...
 'name','Inflow DVM',... % name of example
@@ -7,7 +7,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
+ 't_end',2/3,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -23,11 +23,11 @@ par = struct(...
 );
 
 par.Kn = 0.1;
-par.t_plot = false;
+par.t_plot = true;
 par.n_eqn = 2 * nc;
 %par.n_eqn =nc;
 
-par.n = 100;
+par.n = 300;
 %[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-3,0);
 [par.x_p,par.w_p] = gauss_quadrature(nc,0,3);
@@ -54,58 +54,69 @@ for i = 1 : par.num_bc
     par.penalty_B{i} = par.penalty{i} * par.B{i};
 end
 
-result= solver_DVM(par);
+result= solver_DVM_1x1v(par);
 
-% temp = cell(length(result),1);
-% 
-% for i = 1 : length(temp)
-%     temp{i} = result(i).sol;
-% end
-% 
-% density = compute_density(temp,par.Ax,par.all_w);
-% u = compute_velocity(temp,par.Ax,par.all_w);
-% alpha2 = compute_alpha2(temp,par.Ax,par.all_w);
+temp = cell(length(result),1);
 
-% filename = strcat('result_Inflow/DVM_inflow_tend_',num2str(par.t_end),...
-%                         '_points_',num2str(par.n),'_neqn_');
-% filename = strcat(filename,num2str(nc),'.txt');
-% 
-% dlmwrite(filename,result(1).X','delimiter','\t','precision',10);
-% dlmwrite(filename,density','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,u','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,alpha2','delimiter','\t','-append','precision',10);
-
-% a plot of the distribution function along the x and the velocity space
-temp = zeros(length(result),length(result(1).X));
-
-[v_grid,sort_grid] = sort([par.x_m',par.x_p']);
-
-for i = 1:length(result)
-    temp(i,:) = result(sort_grid(i)).sol;
+for i = 1 : length(temp)
+    temp{i} = result(i).sol;
 end
 
-[x_mesh,v_mesh] = meshgrid(result(1).X,v_grid);
+density = compute_density(temp,par.Ax,par.all_w);
+u = compute_velocity(temp,par.Ax,par.all_w);
+alpha2 = compute_alpha2(temp,par.Ax,par.all_w);
 
-surf(x_mesh,v_mesh,temp);
+filename = strcat('result_Inflow_fluctuateT_1x1v/DVM_inflow_tend_',num2str(par.t_end),...
+                        '_points_',num2str(par.n),'_neqn_');
+filename = strcat(filename,num2str(nc),'.txt');
 
-output_filename = strcat('result_Inflow/DVM_inflow_', ...
-                        num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-output_filename = strcat(output_filename,num2str(nc),'.txt');
+dlmwrite(filename,result(1).X','delimiter','\t','precision',10);
+dlmwrite(filename,density','delimiter','\t','-append','precision',10);
+dlmwrite(filename,u','delimiter','\t','-append','precision',10);
+dlmwrite(filename,alpha2','delimiter','\t','-append','precision',10);
 
-dlmwrite(output_filename,result(1).X','delimiter','\t','precision',10);
-dlmwrite(output_filename,v_grid,'-append','delimiter','\t','precision',10);
-dlmwrite(output_filename,temp,'-append','delimiter','\t','precision',10);
+% a plot of the distribution function along the x and the velocity space
+% temp = zeros(length(result),length(result(1).X));
+% 
+% [v_grid,sort_grid] = sort([par.x_m',par.x_p']);
+% 
+% for i = 1:length(result)
+%     temp(i,:) = result(sort_grid(i)).sol;
+% end
+% 
+% [x_mesh,v_mesh] = meshgrid(result(1).X,v_grid);
+% 
+% surf(x_mesh,v_mesh,temp);
+% 
+% output_filename = strcat('result_Inflow/DVM_inflow_', ...
+%                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat(output_filename,num2str(nc),'.txt');
+% 
+% dlmwrite(output_filename,result(1).X','delimiter','\t','precision',10);
+% dlmwrite(output_filename,v_grid,'-append','delimiter','\t','precision',10);
+% dlmwrite(output_filename,temp,'-append','delimiter','\t','precision',10);
 
 end
 
 
 % working on inflow boundaries, we consider vacum boundary conditions
-function f = bc_inhomo(B,bc_id)
+function f = bc_inhomo(B,bc_id,Ax,t)
+
+    uIn = 0;
+    rhoIn = 0;
+    
+    id = find(diag(B) ~= 0);
+    
+    f = B(:,1) * 0;
     switch bc_id
         % boundary at x = x_start
         case 1
-            thetaIn = 0;
-            f = thetaIn * B(:,3)/sqrt(2); 
+            thetaIn = 1 + cos(3 * pi * (t-1));
+            alpha2In = thetaIn / sqrt(2);
+            for i = 1 : length(id)
+                index = id(i);
+                f(index) = compute_fM(Ax,rhoIn,uIn,alpha2In,index);
+            end
             
         case 2
             thetaIn = 0;
@@ -115,12 +126,7 @@ function f = bc_inhomo(B,bc_id)
 end
         
 function f = ic(x,id,Ax)
-density = exp(-(x-0.5).*(x-0.5)*100);
-
-% the velocity corresponding to the id
-v = Ax(id,id);
-
-f = density * f0(v);
+f = zeros(length(x),1);
 end
 
 function f = f0(v)
@@ -139,13 +145,10 @@ grid_points = length(U{1});
 f = zeros(grid_points,1);
 
 % loop over the grid
-for i = 1 : grid_points
-    temp = cell2mat(cellfun(@(a) a(i),U,'Un',0));
-    % might need to reshape
-    if size(temp,1) ~= size(all_weights,1)
-        temp = reshape(temp,size(all_weights));
+for j = 1 : length(all_weights)
+    for i = 1 : grid_points
+        f(i) = all_weights(j) * U{j}(i) + f(i);
     end
-    f(i) = sum(all_weights.*temp);
 end
 
 end
@@ -159,12 +162,10 @@ f = zeros(grid_points,1);
 all_weights = diag(Ax)'.*all_weights;
 
 % loop over the grid
-for i = 1 : grid_points
-    temp = cell2mat(cellfun(@(a) a(i),U,'Un',0));
-    if size(temp,1) ~= size(all_weights,1)
-        temp = reshape(temp,size(all_weights));
+for j = 1 : length(all_weights)
+    for i = 1 : grid_points
+        f(i) = all_weights(j) * U{j}(i) + f(i);
     end
-    f(i) = sum(all_weights.*temp);
 end
 
 end
@@ -179,12 +180,10 @@ f = zeros(grid_points,1);
 all_weights = (diag(Ax)'.*diag(Ax)'-1).*all_weights/sqrt(2);
 
 % loop over the grid
-for i = 1 : grid_points
-    temp = cell2mat(cellfun(@(a) a(i),U,'Un',0));
-    if size(temp,1) ~= size(all_weights,1)
-        temp = reshape(temp,size(all_weights));
+for j = 1 : length(all_weights)
+    for i = 1 : grid_points
+        f(i) = all_weights(j) * U{j}(i) + f(i);
     end
-    f(i) = sum(all_weights.*temp);
 end
 
 end
