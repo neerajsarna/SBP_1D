@@ -53,10 +53,9 @@ end
 
 result = solver(par);
 
-% output_filename = strcat('result_Inflow/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-% output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-% write_result(result,output_filename);
-
+output_filename = strcat('result_Inflow/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat(output_filename,num2str(par.n_eqn),'_Kn_','1p0','.txt');
+write_result(result,output_filename);
 
 end
 
@@ -86,7 +85,7 @@ end
 end
 
 function f = relax(x,id)
-Kn = 0.1;
+Kn = 1.0;
 f = zeros(length(x),1);
 
 % anything above temperature has to be relaxed
