@@ -1,5 +1,5 @@
 % we solve the Heat Conduction problem using discrete velocity method 
-function solve_Inflow2D_DVM(nc)
+function solve_Inflow_1x3v_DVM(nc)
 
 par = struct(...
 'name','Inflow DVM',... % name of example
@@ -22,11 +22,11 @@ par = struct(...
 'compute_fM',@compute_fM ...
 );
 
-par.Kn = inf;
+par.Kn = 0.1;
 par.t_plot = true;
 par.n_eqn = (2 * nc) * (2 * nc);
 % number of points in the spatial discretization
-par.n = 20;
+par.n = 50;
 
 %[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-5,0);
@@ -66,7 +66,7 @@ for i = 1 : par.num_bc
 end
 
 par.mass_matrix = mass_matrix_quad(par.Ax,par.Ay,par.all_w);
-result= solver_DVM_3D(par);
+result= solver_DVM_1x3v(par);
 
 %two different systems and so two rows
 temp = cell(2,par.n_eqn);
@@ -82,7 +82,8 @@ density = compute_density(temp,par.Ax,par.Ay,par.all_w);
 theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
 sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
 
-filename = '/Users/neerajsarna/sciebo/StaRMAP_ver1p9/SBP_Traditional/generic_2D/sbp_sat/DVM/result_1D.txt';
+filename = strcat('result_Comp_DVM_Mom/testing_DVM_', ...
+                            num2str(nc),'_theta1_Kn0p1','.txt');
 dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
 dlmwrite(filename,density','delimiter','\t','-append','precision',10);
 dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
@@ -94,7 +95,7 @@ end
 
 
 % working on inflow boundaries, we consider vacuum boundary conditions
-function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,t)
+function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,all_weights,t)
 
     rho = 0;
     ux = 0;
@@ -110,17 +111,17 @@ function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,t)
     
     f = diag(B) * 0;
     
-%     switch bc_id
-%         % boundary at x = x_start
-%         case 1
-%             % thetaIn = -1 at x = 0
-%             thetaIn = -thetaIn;
-%             
-%     end
-%     
-%     for i = 1 : length(id)
-%         f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
-%     end
+    switch bc_id
+        % boundary at x = x_start
+        case 1
+            % thetaIn = -1 at x = 0
+            for i = 1 : length(id)
+                f(id(i)) = compute_fM(Ax,Ay,rho,ux,uy,thetaIn,id(i),id_sys);
+            end
+            
+    end
+    
+
 end
         
 % we have two systems of the same type 
@@ -135,21 +136,23 @@ vx = Ax(id,id);
 % velocity in the y-direction
 vy = Ay(id,id);
 
-temp = arrayfun(@(a) minimize_entropy(Ax,Ay,mass_matrix,...
-                                     a,0,0,0,sys_id),density,'Un',0);
+f = density * 0;
 
-switch sys_id
-    % value for g
-    case 1  
-        %f = density * f0(vx,vy);
-        f = cell2mat(cellfun(@(a) a(id),temp(:),'Un',0));
-        
-    % value for h
-    case 2
-        f = density * 0;
-
-end
-f = reshape(f,size(density));
+% temp = arrayfun(@(a) minimize_entropy(Ax,Ay,mass_matrix,...
+%                                      a,0,0,0,sys_id),density,'Un',0);
+% 
+% switch sys_id
+%     % value for g
+%     case 1  
+%         %f = density * f0(vx,vy);
+%         f = cell2mat(cellfun(@(a) a(id),temp(:),'Un',0));
+%         
+%     % value for h
+%     case 2
+%         f = density * 0;
+% 
+% end
+% f = reshape(f,size(density));
 
 end
 
@@ -166,17 +169,11 @@ grid_points = length(U{1,1});
 f = zeros(grid_points,1);
 
 % loop over the grid
+for j = 1 : length(all_weights)
 for i = 1 : grid_points
-    
-    % extract the value of g at a particular space point
-    temp = cell2mat(cellfun(@(a) a(i),U(1,:),'Un',0));
-    
-    % might need to reshape
-    if size(temp,1) ~= size(all_weights,1)
-        temp = reshape(temp,size(all_weights));
-    end
-    
-    f(i) = sum(all_weights.*temp);
+   
+    f(i) = all_weights(j) * U{1,j}(i) + f(i);
+end
 end
 
 end
@@ -193,13 +190,11 @@ all_weights_x = diag(Ax).*all_weights;
 all_weights_y = diag(Ay).*all_weights;
 
 % loop over the grid
+for j = 1 : length(all_weights_x)
 for i = 1 : grid_points
-    temp = cell2mat(cellfun(@(a) a(i),U(1,:),'Un',0));
-    if size(temp,1) ~= size(all_weights_x,1)
-        temp = reshape(temp,size(all_weights_x));
-    end
-    vx(i) = sum(all_weights_x.*temp);
-    vy(i) = sum(all_weights_y.*temp);
+    vx(i) = all_weights_x(j) * U{1,j}(i) + vx(i);
+    vy(i) = all_weights_y(j) * U{1,j}(i) + vy(i);
+end
 end
 
 end
@@ -217,21 +212,12 @@ all_weights_x = (diag(Ax).*diag(Ax)-1).*all_weights/sqrt(2);
 all_weights_y = (diag(Ay).*diag(Ay)-1).*all_weights/sqrt(2);
 
 % loop over the grid
-for i = 1 : grid_points
-    
-    temp_g = cell2mat(cellfun(@(a) a(i),U(1,:),'Un',0));
-    temp_h = cell2mat(cellfun(@(a) a(i),U(2,:),'Un',0));
-    
-    if size(temp_g,1) ~= size(all_weights_x,1)
-        temp_g = reshape(temp_g,size(all_weights_x));
+for j = 1 : length(all_weights_y)
+    for i = 1 : grid_points
+        
+        f(i) = sqrt(2) * ((all_weights_x(j) + all_weights_y(j))*U{1,j}(i) + ...
+            all_weights(j)*U{2,j}(i))/3 + f(i);
     end
-    
-    if size(temp_h,1) ~= size(all_weights_x,1)
-        temp_h = reshape(temp_h,size(all_weights_x));
-    end
-    
-    f(i) = sqrt(2) * sum((all_weights_x + all_weights_y).*temp_g + ...
-                        all_weights.*temp_h)/3;
 end
 
 end

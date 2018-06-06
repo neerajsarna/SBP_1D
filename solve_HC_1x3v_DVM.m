@@ -1,5 +1,5 @@
 % we solve the Heat Conduction problem using discrete velocity method 
-function solve_HC2D_DVM(nc)
+function solve_HC_1x3v_DVM(nc)
 
 par = struct(...
 'name','Inflow DVM',... % name of example

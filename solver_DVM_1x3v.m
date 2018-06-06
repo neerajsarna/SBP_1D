@@ -1,4 +1,4 @@
-function output = solver_DVM_3D(par)
+function output = solver_DVM_1x3v(par)
 
 if ~isfield(par,'save_during'), par.save_during = false; end % default value of save during the computation
 

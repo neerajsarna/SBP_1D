@@ -6,7 +6,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',2/3,... % the end time of the computation
+ 't_end',1.0,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -18,9 +18,9 @@ par = struct(...
 'save_norms', @save_norms ...
 );
 
-par.t_plot = true;
+par.t_plot = false;
 
-par.n = 50;
+par.n = 300;
 
 par.n_eqn = neqn;
 
@@ -37,6 +37,8 @@ par.penalty = cell(par.num_bc,1);
 filenames = dvlp_filenames(par.n_eqn);
 
 % we develop the system data
+% par.Ax = dvlp_Ax1D(par.n_eqn);
+% par.B{2} = dvlp_BInflow1D(par.n_eqn);
 [par.Ax,par.B{2}] = get_system_data(filenames);
 
 % stabilise the boundary conditions, was slow in mathematica
@@ -56,9 +58,11 @@ end
 
 result = solver(par);
 
-% output_filename = strcat('result_Inflow_fluctuateT_1x1v/inflow_tend_',...num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-% output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
-% write_result(result,output_filename);
+output_filename = strcat('result_Inflow_fluctuateT_1x1v/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+disp('written to:');
+disp(output_filename);
+output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
+write_result(result,output_filename);
 
 end
 
@@ -69,8 +73,16 @@ function f = bc_inhomo(B,bc_id,t)
     switch bc_id
         % boundary at x = x_start
         case 1
-            thetaIn = 1 + cos(3 * pi * (t - 1));
+            thetaIn = 1 + cos(pi * (t - 1));
+            %thetaIn = 0;
+%             if t <= 1
+%                 thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+%             else
+%                 thetaIn = 1;
+%             end
+            
             f = thetaIn * B(:,3)/sqrt(2); 
+            
          % x = 1
         case 2
             thetaIn = 0;
@@ -80,7 +92,16 @@ function f = bc_inhomo(B,bc_id,t)
 end
         
 function f = ic(x,id)
-f = zeros(length(x),1);
+
+density = exp(-(x-0.5).*(x-0.5)*100);
+
+if id == 1
+    %f = density;
+     f = density * 0;
+else
+    f = density * 0;
+end
+
 end
 
 function f = relax(x,id)

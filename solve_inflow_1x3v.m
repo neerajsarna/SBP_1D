@@ -5,7 +5,7 @@ par = struct(...
 'ic',@ic,... % initial conditions
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',1.5,... % the end time of the computation
+ 't_end',0.3,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -25,7 +25,7 @@ if (M < 3)
 end
 
 % to plot during computation or not to plot, thats the question
-par.t_plot = true;
+par.t_plot = false;
 
 par.n = 50;
 
@@ -42,7 +42,7 @@ par.penalty = cell(par.num_bc,1);
 par.B{2} = dvlp_BInflow2D(M);
 par.Ax = dvlp_Ax2D(M);
 par.P = dvlp_Prod2D(M);
-par.Kn = inf;
+par.Kn = 0.1;
 
 % stabilise the boundary conditions with Onsager
 par.B{2} = stabilize_boundary(par.Ax,par.B{2},M);
@@ -76,17 +76,17 @@ result = solver(par);
 %                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 % output_filename = strcat(output_filename,num2str(M),'.txt');
 
-% output_filename = strcat('result_Comp_DVM_Mom/result_Inflow2D_M', ...
-%                             num2str(M),'_theta1_Kn0p1','.txt');
-% 
-% write_result(result,output_filename);
+output_filename = strcat('result_Comp_DVM_Mom/testing_M', ...
+                            num2str(M),'_theta1_Kn0p1','.txt');
+
+write_result(result,output_filename);
 end
 
 function f = ic(x,id)
 
 if id == 1
-    f = exp(-(x-0.5).*(x-0.5)*100);
-    %f = zeros(length(x),1);
+    %f = exp(-(x-0.5).*(x-0.5)*100);
+    f = zeros(length(x),1);
     
 else
     f = zeros(length(x),1);
@@ -116,15 +116,15 @@ function f = bc_inhomo(B,bc_id,t)
         thetaIn = 1;
     end
     
+    f = 0 * B(:,1);
+    
     switch bc_id
         % boundary at x = x_start
         case 1
-            thetaIn = -thetaIn;
+            f = thetaIn * (B(:,3)+B(:,4)+B(:,5))/sqrt(2); 
             
     end
     
-    f = 0 * (B(:,3)+B(:,4)+B(:,5))/sqrt(2); 
-
 end
 
 

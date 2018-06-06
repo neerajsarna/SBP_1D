@@ -7,7 +7,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',2/3,... % the end time of the computation
+ 't_end',1,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -27,10 +27,10 @@ par.t_plot = true;
 par.n_eqn = 2 * nc;
 %par.n_eqn =nc;
 
-par.n = 300;
+par.n = 50;
 %[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
-[par.x_m,par.w_m] = gauss_quadrature(nc,-3,0);
-[par.x_p,par.w_p] = gauss_quadrature(nc,0,3);
+[par.x_m,par.w_m] = gauss_quadrature(nc,-5,0);
+[par.x_p,par.w_p] = gauss_quadrature(nc,0,5);
 
 % par.x_m = temp_x(temp_x < 0);
 % par.x_p = temp_x(temp_x >= 0);
@@ -74,19 +74,21 @@ dlmwrite(filename,result(1).X','delimiter','\t','precision',10);
 dlmwrite(filename,density','delimiter','\t','-append','precision',10);
 dlmwrite(filename,u','delimiter','\t','-append','precision',10);
 dlmwrite(filename,alpha2','delimiter','\t','-append','precision',10);
-
+% 
 % a plot of the distribution function along the x and the velocity space
-% temp = zeros(length(result),length(result(1).X));
-% 
-% [v_grid,sort_grid] = sort([par.x_m',par.x_p']);
-% 
-% for i = 1:length(result)
-%     temp(i,:) = result(sort_grid(i)).sol;
-% end
-% 
-% [x_mesh,v_mesh] = meshgrid(result(1).X,v_grid);
-% 
-% surf(x_mesh,v_mesh,temp);
+temp = zeros(length(result),length(result(1).X));
+
+[v_grid,sort_grid] = sort([par.x_m',par.x_p']);
+
+for i = 1:length(result)
+    temp(i,:) = result(sort_grid(i)).sol;
+end
+
+[x_mesh,v_mesh] = meshgrid(result(1).X,v_grid);
+
+%surf(x_mesh,v_mesh,temp);
+plot(v_grid,temp(:,1),'-o',v_grid,temp(:,5),'-o',v_grid,temp(:,25),'-o');
+legend('1','5','25');
 % 
 % output_filename = strcat('result_Inflow/DVM_inflow_', ...
 %                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
@@ -105,14 +107,23 @@ function f = bc_inhomo(B,bc_id,Ax,t)
     uIn = 0;
     rhoIn = 0;
     
-    id = find(diag(B) ~= 0);
+    id = find(diag(B) == 1);
     
     f = B(:,1) * 0;
+    
     switch bc_id
         % boundary at x = x_start
         case 1
             thetaIn = 1 + cos(3 * pi * (t-1));
-            alpha2In = thetaIn / sqrt(2);
+            %thetaIn = 0;
+%             if t <= 1
+%                 thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+%             else
+%                 thetaIn = 1;
+%             end
+            
+            alpha2In = thetaIn/sqrt(2);
+            
             for i = 1 : length(id)
                 index = id(i);
                 f(index) = compute_fM(Ax,rhoIn,uIn,alpha2In,index);
@@ -120,17 +131,23 @@ function f = bc_inhomo(B,bc_id,Ax,t)
             
         case 2
             thetaIn = 0;
-            f = thetaIn * B(:,3)/sqrt(2); 
+            f = thetaIn * B(:,3) /sqrt(2); 
     end
 
 end
         
 function f = ic(x,id,Ax)
-f = zeros(length(x),1);
+density = exp(-(x-0.5).*(x-0.5)*100);
+
+% the velocity corresponding to the id
+v = Ax(id,id);
+
+%f = density * f0(v);
+f = density * 0;
 end
 
 function f = f0(v)
-f = exp(-v^2/2)/sqrt(2 * pi);
+f = exp(-v.^2/2)/sqrt(2 * pi);
 end
 
 function f = relax(x,id)
@@ -176,7 +193,7 @@ grid_points = length(U{1});
 
 f = zeros(grid_points,1);
 
-% scale by velocity
+% scale by He_2
 all_weights = (diag(Ax)'.*diag(Ax)'-1).*all_weights/sqrt(2);
 
 % loop over the grid

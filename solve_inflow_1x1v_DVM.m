@@ -27,7 +27,7 @@ par.t_plot = false;
 par.n_eqn = 2 * nc;
 %par.n_eqn =nc;
 
-par.n = 100;
+par.n = 50;
 %[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-3,0);
 [par.x_p,par.w_p] = gauss_quadrature(nc,0,3);
@@ -54,7 +54,7 @@ for i = 1 : par.num_bc
     par.penalty_B{i} = par.penalty{i} * par.B{i};
 end
 
-result= solver_DVM(par);
+result= solver_DVM_1x1v(par);
 
 % temp = cell(length(result),1);
 % 

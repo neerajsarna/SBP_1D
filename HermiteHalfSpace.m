@@ -16,11 +16,10 @@ if mod((m-n),2) ~= 0
       fact2 = 0;
   end
   
-  
   fact3 = compute_sum_gamma(m,n);
   
-  f = (fact2 + fact3) * fact1; 
-  
+  f = (fact2 + fact3) * fact1;
+    
 end
 
 end

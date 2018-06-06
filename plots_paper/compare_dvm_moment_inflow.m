@@ -1,8 +1,8 @@
 clear all;
 
-sol_dvm = dlmread('../result_Inflow/DVM_inflow_tend_0.3_points_300_neqn_50.txt');
-sol_dvm_f = dlmread('../result_Inflow/DVM_inflow_0.3_points_50_neqn_20.txt');
-sol_mom = dlmread('../result_Inflow/inflow_tend_0.3_points_300_neqn_200.txt');
+sol_dvm = dlmread('../result_Inflow_1x1v_Kn0p1_theta0/DVM_inflow_tend_0.3_points_300_neqn_50.txt');
+sol_dvm_f = dlmread('../result_Inflow_1x1v_Kn0p1_theta0/DVM_inflow_0.3_points_50_neqn_20.txt');
+sol_mom = dlmread('../result_Inflow_1x1v_Kn0p1_theta0/inflow_tend_0.3_points_300_neqn_200.txt');
 
 initial_rho = exp(-(sol_mom(1,:)-0.5).*(sol_mom(1,:)-0.5)*100);
 

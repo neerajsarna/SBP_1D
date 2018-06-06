@@ -140,7 +140,7 @@ while t < par.t_end
                 for j = 1:par.num_bc
                  % need to convert to cell for the computations which follow
                     bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j}, ...
-                                    j,par.Ax,t_temp(RK)));
+                                       j,par.Ax,t_temp(RK)));
    
                 end
             end
@@ -204,6 +204,9 @@ while t < par.t_end
                 
                 % adding relaxation
                 k_RK{RK}{i} = k_RK{RK}{i} + (-UTemp{i}+par.compute_fM(par.Ax,density,velocity,alpha2,i))/par.Kn;
+            end
+            
+            for i =1 : par.n_eqn
                 if RK ~= 4
                     UTemp{i} = U{i} + k_RK{RK}{i} * dt_temp(RK + 1);
                 end
