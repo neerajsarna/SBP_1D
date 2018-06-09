@@ -1,0 +1,188 @@
+Sender: LSF System <lsfadmin@linuxbmc0339>
+Subject: Job 43052831[7]: <MATLAB_ARRAY[4,6,8,10,12,14,16,18,20,22,24,5,7,9,11,13,15,17,19,21,23,25,200]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[4,6,8,10,12,14,16,18,20,22,24,5,7,9,11,13,15,17,19,21,23,25,200]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Sat Jun  9 03:25:27 2018
+Job was executed on host(s) <linuxbmc0339>, in queue <normal>, as user <ns179556> in cluster <rcc> at Sat Jun  9 03:25:34 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Sat Jun  9 03:25:34 2018
+Terminated at Sat Jun  9 03:25:56 2018
+Results reported at Sat Jun  9 03:25:56 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[4,6,8,10,12,14,16,18,20,22,24,5,7,9,11,13,15,17,19,21,23,25,200]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_gaussian_collision_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 5:00
+ 
+### Request memory you need for your job in MB
+#BSUB -M 5000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_collision_gaussian_1x1v_$LSB_JOBINDEX.log <<EOF
+run solve_collision_gaussian_1x1v($LSB_JOBINDEX);
+quit();
+EOF
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   17.35 sec.
+    Max Memory :                                 536 MB
+    Average Memory :                             63.00 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4464.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                10
+    Run time :                                   22 sec.
+    Turnaround time :                            29 sec.
+
+The output (if any) follows:
+
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2018a
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.14996
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: step_count 
+    0.0222
+
+     7
+
+    50
+
+time: neqn: step_count 
+    0.0444
+
+     7
+
+   100
+
+time: neqn: step_count 
+    0.0667
+
+     7
+
+   150
+
+time: neqn: step_count 
+    0.0889
+
+     7
+
+   200
+
+time: neqn: step_count 
+    0.1111
+
+     7
+
+   250
+
+time: neqn: step_count 
+    0.1333
+
+     7
+
+   300
+
+time: neqn: step_count 
+    0.1555
+
+     7
+
+   350
+
+time: neqn: step_count 
+    0.1778
+
+     7
+
+   400
+
+time: neqn: step_count 
+    0.2000
+
+     7
+
+   450
+
+time: neqn: step_count 
+    0.2222
+
+     7
+
+   500
+
+time: neqn: step_count 
+    0.2444
+
+     7
+
+   550
+
+time: neqn: step_count 
+    0.2666
+
+     7
+
+   600
+
+time: neqn: step_count 
+    0.2889
+
+     7
+
+   650
+
+676 time steps
+CPU-times
+ advection:           3.04s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:written to:
+result_collision_gaussian_1x1v/wall_tend_0.3_points_300_neqn_
+>> 

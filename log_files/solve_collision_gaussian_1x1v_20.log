@@ -1,0 +1,207 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: step_count 
+    0.0109
+
+    20
+
+    50
+
+time: neqn: step_count 
+    0.0219
+
+    20
+
+   100
+
+time: neqn: step_count 
+    0.0328
+
+    20
+
+   150
+
+time: neqn: step_count 
+    0.0437
+
+    20
+
+   200
+
+time: neqn: step_count 
+    0.0547
+
+    20
+
+   250
+
+time: neqn: step_count 
+    0.0656
+
+    20
+
+   300
+
+time: neqn: step_count 
+    0.0766
+
+    20
+
+   350
+
+time: neqn: step_count 
+    0.0875
+
+    20
+
+   400
+
+time: neqn: step_count 
+    0.0984
+
+    20
+
+   450
+
+time: neqn: step_count 
+    0.1094
+
+    20
+
+   500
+
+time: neqn: step_count 
+    0.1203
+
+    20
+
+   550
+
+time: neqn: step_count 
+    0.1312
+
+    20
+
+   600
+
+time: neqn: step_count 
+    0.1422
+
+    20
+
+   650
+
+time: neqn: step_count 
+    0.1531
+
+    20
+
+   700
+
+time: neqn: step_count 
+    0.1641
+
+    20
+
+   750
+
+time: neqn: step_count 
+    0.1750
+
+    20
+
+   800
+
+time: neqn: step_count 
+    0.1859
+
+    20
+
+   850
+
+time: neqn: step_count 
+    0.1969
+
+    20
+
+   900
+
+time: neqn: step_count 
+    0.2078
+
+    20
+
+   950
+
+time: neqn: step_count 
+    0.2187
+
+    20
+
+        1000
+
+time: neqn: step_count 
+    0.2297
+
+    20
+
+        1050
+
+time: neqn: step_count 
+    0.2406
+
+    20
+
+        1100
+
+time: neqn: step_count 
+    0.2516
+
+    20
+
+        1150
+
+time: neqn: step_count 
+    0.2625
+
+    20
+
+        1200
+
+time: neqn: step_count 
+    0.2734
+
+    20
+
+        1250
+
+time: neqn: step_count 
+    0.2844
+
+    20
+
+        1300
+
+time: neqn: step_count 
+    0.2953
+
+    20
+
+        1350
+
+1372 time steps
+CPU-times
+ advection:          20.86s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:written to:
+result_collision_gaussian_1x1v/wall_tend_0.3_points_300_neqn_

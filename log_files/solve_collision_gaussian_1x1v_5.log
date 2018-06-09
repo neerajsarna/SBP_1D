@@ -1,0 +1,88 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: step_count 
+    0.0292
+
+     5
+
+    50
+
+time: neqn: step_count 
+    0.0583
+
+     5
+
+   100
+
+time: neqn: step_count 
+    0.0875
+
+     5
+
+   150
+
+time: neqn: step_count 
+    0.1167
+
+     5
+
+   200
+
+time: neqn: step_count 
+    0.1458
+
+     5
+
+   250
+
+time: neqn: step_count 
+    0.1750
+
+     5
+
+   300
+
+time: neqn: step_count 
+    0.2042
+
+     5
+
+   350
+
+time: neqn: step_count 
+    0.2333
+
+     5
+
+   400
+
+time: neqn: step_count 
+    0.2625
+
+     5
+
+   450
+
+time: neqn: step_count 
+    0.2917
+
+     5
+
+   500
+
+515 time steps
+CPU-times
+ advection:           1.86s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:written to:
+result_collision_gaussian_1x1v/wall_tend_0.3_points_300_neqn_

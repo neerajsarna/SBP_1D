@@ -1,0 +1,158 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: step_count 
+    0.0144
+
+    13
+
+    50
+
+time: neqn: step_count 
+    0.0287
+
+    13
+
+   100
+
+time: neqn: step_count 
+    0.0431
+
+    13
+
+   150
+
+time: neqn: step_count 
+    0.0575
+
+    13
+
+   200
+
+time: neqn: step_count 
+    0.0718
+
+    13
+
+   250
+
+time: neqn: step_count 
+    0.0862
+
+    13
+
+   300
+
+time: neqn: step_count 
+    0.1006
+
+    13
+
+   350
+
+time: neqn: step_count 
+    0.1149
+
+    13
+
+   400
+
+time: neqn: step_count 
+    0.1293
+
+    13
+
+   450
+
+time: neqn: step_count 
+    0.1437
+
+    13
+
+   500
+
+time: neqn: step_count 
+    0.1580
+
+    13
+
+   550
+
+time: neqn: step_count 
+    0.1724
+
+    13
+
+   600
+
+time: neqn: step_count 
+    0.1868
+
+    13
+
+   650
+
+time: neqn: step_count 
+    0.2011
+
+    13
+
+   700
+
+time: neqn: step_count 
+    0.2155
+
+    13
+
+   750
+
+time: neqn: step_count 
+    0.2299
+
+    13
+
+   800
+
+time: neqn: step_count 
+    0.2442
+
+    13
+
+   850
+
+time: neqn: step_count 
+    0.2586
+
+    13
+
+   900
+
+time: neqn: step_count 
+    0.2730
+
+    13
+
+   950
+
+time: neqn: step_count 
+    0.2873
+
+    13
+
+        1000
+
+1045 time steps
+CPU-times
+ advection:           9.03s  100%
+plotting:            0.00s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:written to:
+result_collision_gaussian_1x1v/wall_tend_0.3_points_300_neqn_
