@@ -11,7 +11,7 @@ t_end = 0.3;
 filename = 'wall';
 foldername = 'result_collision_gaussian_1x1v';
 
-[~,expected_rate] = compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
+compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
 
 %% Heat Conduction
 
