@@ -52,7 +52,6 @@ par.Ax = diag(vx_grid2D(:));
 par.Ay = diag(vy_grid2D(:));
 par.all_w = w(:);
 
-
 % at x = 1 we prescribe boundary to negative velocities
 par.B{2} = diag(double(diag(par.Ax)<0));
 par.B{1} = diag(double(diag(-par.Ax)<0));
@@ -133,21 +132,6 @@ function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,all_weights,t)
     for i = 1 : length(id)
         f(id(i)) = compute_fM(Ax,Ay,rhoW,ux,uy,thetaW,id(i),id_sys);
     end
-    
-    % we check for the rho computation
-%     if bc_id == 2 && id_sys == 1 
-%         % value at the boundary
-%         temp = cell2mat(cellfun(@(a) a(end),U(1,:),'Un',0));
-%         
-%         temp = temp';
-%         
-%         % replace by the boundary conditions for negative velocities
-%         temp(id) = f(id);
-%         
-%         % compute the velocity corresponding to temp
-%         disp('wall velocity');
-%         disp(sum((diag(Ax).*all_weights).*temp));
-%     end
     
 
 end

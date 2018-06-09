@@ -260,12 +260,14 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        %plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
-        plot(X,U{3},'-o');
+        
+       
+        plot(X,U{1},'-o');
         
         %plot(X,U{1},'-o');
-        xlim(par.ax);
-        ylim([-1 1]);        
+        xlim([0 1]);
+        ylim([-1 1]);
+        
         drawnow;
     end
     
@@ -273,7 +275,7 @@ while t < par.t_end
     % studies
     if par.save_during && mod(step_count,100) == 0
         
-        % we compute the norms of the different features of the solution
+%         we compute the norms of the different features of the solution
 %         [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(...
 %                                                 U,weight,k_RK,PX,DX,t,t_Old, ...
 %                                                 par.idx_trun,par.idx_trun_odd,par.idx_trun_even);

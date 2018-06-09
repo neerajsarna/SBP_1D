@@ -2,12 +2,12 @@
 clear all;
 
 %% routines for the 1D case
-M_values = [4:10:34,25:10:45];
+M_values = [4:2:24,5:2:25];
 M_values = sort([M_values,5]);
 grid_points = 300;
 n_ref = 200;
 n_ref2 = 200;
-t_end = 0.66667;
+t_end = 1.0;
 filename = 'inflow';
 foldername = 'result_Inflow_fluctuateT_1x1v';
 

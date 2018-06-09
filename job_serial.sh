@@ -4,7 +4,7 @@
 #BSUB -J "MATLAB_ARRAY[4,6,8,10,12,14,16,18,20,22,24,5,7,9,11,13,15,17,19,21,23,25,200]"
  
 ### File / path where STDOUT will be written, the %J is the job id
-#BSUB -o log_files/solving_inflow_fluctuateT_%I
+#BSUB -o log_files/solving_gaussian_collision_%I
  
 ### Request the time you need for execution in minutes
 ### The format for the parameter is: [hour:]minute,
@@ -23,7 +23,7 @@ module load matlab
  
  
 # start non-interactive batch job
-matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_inflow_fluctuateT_1x1v_$LSB_JOBINDEX.log <<EOF
-run solve_inflow_fluctuateT_1x1v($LSB_JOBINDEX);
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_collision_gaussian_1x1v_$LSB_JOBINDEX.log <<EOF
+run solve_collision_gaussian_1x1v($LSB_JOBINDEX);
 quit();
 EOF

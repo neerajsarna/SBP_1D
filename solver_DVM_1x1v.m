@@ -16,7 +16,7 @@ if par.num_bc ~=2
 end   
 
 % find which of the given data is time dependent
-time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>3];
+time_dep = [nargin(par.source)>2 nargin(par.bc_inhomo)>5];
         
 % if the number of arguments are greater than 3 then definitely we have 
 % an anisotropic source term.
@@ -104,7 +104,7 @@ end
 % compute the boundary inhomogeneity
 for j = 1:par.num_bc
     % need to convert to cell for the computations which follow
-    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,par.Ax,t));
+    bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j},j,par.Ax,U,par.all_w,t));
    
 end
 
@@ -140,7 +140,7 @@ while t < par.t_end
                 for j = 1:par.num_bc
                  % need to convert to cell for the computations which follow
                     bc_g{j} = num2cell(capargs(par.bc_inhomo,par.B{j}, ...
-                                       j,par.Ax,t_temp(RK)));
+                                             j,par.Ax,UTemp,par.all_w,t_temp(RK)));
    
                 end
             end
@@ -234,14 +234,13 @@ while t < par.t_end
     tic
     
     if par.t_plot
-        var_plot = par.compute_alpha2(U,par.Ax,par.all_w);
-        %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
-        %plot(diag(par.Ax),var_plot,'-o');
+        
+        var_plot = par.compute_density(UTemp,par.Ax,par.all_w);
         plot(X,var_plot,'-o');
-        %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
-        ylim([0 1]);        
+        ylim([-0.5 1]);
         drawnow;
+    
     end
     
     % option to save the data during time step, required for convergence
@@ -263,6 +262,7 @@ fprintf(['CPU-times\n advection:%15.2fs%5.0f%%\n',... % and CPU times.
 output = struct('X',X, ...
                 'sol',U, ...
                  'P',PX, ...
+                 'D',DX, ...
                  'h',h);
 end
 

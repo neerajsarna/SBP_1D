@@ -1,4 +1,4 @@
-function solve_inflow_fluctuateT_1x1v(neqn)
+function solve_collision_gaussian_1x1v(neqn)
 
 par = struct(...
 'name','1D Advection',... % name of example
@@ -6,7 +6,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',1.0,... % the end time of the computation
+ 't_end',0.3,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -20,7 +20,7 @@ par = struct(...
 
 par.t_plot = false;
 
-par.n = 300;
+par.n = 50;
 
 par.n_eqn = neqn;
 
@@ -34,18 +34,23 @@ par.B = cell(par.num_bc,1);
 par.penalty = cell(par.num_bc,1);
 
 % first we develop the filenames
-filenames = dvlp_filenames(par.n_eqn);
+filenames_wall = dvlp_filenames_wall(par.n_eqn);
+filenames_inflow = dvlp_filenames_inflow(par.n_eqn);
 
 % we develop the system data
 % par.Ax = dvlp_Ax1D(par.n_eqn);
 % par.B{2} = dvlp_BInflow1D(par.n_eqn);
-[par.Ax,par.B{2}] = get_system_data(filenames);
+[par.Ax,Bwall] = get_system_data(filenames_wall);
+[~,Binflow] = get_system_data(filenames_inflow);
 
 % stabilise the boundary conditions, was slow in mathematica
-par.B{2} = stabilize_boundary(par.Ax,par.B{2});
+Bwall = stabilize_boundary(par.Ax,Bwall);
+Binflow = stabilize_boundary(par.Ax,Binflow);
+
+par.B{2} = Bwall;
 
 % develop the boundary matrix at ID2 or x=0
-par.B{1} = dvlp_B_ID1(par.B{2});
+par.B{1} = dvlp_B_ID1(Bwall);
 
 % develop the characteristic penalty matrix
 [par.penalty{1}] = dvlp_penalty(-par.Ax,par.B{1});
@@ -58,7 +63,8 @@ end
 
 result = solver(par);
 
-output_filename = strcat('result_Inflow_fluctuateT_1x1v/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat('result_collision_gaussian_1x1v/wall_tend_',...
+                        num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 disp('written to:');
 disp(output_filename);
 output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
@@ -73,14 +79,8 @@ function f = bc_inhomo(B,bc_id,t)
     switch bc_id
         % boundary at x = x_start
         case 1
-            thetaIn = 1 + cos(pi * (t - 1));
-            %thetaIn = 0;
-%             if t <= 1
-%                 thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
-%             else
-%                 thetaIn = 1;
-%             end
-            
+            thetaIn = 0;
+           
             f = thetaIn * B(:,3)/sqrt(2); 
             
          % x = 1
@@ -94,11 +94,17 @@ end
 function f = ic(x,id)
 
 density = exp(-(x-0.5).*(x-0.5)*100);
+velocity = exp(-(x-0.5).*(x-0.5)*100);
 
 if id == 1
-    %f = density;
-     f = density * 0;
-else
+    f = density;
+    % f = density * 0;
+end
+if id == 2
+    f = velocity;
+end
+
+if id > 2
     f = density * 0;
 end
 
@@ -115,11 +121,22 @@ end
 
 end
 
-function[filenames] = dvlp_filenames(nEqn)
+function[filenames] = dvlp_filenames_inflow(nEqn)
 
 filenames = struct;
 
 filenames.B = strcat("system_matrices1D/Binflow_1D_",num2str(nEqn));
+filenames.B = strcat(filenames.B,".txt");
+
+filenames.Ax = strcat("system_matrices1D/A1_1D_",num2str(nEqn));
+filenames.Ax = strcat(filenames.Ax,".txt");
+end
+
+function[filenames] = dvlp_filenames_wall(nEqn)
+
+filenames = struct;
+
+filenames.B = strcat("system_matrices1D/Bwall_1D_",num2str(nEqn));
 filenames.B = strcat(filenames.B,".txt");
 
 filenames.Ax = strcat("system_matrices1D/A1_1D_",num2str(nEqn));
@@ -152,11 +169,10 @@ end
 int_f = norm_f * (t-t_Old);
 int_dx_f = norm_dx_f * (t-t_Old);
 int_dt_f = norm_dt_f * (t-t_Old);
-
 end
 
 function save_norms(int_f,int_dx_f,int_dt_f,n)
-filename = strcat('result_Inflow_fluctuateT_1x1v/result_Reference/inflow_norms', ...
+filename = strcat('result_collision_gaussian_1x1v/result_Reference/wall_norms', ...
                 '_points_',num2str(n),'_neqn_',num2str(length(int_f)),'.txt');
 
 dlmwrite(filename,int_f,'delimiter','\t','precision',10);
