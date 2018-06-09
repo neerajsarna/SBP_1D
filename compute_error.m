@@ -55,13 +55,22 @@ end
    [expected_rate] = expected_convg_rate(n_ref, ...
                                     t_end,n,foldername,filename);
 
+   M_values_O = find(mod(M_values,2) ~= 0);
+   M_values_E = find(mod(M_values,2) == 0);
    
-   [P_error,y_error] = polyfit_linear(log(M_values),log(errorTot)');
-    convg_rate = abs(P_error(1));
+   [P_error_O,y_error_O] = polyfit_linear(log(M_values(M_values_O)), ....
+                                    log(errorTot(M_values_O))');
+    convg_rate_O = abs(P_error_O(1));
     
+    [P_error_E,y_error_E] = polyfit_linear(log(M_values(M_values_E)), ...
+                                        log(errorTot(M_values_E))');
+    convg_rate_E = abs(P_error_E(1));
    %% plotting 
    figure(5);
-   loglog(M_values,errorTot,'-o',M_values,exp(y_error),'k-','MarkerSize',3);
+   loglog(M_values,errorTot,'-o', ...
+          M_values(M_values_O),exp(y_error_O),'k-', ...
+          M_values(M_values_E),exp(y_error_E),'k-', ...
+          'MarkerSize',3);
    xlabel('M','FontSize',10);
    ylabel('||E_M||', 'FontSize',10);
    xlim([M_values(1) M_values(end)]);
@@ -71,12 +80,12 @@ end
     set(gca, 'FontSize', 16);
     grid on;
     
-    disp('OBTAINED RATE: ');
-    disp(convg_rate);
+    disp('OBTAINED RATE Odd: ');
+    disp(convg_rate_O);
     
-    disp('% Error in prediction ');
-    disp((convg_rate-expected_rate)*100/convg_rate);
-   
+    disp('OBTAINED RATE Even: ');
+    disp(convg_rate_E);
+    
 end
 
 function [P,yfit] = polyfit_linear(x,y)

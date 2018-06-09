@@ -7,11 +7,11 @@ M_values = sort([M_values,5]);
 grid_points = 300;
 n_ref = 200;
 n_ref2 = 200;
-t_end = 1.0;
-filename = 'inflow';
-foldername = 'result_Inflow_fluctuateT_1x1v';
+t_end = 0.3;
+filename = 'wall';
+foldername = 'result_collision_gaussian_1x1v';
 
-[convg_rate,expected_rate] = compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
+[~,expected_rate] = compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
 
 %% Heat Conduction
 
