@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[75,80,85,90,95,100,105]"
+#BSUB -J "MATLAB_ARRAY[3,7,11,15,19,23,27,4,8,12,16,20,24]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_gaussian_collision_%I
@@ -23,7 +23,7 @@ module load matlab
  
  
 # start non-interactive batch job
-matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_collision_gaussian_1x1v_$LSB_JOBINDEX.log <<EOF
-run solve_collision_gaussian_1x1v($LSB_JOBINDEX);
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_inflow_1x3v_$LSB_JOBINDEX.log <<EOF
+run solve_inflow_1x3v($LSB_JOBINDEX);
 quit();
 EOF
