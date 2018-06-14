@@ -1,0 +1,440 @@
+Sender: LSF System <lsfadmin@linuxbmc0377>
+Subject: Job 43053973[55]: <MATLAB_ARRAY[43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,44,46,48,50,52,54,56,58,60,62,64,66,68,70]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,44,46,48,50,52,54,56,58,60,62,64,66,68,70]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Sat Jun  9 11:38:38 2018
+Job was executed on host(s) <linuxbmc0377>, in queue <normal>, as user <ns179556> in cluster <rcc> at Sat Jun  9 11:38:45 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Sat Jun  9 11:38:45 2018
+Terminated at Sat Jun  9 11:42:05 2018
+Results reported at Sat Jun  9 11:42:05 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,44,46,48,50,52,54,56,58,60,62,64,66,68,70]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_gaussian_collision_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 5:00
+ 
+### Request memory you need for your job in MB
+#BSUB -M 5000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_collision_gaussian_1x1v_$LSB_JOBINDEX.log <<EOF
+run solve_collision_gaussian_1x1v($LSB_JOBINDEX);
+quit();
+EOF
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   193.61 sec.
+    Max Memory :                                 669 MB
+    Average Memory :                             574.29 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4331.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                39
+    Run time :                                   210 sec.
+    Turnaround time :                            207 sec.
+
+The output (if any) follows:
+
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2018a
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.10864
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> time: neqn: step_count 
+    0.0061
+
+    55
+
+    50
+
+time: neqn: step_count 
+    0.0122
+
+    55
+
+   100
+
+time: neqn: step_count 
+    0.0183
+
+    55
+
+   150
+
+time: neqn: step_count 
+    0.0243
+
+    55
+
+   200
+
+time: neqn: step_count 
+    0.0304
+
+    55
+
+   250
+
+time: neqn: step_count 
+    0.0365
+
+    55
+
+   300
+
+time: neqn: step_count 
+    0.0426
+
+    55
+
+   350
+
+time: neqn: step_count 
+    0.0487
+
+    55
+
+   400
+
+time: neqn: step_count 
+    0.0548
+
+    55
+
+   450
+
+time: neqn: step_count 
+    0.0609
+
+    55
+
+   500
+
+time: neqn: step_count 
+    0.0669
+
+    55
+
+   550
+
+time: neqn: step_count 
+    0.0730
+
+    55
+
+   600
+
+time: neqn: step_count 
+    0.0791
+
+    55
+
+   650
+
+time: neqn: step_count 
+    0.0852
+
+    55
+
+   700
+
+time: neqn: step_count 
+    0.0913
+
+    55
+
+   750
+
+time: neqn: step_count 
+    0.0974
+
+    55
+
+   800
+
+time: neqn: step_count 
+    0.1035
+
+    55
+
+   850
+
+time: neqn: step_count 
+    0.1095
+
+    55
+
+   900
+
+time: neqn: step_count 
+    0.1156
+
+    55
+
+   950
+
+time: neqn: step_count 
+    0.1217
+
+    55
+
+        1000
+
+time: neqn: step_count 
+    0.1278
+
+    55
+
+        1050
+
+time: neqn: step_count 
+    0.1339
+
+    55
+
+        1100
+
+time: neqn: step_count 
+    0.1400
+
+    55
+
+        1150
+
+time: neqn: step_count 
+    0.1461
+
+    55
+
+        1200
+
+time: neqn: step_count 
+    0.1521
+
+    55
+
+        1250
+
+time: neqn: step_count 
+    0.1582
+
+    55
+
+        1300
+
+time: neqn: step_count 
+    0.1643
+
+    55
+
+        1350
+
+time: neqn: step_count 
+    0.1704
+
+    55
+
+        1400
+
+time: neqn: step_count 
+    0.1765
+
+    55
+
+        1450
+
+time: neqn: step_count 
+    0.1826
+
+    55
+
+        1500
+
+time: neqn: step_count 
+    0.1887
+
+    55
+
+        1550
+
+time: neqn: step_count 
+    0.1948
+
+    55
+
+        1600
+
+time: neqn: step_count 
+    0.2008
+
+    55
+
+        1650
+
+time: neqn: step_count 
+    0.2069
+
+    55
+
+        1700
+
+time: neqn: step_count 
+    0.2130
+
+    55
+
+        1750
+
+time: neqn: step_count 
+    0.2191
+
+    55
+
+        1800
+
+time: neqn: step_count 
+    0.2252
+
+    55
+
+        1850
+
+time: neqn: step_count 
+    0.2313
+
+    55
+
+        1900
+
+time: neqn: step_count 
+    0.2374
+
+    55
+
+        1950
+
+time: neqn: step_count 
+    0.2434
+
+    55
+
+        2000
+
+time: neqn: step_count 
+    0.2495
+
+    55
+
+        2050
+
+time: neqn: step_count 
+    0.2556
+
+    55
+
+        2100
+
+time: neqn: step_count 
+    0.2617
+
+    55
+
+        2150
+
+time: neqn: step_count 
+    0.2678
+
+    55
+
+        2200
+
+time: neqn: step_count 
+    0.2739
+
+    55
+
+        2250
+
+time: neqn: step_count 
+    0.2800
+
+    55
+
+        2300
+
+time: neqn: step_count 
+    0.2860
+
+    55
+
+        2350
+
+time: neqn: step_count 
+    0.2921
+
+    55
+
+        2400
+
+time: neqn: step_count 
+    0.2982
+
+    55
+
+        2450
+
+2465 time steps
+CPU-times
+ advection:         178.14s  100%
+plotting:            0.01s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:written to:
+result_collision_gaussian_1x1v/wall_tend_0.3_points_300_neqn_
+>> 

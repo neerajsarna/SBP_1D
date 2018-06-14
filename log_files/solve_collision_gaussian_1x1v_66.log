@@ -1,0 +1,396 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: step_count 
+    0.0055
+
+    66
+
+    50
+
+time: neqn: step_count 
+    0.0110
+
+    66
+
+   100
+
+time: neqn: step_count 
+    0.0165
+
+    66
+
+   150
+
+time: neqn: step_count 
+    0.0220
+
+    66
+
+   200
+
+time: neqn: step_count 
+    0.0275
+
+    66
+
+   250
+
+time: neqn: step_count 
+    0.0330
+
+    66
+
+   300
+
+time: neqn: step_count 
+    0.0385
+
+    66
+
+   350
+
+time: neqn: step_count 
+    0.0440
+
+    66
+
+   400
+
+time: neqn: step_count 
+    0.0495
+
+    66
+
+   450
+
+time: neqn: step_count 
+    0.0550
+
+    66
+
+   500
+
+time: neqn: step_count 
+    0.0605
+
+    66
+
+   550
+
+time: neqn: step_count 
+    0.0661
+
+    66
+
+   600
+
+time: neqn: step_count 
+    0.0716
+
+    66
+
+   650
+
+time: neqn: step_count 
+    0.0771
+
+    66
+
+   700
+
+time: neqn: step_count 
+    0.0826
+
+    66
+
+   750
+
+time: neqn: step_count 
+    0.0881
+
+    66
+
+   800
+
+time: neqn: step_count 
+    0.0936
+
+    66
+
+   850
+
+time: neqn: step_count 
+    0.0991
+
+    66
+
+   900
+
+time: neqn: step_count 
+    0.1046
+
+    66
+
+   950
+
+time: neqn: step_count 
+    0.1101
+
+    66
+
+        1000
+
+time: neqn: step_count 
+    0.1156
+
+    66
+
+        1050
+
+time: neqn: step_count 
+    0.1211
+
+    66
+
+        1100
+
+time: neqn: step_count 
+    0.1266
+
+    66
+
+        1150
+
+time: neqn: step_count 
+    0.1321
+
+    66
+
+        1200
+
+time: neqn: step_count 
+    0.1376
+
+    66
+
+        1250
+
+time: neqn: step_count 
+    0.1431
+
+    66
+
+        1300
+
+time: neqn: step_count 
+    0.1486
+
+    66
+
+        1350
+
+time: neqn: step_count 
+    0.1541
+
+    66
+
+        1400
+
+time: neqn: step_count 
+    0.1596
+
+    66
+
+        1450
+
+time: neqn: step_count 
+    0.1651
+
+    66
+
+        1500
+
+time: neqn: step_count 
+    0.1706
+
+    66
+
+        1550
+
+time: neqn: step_count 
+    0.1761
+
+    66
+
+        1600
+
+time: neqn: step_count 
+    0.1816
+
+    66
+
+        1650
+
+time: neqn: step_count 
+    0.1871
+
+    66
+
+        1700
+
+time: neqn: step_count 
+    0.1927
+
+    66
+
+        1750
+
+time: neqn: step_count 
+    0.1982
+
+    66
+
+        1800
+
+time: neqn: step_count 
+    0.2037
+
+    66
+
+        1850
+
+time: neqn: step_count 
+    0.2092
+
+    66
+
+        1900
+
+time: neqn: step_count 
+    0.2147
+
+    66
+
+        1950
+
+time: neqn: step_count 
+    0.2202
+
+    66
+
+        2000
+
+time: neqn: step_count 
+    0.2257
+
+    66
+
+        2050
+
+time: neqn: step_count 
+    0.2312
+
+    66
+
+        2100
+
+time: neqn: step_count 
+    0.2367
+
+    66
+
+        2150
+
+time: neqn: step_count 
+    0.2422
+
+    66
+
+        2200
+
+time: neqn: step_count 
+    0.2477
+
+    66
+
+        2250
+
+time: neqn: step_count 
+    0.2532
+
+    66
+
+        2300
+
+time: neqn: step_count 
+    0.2587
+
+    66
+
+        2350
+
+time: neqn: step_count 
+    0.2642
+
+    66
+
+        2400
+
+time: neqn: step_count 
+    0.2697
+
+    66
+
+        2450
+
+time: neqn: step_count 
+    0.2752
+
+    66
+
+        2500
+
+time: neqn: step_count 
+    0.2807
+
+    66
+
+        2550
+
+time: neqn: step_count 
+    0.2862
+
+    66
+
+        2600
+
+time: neqn: step_count 
+    0.2917
+
+    66
+
+        2650
+
+time: neqn: step_count 
+    0.2972
+
+    66
+
+        2700
+
+2726 time steps
+CPU-times
+ advection:         262.77s  100%
+plotting:            0.01s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:written to:
+result_collision_gaussian_1x1v/wall_tend_0.3_points_300_neqn_
