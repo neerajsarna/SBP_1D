@@ -211,29 +211,13 @@ set(gca, 'FontSize', 16);
 grid on;
 
 
-%% plotting for f at t = t_end
-figure(5)
-loglog(M_values_Odd,dx_f_Odd,'-o',M_values_Even,dx_f_Even,'-o', ...
-                M_values_Odd(3:loc_truncate_Odd),exp(y_Odd_dx_f_final),'r-*',...
-                M_values_Even(4:loc_truncate_Even),exp(y_Even_dx_f_final),'k-*',...
-                'MarkerSize',3);
-            
-legend('odd moments','even moments','linear fit odd', ...
-        'linear fit even','Location','best');
-xlim([0 M+2]);
-title('variation of N_m^{(T)}');
-xlabel('m+1');
-ylabel('N_m^{(T)}');
-xt = get(gca, 'YTick');
-set(gca, 'FontSize', 16);
-grid on;
 %% display the convergence rates 
-quantities = {'int(f)';'int(d_xf)';'int(d_tf)';'f(t_{end})';'dx f(t_end)'};
-even_Order = abs([P_Even_f(1), P_Even_dx_f(1),P_Even_dt_f(1),P_Even_f_final(1),P_Even_dx_f_final(1)])';
-odd_Order = abs([P_Odd_f(1), P_Odd_dx_f(1),P_Odd_dt_f(1),P_Odd_f_final(1),P_Odd_dx_f_final(1)])';
-reduction_Even = even_Order - [0.5,1,0.5,0.5,1.0]';
-reduction_Odd = odd_Order - [0.5,1,0.5,0.5,0.5]';
-expected_rate = min([reduction_Even,reduction_Odd(end)]);
+quantities = {'int(f)';'int(d_xf)';'int(d_tf)';'f(t_{end})'};
+even_Order = abs([P_Even_f(1), P_Even_dx_f(1),P_Even_dt_f(1),P_Even_f_final(1)])';
+odd_Order = abs([P_Odd_f(1), P_Odd_dx_f(1),P_Odd_dt_f(1),P_Odd_f_final(1)])';
+reduction_Even = even_Order - [0.5,1,0.5,0.5]';
+reduction_Odd = odd_Order - [0.5,0.5,0.5,0.5]';
+expected_rate = min([reduction_Even;reduction_Odd(2)]);
 
 T = table(quantities,even_Order,odd_Order,reduction_Even,reduction_Odd);
 disp(T);

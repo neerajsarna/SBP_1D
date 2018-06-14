@@ -7,7 +7,7 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
+ 't_end',0.5,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
@@ -33,12 +33,12 @@ par.n = 50;
 [par.x_p,par.w_p] = gauss_quadrature(nc,0,5);
 
 % velocity grid in one dimension
-[v_grid1D,perm] = sort([par.x_m' par.x_p']);
+[par.v_grid1D,perm] = sort([par.x_m' par.x_p']);
 w_grid1D = [par.w_m',par.w_p'];
 w_grid1D = w_grid1D(perm);
 
 % velocity grid in two dimensions
-[vx_grid2D,vy_grid2D] = meshgrid(v_grid1D,v_grid1D);
+[vx_grid2D,vy_grid2D] = meshgrid(par.v_grid1D,par.v_grid1D);
 
 % the quadrature weights grid in two dimensions
 [wx_grid2D,wy_grid2D] = meshgrid(w_grid1D,w_grid1D);
@@ -77,19 +77,19 @@ for i = 1 : 2
     end
 end
 
-density = compute_density(temp,par.Ax,par.Ay,par.all_w);
-[ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
-theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
-sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
-
-filename = strcat('result_Comp_DVM_Mom/testing_DVM_', ...
-                            num2str(nc),'_theta1_Kn0p1','.txt');
-dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
-dlmwrite(filename,density','delimiter','\t','-append','precision',10);
-dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
-dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
-dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
-dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
+% density = compute_density(temp,par.Ax,par.Ay,par.all_w);
+% [ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
+% theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
+% sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
+% 
+% filename = strcat('result_Comp_DVM_Mom/testing_DVM_', ...
+%                             num2str(nc),'_theta1_Kn0p1','.txt');
+% dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
+% dlmwrite(filename,density','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
+% dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
 
 end
 
@@ -102,7 +102,8 @@ function f = bc_inhomo(B,bc_id,Ax,Ay,id_sys,U,all_weights,t)
     uy = 0;
     
     if t <= 1
-        thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+        %thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+        thetaIn = 1 - cos(pi * t);
     else
         thetaIn = 1;
     end

@@ -256,48 +256,24 @@ while t < par.t_end || residual > 10^(-5)
     
     if par.t_plot
         var_plot = par.compute_theta(U,par.Ax,par.Ay,par.all_w);
-        %var_plot = cell2mat(cellfun(@(a) a(end),U,'Un',0));
-        %plot(diag(par.Ax),var_plot,'-o');
         plot(X,var_plot,'-o');
-        %xlim([min(par.x_m) max(par.x_p)]);
         xlim(par.ax);
         ylim([-1 1]);        
         drawnow;
-
-%         v_id_plot = 1;
+                
+%         temp_g = zeros(par.n_eqn,1);
+%         temp_h = zeros(par.n_eqn,1);
 %         
-%         % velocity corresponding to which we plot
-%         v_plot = par.Ax(v_id_plot,v_id_plot);
-%         
-%         % the true solution shift
-%         v_shift_plot = X - v_plot * t;
-%         
-%         exact_solution = zeros(length(v_shift_plot),1);
-%         
-%         for i = 1:length(v_shift_plot)
-%             % take from the initial conditions
-%             t_temp = (v_shift_plot(i)-1)/abs(v_plot);
-%             if t_temp  <= 0
-%                 exact_solution(i) = U{1,v_id_plot}(i);
-%                 % take from the boundary conditions
-%             else 
-%                 % distance from the right boundary 
-% %                 if t_temp <= 1
-% %                     exact_solution(i) = exp(-1/(1-(t_temp-1)^2)) * exp(1);
-% %                 else
-% %                     exact_solution(i) = 1;
-% %                 end
-%                 
-%                 exact_solution(i) = 0;
-%             end
+%         for i = 1 : par.n_eqn
+%             temp_g(i) = U{1,i}(1);
+%             temp_h(i) = U{2,i}(1);
 %         end
-% 
 %         
-%         var_plot = U{1,v_id_plot};
-%         plot(X,var_plot,'-o',X,exact_solution,'-*');
-%         xlim(par.ax);
-        
-%        drawnow;
+%         temp_g = reshape(temp_g,[length(par.v_grid1D),length(par.v_grid1D)]);
+%         temp_h = reshape(temp_h,[length(par.v_grid1D),length(par.v_grid1D)]);
+%         surf(par.v_grid1D,par.v_grid1D,temp_g);
+%         zlim([-1 1]);
+%         drawnow;
     end
     
     % option to save the data during time step, required for convergence

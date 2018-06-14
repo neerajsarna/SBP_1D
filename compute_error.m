@@ -74,8 +74,9 @@ end
    xlabel('M','FontSize',10);
    ylabel('||E_M||', 'FontSize',10);
    xlim([M_values(1) M_values(end)]);
+   ylim([0.8 * min(errorTot) 1.2 * max(errorTot)]);
    legend('error','linear fit');
-    xticks(10:30:100);
+    xticks(10:20:100);
     xt = get(gca, 'XTick');
     set(gca, 'FontSize', 16);
     grid on;

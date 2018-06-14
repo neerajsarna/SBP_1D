@@ -108,13 +108,13 @@ t = 0; step_count = 0;
 % needed for norm computation
 t_Old = 0;
 
-int_f = zeros(1,par.n_eqn);
-int_dx_f = zeros(1,par.n_eqn);
-int_dt_f = zeros(1,par.n_eqn);
+% int_f = zeros(1,par.n_eqn);
+% int_dx_f = zeros(1,par.n_eqn);
+% int_dt_f = zeros(1,par.n_eqn);
 
-% int_f = zeros(1,2  * (par.M + 1));
-% int_dx_f = zeros(1,2  * (par.M + 1));
-% int_dt_f = zeros(1,2  * (par.M + 1));
+int_f = zeros(1,2  * (par.M + 1));
+int_dx_f = zeros(1,2  * (par.M + 1));
+int_dt_f = zeros(1,2  * (par.M + 1));
 
 
 for j = par.source_ind     
@@ -262,11 +262,11 @@ while t < par.t_end
     if par.t_plot
         
        
-        plot(X,U{3},'-o');
+        plot(X,sqrt(2) * (U{3} + U{4} + U{5})/3,'-o');
         
         %plot(X,U{1},'-o');
         xlim([0 1]);
-        ylim([-0.4 0.4]);
+        ylim([-0.4 0.7]);
         
         drawnow;
     end
@@ -276,11 +276,11 @@ while t < par.t_end
     if par.save_during && mod(step_count,100) == 0
         
 %         we compute the norms of the different features of the solution
-%         [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(...
-%                                                 U,weight,k_RK,PX,DX,t,t_Old, ...
-%                                                 par.idx_trun,par.idx_trun_odd,par.idx_trun_even);
+        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(...
+                                                U,weight,k_RK,PX,DX,t,t_Old, ...
+                                                par.idx_trun,par.idx_trun_odd,par.idx_trun_even);
        
-        [temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(U,weight,k_RK,PX,DX,t,t_Old);
+        %[temp_int_f,temp_int_dx_f,temp_int_dt_f] = par.compute_during(U,weight,k_RK,PX,DX,t,t_Old);
         
         int_f = temp_int_f + int_f;
         int_dx_f = temp_int_dx_f + int_dx_f;
@@ -295,8 +295,8 @@ end
 
 % write down the norms of f and it's derivatives into a file
 if par.save_during
-    %par.save_norms(int_f,int_dx_f,int_dt_f,par.n,par.M);
-    par.save_norms(int_f,int_dx_f,int_dt_f,par.n);
+    par.save_norms(int_f,int_dx_f,int_dt_f,par.n,par.M);
+    %par.save_norms(int_f,int_dx_f,int_dt_f,par.n);
 end
 
 fprintf('%0.0f time steps\n',step_count)           % Display test

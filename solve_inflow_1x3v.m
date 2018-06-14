@@ -5,14 +5,14 @@ par = struct(...
 'ic',@ic,... % initial conditions
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
+ 't_end',0.5,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
  'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
-'save_during',false, ... % should we save during the computation
+'save_during',true, ... % should we save during the computation
 'compute_during', @compute_during, ...
 'save_norms', @save_norms, ... % routine for computing and saving the norm
 'prod_explicit',true ... % whether we provide an explicit expression for production term or not
@@ -27,7 +27,7 @@ end
 % to plot during computation or not to plot, thats the question
 par.t_plot = false;
 
-par.n = 50;
+par.n = 300;
 
 if (M == 55)
     par.save_during = true;
@@ -72,12 +72,12 @@ end
 
 result = solver(par);
 
-% output_filename = strcat('result_Inflow2D/inflow_tend_', ...
-%                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
-% output_filename = strcat(output_filename,num2str(M),'.txt');
+output_filename = strcat('result_Inflow_1x3v_Kn0p1_cos_theta1/inflow_tend_', ...
+                        num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+output_filename = strcat(output_filename,num2str(M),'.txt');
 
-output_filename = strcat('result_Comp_DVM_Mom/testing_M', ...
-                            num2str(M),'_theta1_Kn0p1','.txt');
+% output_filename = strcat('result_Comp_DVM_Mom/testing_M', ...
+%                             num2str(M),'_theta1_Kn0p1','.txt');
 
 write_result(result,output_filename);
 end
@@ -111,7 +111,7 @@ end
 function f = bc_inhomo(B,bc_id,t)
 
     if t <= 1
-        thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+        thetaIn = 1-cos(pi * t);
     else
         thetaIn = 1;
     end
@@ -152,8 +152,11 @@ for i = 0 : M
     % for every tensor degree, we first store the norm of the even one and
     % then the odd ones
     
-    norm_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a,U(shift + idx_trun_even{i+1}),'Un',0))));
-    norm_dx_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U(shift + idx_trun_even{i+1}),'Un',0))));
+    norm_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a,...
+                            U(shift + idx_trun_even{i+1}),'Un',0))));
+                        
+    norm_dx_f(id_even) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a, ...
+                            U(shift + idx_trun_even{i+1}),'Un',0))));
     
     % we now loop over all the even variables
     for j = 1 : length(idx_trun_even{i+1})
@@ -171,8 +174,11 @@ for i = 0 : M
     
     % we first loop over all the odd variables
     if i > 0
-        norm_dx_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a,U(shift + idx_trun_odd{i+1}),'Un',0))));
-        norm_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a,U(shift + idx_trun_odd{i+1}),'Un',0))));
+        norm_dx_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) (DX*a)'*PX*DX*a, ...
+                                U(shift + idx_trun_odd{i+1}),'Un',0))));
+        
+        norm_f(id_odd) = sqrt(sum(cell2mat(cellfun(@(a) a'*PX*a,...
+                                U(shift + idx_trun_odd{i+1}),'Un',0))));
         
         for j = 1 : length(idx_trun_odd{i+1})
             temp = zeros(size(DX,1),1);
@@ -196,10 +202,11 @@ int_f = norm_f * (t-t_Old);
 int_dx_f = norm_dx_f * (t-t_Old);
 int_dt_f = norm_dt_f * (t-t_Old);
 
+
 end
 
 function save_norms(int_f,int_dx_f,int_dt_f,n,M)
-filename = strcat('result_Inflow2D/result_Reference/inflow_norms', ...
+filename = strcat('result_Inflow_1x3v_Kn0p1_cos_theta1/result_Reference/inflow_norms', ...
                 '_points_',num2str(n),'_neqn_',num2str(M),'.txt');
 
 dlmwrite(filename,int_f,'delimiter','\t','precision',10);
