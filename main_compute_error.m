@@ -3,25 +3,26 @@ clear all;
 
 %% routines for the 1D case
 %M_values = [4:2:40,44:2:70,5:2:41,45:2:71];
-M_values = [44:4:70,45:4:71];
-M_values = sort(M_values);
-grid_points = 300;
-n_ref = 200;
-n_ref2 = 200;
-t_end = 0.3;
-filename = 'wall';
-foldername = 'result_collision_gaussian_1x1v';
-
-error = compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
+%M_values = [44:4:70,45:4:71,75:5:105];
+% M_values = 45:5:105;
+% M_values = sort(M_values);
+% grid_points = 300;
+% n_ref = 200;
+% n_ref2 = 200;
+% t_end = 0.3;
+% filename = 'wall';
+% foldername = 'result_collision_gaussian_1x1v';
+% 
+% error = compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
 
 %% Heat Conduction
 
-% M_values = sort([4:4:24,3:4:27]);
-% grid_points = 300;
-% n_ref = 55;
-% t_end = 1;
-% filename = 'hc';
-% foldername = 'result_HC2D';
-% 
-% [convg_rate_Odd,convg_rate_Even,expected_rate] = compute_error2D(M_values,grid_points,n_ref, ...
-%                                             t_end,filename,foldername);
+M_values = sort([4:4:24,3:4:27]);
+grid_points = 300;
+n_ref = 55;
+t_end = 1;
+filename = 'hc';
+foldername = 'result_HC2D_1x3v_Kn0p1_theta1';
+
+[convg_rate_Odd,convg_rate_Even,expected_rate] = compute_error2D(M_values,grid_points,n_ref, ...
+                                            t_end,filename,foldername);

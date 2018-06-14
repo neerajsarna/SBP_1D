@@ -4,7 +4,11 @@
 % 2. t_end = end time at which we do the computations
 % 3. n = number of grid points along the spatial domain
 % 4. foldername = folder in which the results are
-function [expected_rate,loc_truncate] = expected_convg_rate2D(M,t_end,n,foldername,filename)
+function [expected_rate,loc_truncate] = expected_convg_rate2D(M,t_end,n,...
+                                            foldername,filename)
+
+
+% 
 
 
 % filename of the file which contains all the norms 
@@ -20,7 +24,7 @@ int_dt_f = result(3,:);
 delta_x = 1/n;
 
 % % we need the P matrix for computing the error
-[~,P,~] = sbp_traditional_2(delta_x,n);
+[DX,P,~] = sbp_traditional_2(delta_x,n);
 
 
 %% we also extract the reference solution at t = 0.3
@@ -34,6 +38,8 @@ result_final = result_final(2:end,:)';
 [~,~,idx_trun,idx_trun_odd,idx_trun_even] =  Trun_id(M);
 
 norm_final = zeros(1,2*M+2);
+norm_dx_final = zeros(1,2*M+2);
+
 shift = 0;
 for i = 0 : M
     
@@ -49,18 +55,26 @@ for i = 0 : M
     
     if isempty(idx_trun_even{i+1})
             norm_final(id_even) = 0;
+            norm_dx_final(id_even) = 0;
     else
-            norm_final(id_even) = sqrt(sum(dot(result_final(:,shift + idx_trun_even{i+1}), ...
-                        P * result_final(:,shift + idx_trun_even{i+1}),1)));
+        norm_final(id_even) = sqrt(sum(dot(result_final(:,shift + idx_trun_even{i+1}), ...
+            P * result_final(:,shift + idx_trun_even{i+1}),1)));
+        
+        norm_dx_final(id_even) = sqrt(sum(dot(DX * result_final(:,shift + idx_trun_even{i+1}), ...
+            P * DX * result_final(:,shift + idx_trun_even{i+1}),1)));
     end
     
     
     % we first loop over all the odd variables
     if isempty(idx_trun_odd{i+1})
       norm_final(id_odd) = 0;
+      norm_dx_final(id_odd) = 0;
     else
      norm_final(id_odd) = sqrt(sum(dot(result_final(:,shift + idx_trun_odd{i+1}), ...
                                P * result_final(:,shift + idx_trun_odd{i+1}),1)));
+                           
+     norm_dx_final(id_odd) = sqrt(sum(dot(DX * result_final(:,shift + idx_trun_odd{i+1}), ...
+                               P * DX * result_final(:,shift + idx_trun_odd{i+1}),1)));                      
     end
     
 end
@@ -84,6 +98,9 @@ loc_truncate = M+1;
 
 [~,f_Odd] = return_nz_Odd(id_odd,norm_final(id_odd),loc_truncate);
 [~,f_Even] = return_nz_Even(id_even,norm_final(id_even),loc_truncate);
+
+[~,dx_f_Odd] = return_nz_Odd(id_odd,norm_dx_final(id_odd),loc_truncate);
+[~,dx_f_Even] = return_nz_Even(id_even,norm_dx_final(id_even),loc_truncate);
 
 %% find the location where we would like to truncate
 loc_truncate = M-10;
@@ -118,7 +135,12 @@ loc_truncate_Even = find(M_values_Even >= loc_truncate,1);
 [P_Even_f_final,y_Even_f_final] = polyfit_linear(log(M_values_Even(4:loc_truncate_Even)), ...
                                                 log(f_Even(4:loc_truncate_Even)));
 
-
+% polyfit for dx_f at t = t_end
+[P_Odd_dx_f_final,y_Odd_dx_f_final] = polyfit_linear(log(M_values_Odd(3:loc_truncate_Odd)), ...
+                                                log(dx_f_Odd(3:loc_truncate_Odd)));
+                                            
+[P_Even_dx_f_final,y_Even_dx_f_final] = polyfit_linear(log(M_values_Even(4:loc_truncate_Even)), ...
+                                                log(dx_f_Even(4:loc_truncate_Even)));
 % 
 %% plotting for f
 figure(1)
@@ -189,13 +211,29 @@ set(gca, 'FontSize', 16);
 grid on;
 
 
+%% plotting for f at t = t_end
+figure(5)
+loglog(M_values_Odd,dx_f_Odd,'-o',M_values_Even,dx_f_Even,'-o', ...
+                M_values_Odd(3:loc_truncate_Odd),exp(y_Odd_dx_f_final),'r-*',...
+                M_values_Even(4:loc_truncate_Even),exp(y_Even_dx_f_final),'k-*',...
+                'MarkerSize',3);
+            
+legend('odd moments','even moments','linear fit odd', ...
+        'linear fit even','Location','best');
+xlim([0 M+2]);
+title('variation of N_m^{(T)}');
+xlabel('m+1');
+ylabel('N_m^{(T)}');
+xt = get(gca, 'YTick');
+set(gca, 'FontSize', 16);
+grid on;
 %% display the convergence rates 
-quantities = {'int(f)';'int(d_xf)';'int(d_tf)';'f(t_{end})'};
-even_Order = abs([P_Even_f(1), P_Even_dx_f(1),P_Even_dt_f(1),P_Even_f_final(1)])';
-odd_Order = abs([P_Odd_f(1), P_Odd_dx_f(1),P_Odd_dt_f(1),P_Odd_f_final(1)])';
-reduction_Even = even_Order - [0.5,1,0.5,0.5]';
-reduction_Odd = odd_Order - [0.5,1,0.5,0.5]';
-expected_rate = min(reduction_Even);
+quantities = {'int(f)';'int(d_xf)';'int(d_tf)';'f(t_{end})';'dx f(t_end)'};
+even_Order = abs([P_Even_f(1), P_Even_dx_f(1),P_Even_dt_f(1),P_Even_f_final(1),P_Even_dx_f_final(1)])';
+odd_Order = abs([P_Odd_f(1), P_Odd_dx_f(1),P_Odd_dt_f(1),P_Odd_f_final(1),P_Odd_dx_f_final(1)])';
+reduction_Even = even_Order - [0.5,1,0.5,0.5,1.0]';
+reduction_Odd = odd_Order - [0.5,1,0.5,0.5,0.5]';
+expected_rate = min([reduction_Even,reduction_Odd(end)]);
 
 T = table(quantities,even_Order,odd_Order,reduction_Even,reduction_Odd);
 disp(T);
