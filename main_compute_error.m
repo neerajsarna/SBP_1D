@@ -2,8 +2,9 @@
 clear all;
 
 %% routines for the 1D case
-M_values = [4:2:40,5:2:41];
-M_values = sort([M_values,5]);
+%M_values = [4:2:40,44:2:70,5:2:41,45:2:71];
+M_values = [44:4:70,45:4:71];
+M_values = sort([M_values]);
 grid_points = 300;
 n_ref = 200;
 n_ref2 = 200;
@@ -11,7 +12,7 @@ t_end = 0.3;
 filename = 'wall';
 foldername = 'result_collision_gaussian_1x1v';
 
-compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
+error = compute_error(M_values,grid_points,n_ref,t_end,filename,foldername);
 
 %% Heat Conduction
 
