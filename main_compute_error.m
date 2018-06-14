@@ -4,7 +4,7 @@ clear all;
 %% routines for the 1D case
 %M_values = [4:2:40,44:2:70,5:2:41,45:2:71];
 M_values = [44:4:70,45:4:71];
-M_values = sort([M_values]);
+M_values = sort(M_values);
 grid_points = 300;
 n_ref = 200;
 n_ref2 = 200;
