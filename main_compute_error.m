@@ -2,7 +2,7 @@
 clear all;
 
 %% routines for the 1D case
-M_values = [4:2:24,5:2:25];
+M_values = [4:2:40,5:2:41];
 M_values = sort([M_values,5]);
 grid_points = 300;
 n_ref = 200;

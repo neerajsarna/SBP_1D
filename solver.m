@@ -262,11 +262,11 @@ while t < par.t_end
     if par.t_plot
         
        
-        plot(X,U{1},'-o');
+        plot(X,U{3},'-o');
         
         %plot(X,U{1},'-o');
         xlim([0 1]);
-        ylim([-1 1]);
+        ylim([-0.4 0.4]);
         
         drawnow;
     end

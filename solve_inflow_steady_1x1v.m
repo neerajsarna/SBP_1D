@@ -1,4 +1,4 @@
-function result = solve_inflow_steady(neqn)
+function result = solve_inflow_steady_1x1v(neqn)
 
 par = struct(...
 'name','1D Advection',... % name of example
@@ -6,8 +6,8 @@ par = struct(...
 'relax',@relax,... % production term defined below
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.3,... % the end time of the computation
- 'CFL',2.0,...      % the crude cfl number
+ 't_end',0.1,... % the end time of the computation
+ 'CFL',4.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
@@ -19,9 +19,9 @@ par = struct(...
 'steady_state', true ...
 );
 
-par.t_plot = false;
+par.t_plot = true;
 
-par.n = 50;
+par.n = 1000;
 
 par.n_eqn = neqn;
 
@@ -49,9 +49,9 @@ for i = 1 : par.num_bc
     par.penalty_B{i} = par.penalty{i} * par.B{i};
 end
 
-result = solver_steady_state(par);
+result = solver(par);
 
-% output_filename = strcat('result_Inflow_KnInf_Steady/inflow_tend_',num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
+% output_filename = strcat('result_Inflow_1x1v_KnInf_Steady_theta1/inflow_incomp','_points_',num2str(par.n),'_neqn_');
 % output_filename = strcat(output_filename,num2str(par.n_eqn),'.txt');
 % write_result(result,output_filename);
 
@@ -61,13 +61,15 @@ end
 % working on inflow boundaries, we consider vacum boundary conditions
 function f = bc_inhomo(B,bc_id,t)
 
-    if t <= 1
-        % additional exp(1) makes the result at t = 1 equal to 1.
-        thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
-        %thetaIn = 1;
-    else
-        thetaIn = 1;
-    end
+%     if t <= 1
+%         % additional exp(1) makes the result at t = 1 equal to 1.
+%         thetaIn = exp(-1/(1-(t-1)^2)) * exp(1);
+%         %thetaIn = 1;
+%     else
+%         thetaIn = 1;
+%     end
+
+    thetaIn = 1;
     
     switch bc_id
         % boundary at x = x_start
@@ -91,7 +93,7 @@ function f = ic(x,id)
 end
 
 function f = relax(x,id)
-Kn = 0.1;
+Kn = inf;
 f = zeros(length(x),1);
 
 if id > 3
