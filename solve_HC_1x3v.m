@@ -1,5 +1,5 @@
 % the heat conduction problem
-function solve_HC2D(M)
+function solve_HC_1x3v(M)
 
 par = struct(...
 'name','Inflow2D',... % name of example
@@ -30,7 +30,7 @@ par.t_plot = false;
 
 par.n = 300;
 
-if (M == 55)
+if (M == 55 || M == 54)
     par.save_during = true;
 end
    

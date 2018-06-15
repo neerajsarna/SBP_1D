@@ -4,7 +4,7 @@
 % 2. t_end = end time at which we do the computations
 % 3. n = number of grid points along the spatial domain
 % 4. foldername = folder in which the results are
-function [expected_rate,loc_truncate] = expected_convg_rate2D(M,t_end,n,...
+function [expected_rate,loc_truncate] = expected_convg_rate2D(M,M2,t_end,n,...
                                             foldername,filename)
 
 
@@ -20,6 +20,15 @@ result = dlmread(norms_filename,'\t');
 int_f = result(1,:);
 int_dx_f = result(2,:);
 int_dt_f = result(3,:);
+
+norms_filename = strcat(foldername,'/result_Reference/',filename,'_norms_points_',num2str(n),'_neqn_',...
+                            num2str(M2),'.txt');
+
+result = dlmread(norms_filename,'\t');
+
+int_f_ref2 = result(1,:);
+int_dx_f_ref2 = result(2,:);
+int_dt_f_ref2 = result(3,:);
 
 delta_x = 1/n;
 
