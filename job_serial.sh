@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[45]"
+#BSUB -J "MATLAB_ARRAY[44]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_gaussian_collision_%I
