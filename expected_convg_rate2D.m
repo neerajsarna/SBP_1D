@@ -7,10 +7,9 @@
 function [expected_rate,loc_truncate] = expected_convg_rate2D(M,M2,t_end,n,...
                                             foldername,filename)
 
-
-% 
-
-
+if (mod(M,2) == 0)
+    error('M should be odd');
+end
 % filename of the file which contains all the norms 
 norms_filename = strcat(foldername,'/result_Reference/',filename,'_norms_points_',num2str(n),'_neqn_',...
                             num2str(M),'.txt');
@@ -43,75 +42,40 @@ output_filename = strcat(output_filename,num2str(M),'.txt');
 result_final = dlmread(output_filename,'\t');
 result_final = result_final(2:end,:)';
 
+output_filename = strcat(foldername,'/',filename,'_tend_',num2str(t_end),'_points_',num2str(n),'_neqn_');
+output_filename = strcat(output_filename,num2str(M2),'.txt');
+    
+result_final_ref2 = dlmread(output_filename,'\t');
+result_final_ref2 = result_final_ref2(2:end,:)';
 
-[~,~,idx_trun,idx_trun_odd,idx_trun_even] =  Trun_id(M);
+norm_final = find_norm_final(result_final,P,M);
+norm_final_ref2 = find_norm_final(result_final_ref2,P,M2);
 
-norm_final = zeros(1,2*M+2);
-norm_dx_final = zeros(1,2*M+2);
-
-shift = 0;
-for i = 0 : M
-    
-    if i > 0
-        shift = shift + size(idx_trun{i},1);
-    end
-    
-    id_odd = 2*i+2;
-    id_even = 2*i + 1;
-    
-    % for every tensor degree, we first store the norm of the even one and
-    % then the odd ones
-    
-    if isempty(idx_trun_even{i+1})
-            norm_final(id_even) = 0;
-            norm_dx_final(id_even) = 0;
-    else
-        norm_final(id_even) = sqrt(sum(dot(result_final(:,shift + idx_trun_even{i+1}), ...
-            P * result_final(:,shift + idx_trun_even{i+1}),1)));
-        
-        norm_dx_final(id_even) = sqrt(sum(dot(DX * result_final(:,shift + idx_trun_even{i+1}), ...
-            P * DX * result_final(:,shift + idx_trun_even{i+1}),1)));
-    end
-    
-    
-    % we first loop over all the odd variables
-    if isempty(idx_trun_odd{i+1})
-      norm_final(id_odd) = 0;
-      norm_dx_final(id_odd) = 0;
-    else
-     norm_final(id_odd) = sqrt(sum(dot(result_final(:,shift + idx_trun_odd{i+1}), ...
-                               P * result_final(:,shift + idx_trun_odd{i+1}),1)));
-                           
-     norm_dx_final(id_odd) = sqrt(sum(dot(DX * result_final(:,shift + idx_trun_odd{i+1}), ...
-                               P * DX * result_final(:,shift + idx_trun_odd{i+1}),1)));                      
-    end
-    
-end
-
-% given a tensor degree, we either have odd or even moment. 
-% find the locations where non zero values of magnitude 
-id_odd = odd_var(2 * M + 2);
+% for odd moments take even M and for even moments take odd M
+id_odd = odd_var(2 * M2 + 2);
 id_even = even_var(2 * M + 2);
 
 %% extract the norms which are not zero
-loc_truncate = M+1;
 
-[M_values_Odd,int_f_Odd] = return_nz_Odd(id_odd,int_f(id_odd),loc_truncate);
+loc_truncate = M + 1;
+% extracting all the even ones
 [M_values_Even,int_f_Even] = return_nz_Even(id_even,int_f(id_even),loc_truncate);
-
-[~,int_dx_f_Odd] = return_nz_Odd(id_odd,int_dx_f(id_odd),loc_truncate);
+[~,int_dt_f_Even] = return_nz_Even(id_even,int_dt_f(id_even),loc_truncate);
+[~,f_Even] = return_nz_Even(id_even,norm_final(id_even),loc_truncate);
 [~,int_dx_f_Even] = return_nz_Even(id_even,int_dx_f(id_even),loc_truncate);
 
-[~,int_dt_f_Odd] = return_nz_Odd(id_odd,int_dt_f(id_odd),loc_truncate);
-[~,int_dt_f_Even] = return_nz_Even(id_even,int_dt_f(id_even),loc_truncate);
+% extracting all the odd ones
+loc_truncate  = M2 + 1;
+[M_values_Odd,int_f_Odd] = return_nz_Odd(id_odd,int_f_ref2(id_odd),loc_truncate);
+[~,int_dt_f_Odd] = return_nz_Odd(id_odd,int_dt_f_ref2(id_odd),loc_truncate);
+[~,f_Odd] = return_nz_Odd(id_odd,norm_final_ref2(id_odd),loc_truncate);
+[~,int_dx_f_Odd] = return_nz_Odd(id_odd,int_dx_f_ref2(id_odd),loc_truncate);
 
-[~,f_Odd] = return_nz_Odd(id_odd,norm_final(id_odd),loc_truncate);
-[~,f_Even] = return_nz_Even(id_even,norm_final(id_even),loc_truncate);
-
-[~,dx_f_Odd] = return_nz_Odd(id_odd,norm_dx_final(id_odd),loc_truncate);
-[~,dx_f_Even] = return_nz_Even(id_even,norm_dx_final(id_even),loc_truncate);
 
 %% find the location where we would like to truncate
+if abs(M-M2) > 10
+    error('M and M2 are too big');
+end
 loc_truncate = M-10;
 loc_truncate_Odd = find(M_values_Odd >= loc_truncate,1);
 loc_truncate_Even = find(M_values_Even >= loc_truncate,1);
@@ -144,12 +108,6 @@ loc_truncate_Even = find(M_values_Even >= loc_truncate,1);
 [P_Even_f_final,y_Even_f_final] = polyfit_linear(log(M_values_Even(4:loc_truncate_Even)), ...
                                                 log(f_Even(4:loc_truncate_Even)));
 
-% polyfit for dx_f at t = t_end
-[P_Odd_dx_f_final,y_Odd_dx_f_final] = polyfit_linear(log(M_values_Odd(3:loc_truncate_Odd)), ...
-                                                log(dx_f_Odd(3:loc_truncate_Odd)));
-                                            
-[P_Even_dx_f_final,y_Even_dx_f_final] = polyfit_linear(log(M_values_Even(4:loc_truncate_Even)), ...
-                                                log(dx_f_Even(4:loc_truncate_Even)));
 % 
 %% plotting for f
 figure(1)
@@ -250,6 +208,81 @@ yfit = P(1) * x + P(2);
 end
 
 
+% we return the M_values of non zero odd norms
+function [M_values,norm_values] = return_nz_Odd(id_Odd,norm_Odd,loc_truncate)
+
+loc_nz = find(norm_Odd ~= 0);
+id_Odd_nz = id_Odd(loc_nz);
+
+M_values = id_Odd_nz/2; 
+norm_values = norm_Odd(loc_nz);
+
+% only keep values which are less than loc_truncate
+loc_less_truncate = find(M_values <= loc_truncate);
+
+M_values = M_values(loc_less_truncate);
+norm_values = norm_values(loc_less_truncate);
+
+end
+
+% return the M values of non zero even norms
+function [M_values,norm_values] = return_nz_Even(id_Even,norm_Even,loc_truncate)
+
+loc_nz = find(norm_Even ~= 0);
+id_Even_nz = id_Even(loc_nz);
+
+M_values = ceil(id_Even_nz/2); 
+norm_values = norm_Even(loc_nz);
+
+% only keep values which are less than loc_truncate
+loc_less_truncate = find(M_values <= loc_truncate);
+
+M_values = M_values(loc_less_truncate);
+norm_values = norm_values(loc_less_truncate);
+end
+
+function norm_final = find_norm_final(result_final,P,M)
+[~,~,idx_trun,idx_trun_odd,idx_trun_even] =  Trun_id(M);
+
+norm_final = zeros(1,2*M+2);
+
+shift = 0;
+for i = 0 : M
+    
+    if i > 0
+        shift = shift + size(idx_trun{i},1);
+    end
+    
+    id_odd = 2*i+2;
+    id_even = 2*i + 1;
+    
+    % for every tensor degree, we first store the norm of the even one and
+    % then the odd ones
+    
+    if isempty(idx_trun_even{i+1})
+            norm_final(id_even) = 0;
+            
+    else
+        norm_final(id_even) = sqrt(sum(dot(result_final(:,shift + idx_trun_even{i+1}), ...
+            P * result_final(:,shift + idx_trun_even{i+1}),1)));
+        
+    end
+    
+    
+    % we first loop over all the odd variables
+    if isempty(idx_trun_odd{i+1})
+      norm_final(id_odd) = 0;
+      
+    else
+     norm_final(id_odd) = sqrt(sum(dot(result_final(:,shift + idx_trun_odd{i+1}), ...
+                               P * result_final(:,shift + idx_trun_odd{i+1}),1)));
+                           
+    end
+    
+end
+end
+
+
 function [id_all,id_local_odd,idx_trun,idx_trun_local_odd,idx_trun_local_even] =  Trun_id(M)
 all_idx = cell(M+1,1);
 idx_odd = cell(M+1,1);
@@ -291,37 +324,4 @@ for i = 0 : M
     id_local_odd = [id_local_odd sort(ia)'+shift_id];
 end 
 
-end
-
-% we return the M_values of non zero odd norms
-function [M_values,norm_values] = return_nz_Odd(id_Odd,norm_Odd,loc_truncate)
-
-loc_nz = find(norm_Odd ~= 0);
-id_Odd_nz = id_Odd(loc_nz);
-
-M_values = id_Odd_nz/2; 
-norm_values = norm_Odd(loc_nz);
-
-% only keep values which are less than loc_truncate
-loc_less_truncate = find(M_values <= loc_truncate);
-
-M_values = M_values(loc_less_truncate);
-norm_values = norm_values(loc_less_truncate);
-
-end
-
-% return the M values of non zero even norms
-function [M_values,norm_values] = return_nz_Even(id_Even,norm_Even,loc_truncate)
-
-loc_nz = find(norm_Even ~= 0);
-id_Even_nz = id_Even(loc_nz);
-
-M_values = ceil(id_Even_nz/2); 
-norm_values = norm_Even(loc_nz);
-
-% only keep values which are less than loc_truncate
-loc_less_truncate = find(M_values <= loc_truncate);
-
-M_values = M_values(loc_less_truncate);
-norm_values = norm_values(loc_less_truncate);
 end

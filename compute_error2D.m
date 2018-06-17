@@ -1,4 +1,4 @@
-function [convg_rate_Odd,convg_rate_Even,expected_rate] = compute_error2D(M_values,n,n_ref,...
+function [convg_rate_Odd,convg_rate_Even,expected_rate] = compute_error2D(M_values,n,n_ref,n_ref2,...
                                                     t_end,filename,foldername)
     
 
@@ -52,7 +52,7 @@ end
    %% compute the expected rate of convergence
    
     disp('regularity of reference ...');
-   [expected_rate,loc_truncate] = expected_convg_rate2D(n_ref,t_end,n, ...
+   [expected_rate,loc_truncate] = expected_convg_rate2D(n_ref,n_ref2,t_end,n, ...
                                                         foldername,filename);
    
 % 
@@ -92,11 +92,11 @@ end
     disp('OBTAINED RATE Even M: ');
     disp(convg_rate_Even);
     
-    disp('% Error in prediction Odd M');
-    disp((convg_rate_Odd-expected_rate)*100/convg_rate_Odd);
+    disp(' Error in prediction Odd M');
+    disp((convg_rate_Odd-expected_rate));
    
-    disp('% Error in prediction Even M');
-    disp((convg_rate_Even-expected_rate)*100/convg_rate_Even);
+    disp('Error in prediction Even M');
+    disp((convg_rate_Even-expected_rate));
 end
 
 function [P,yfit] = polyfit_linear(x,y)

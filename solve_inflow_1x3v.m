@@ -5,14 +5,14 @@ par = struct(...
 'ic',@ic,... % initial conditions
 'bc_inhomo',@bc_inhomo,... % source term (defined below)
 'ax',[0 1],... % coordinates of computational domain
- 't_end',0.5,... % the end time of the computation
+ 't_end',1.0,... % the end time of the computation
  'CFL',2.0,...      % the crude cfl number
  'num_bc',2,... % number of boundaries in the domain
  'pres_ID1',true,... % whether we need to prescribe something at x = x_start
  'pres_ID2',true,... % whether we need to prescribe something at x = x_end
  'var_output',1,... % the variable which should be plotted
 'output',@output,... % problem-specific output routine (defined below)
-'save_during',true, ... % should we save during the computation
+'save_during',false, ... % should we save during the computation
 'compute_during', @compute_during, ...
 'save_norms', @save_norms, ... % routine for computing and saving the norm
 'prod_explicit',true ... % whether we provide an explicit expression for production term or not
@@ -29,7 +29,7 @@ par.t_plot = false;
 
 par.n = 300;
 
-if (M == 55)
+if (M == 45 || M == 44)
     par.save_during = true;
 end
    
