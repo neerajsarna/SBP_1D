@@ -23,10 +23,10 @@ par = struct(...
 );
 
 par.Kn = 0.1;
-par.t_plot = true;
+par.t_plot = false;
 par.n_eqn = (2 * nc) * (2 * nc);
 % number of points in the spatial discretization
-par.n = 50;
+par.n = 300;
 
 %[temp_x,temp_w] = gauss_quadrature(nc,-3,3);
 [par.x_m,par.w_m] = gauss_quadrature(nc,-5,0);
@@ -77,19 +77,19 @@ for i = 1 : 2
     end
 end
 
-% density = compute_density(temp,par.Ax,par.Ay,par.all_w);
-% [ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
-% theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
-% sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
-% 
-% filename = strcat('result_Comp_DVM_Mom/testing_DVM_', ...
-%                             num2str(nc),'_theta1_Kn0p1','.txt');
-% dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
-% dlmwrite(filename,density','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
-% dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
+density = compute_density(temp,par.Ax,par.Ay,par.all_w);
+[ux,uy] = compute_velocity(temp,par.Ax,par.Ay,par.all_w);
+theta = compute_theta(temp,par.Ax,par.Ay,par.all_w);
+sigma_xx = compute_sigmaxx(temp,par.Ax,par.Ay,par.all_w);
+
+filename = strcat('result_Inflow_1x3v_Kn0p1_cos_theta1/DVM_', ...
+                            num2str(nc),'_theta1_Kn0p1','.txt');
+dlmwrite(filename,result(1,1).X','delimiter','\t','precision',10);
+dlmwrite(filename,density','delimiter','\t','-append','precision',10);
+dlmwrite(filename,ux','delimiter','\t','-append','precision',10);
+dlmwrite(filename,uy','delimiter','\t','-append','precision',10);
+dlmwrite(filename,theta','delimiter','\t','-append','precision',10);
+dlmwrite(filename,sigma_xx','delimiter','\t','-append','precision',10);
 
 end
 

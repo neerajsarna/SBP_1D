@@ -1,5 +1,5 @@
 function [errorTot] = compute_error(M_values,n,n_ref, ...
-                                                    t_end,filename,foldername)
+                                    t_end,filename,foldername)
     
 
     num_samples = length(M_values);
