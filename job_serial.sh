@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
  
 ### Job name
-#BSUB -J "MATLAB_ARRAY[3,7,11,15,19,23,27,4,8,12,16,20,24,44,45]"
+#BSUB -J "MATLAB_ARRAY[44,45]"
  
 ### File / path where STDOUT will be written, the %J is the job id
 #BSUB -o log_files/solving_inflow_%I
