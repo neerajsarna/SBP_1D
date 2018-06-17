@@ -1,0 +1,535 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+time: neqn: step_count 
+    0.0067
+
+   134
+
+    50
+
+time: neqn: step_count 
+    0.0134
+
+   134
+
+   100
+
+time: neqn: step_count 
+    0.0202
+
+   134
+
+   150
+
+time: neqn: step_count 
+    0.0269
+
+   134
+
+   200
+
+time: neqn: step_count 
+    0.0336
+
+   134
+
+   250
+
+time: neqn: step_count 
+    0.0403
+
+   134
+
+   300
+
+time: neqn: step_count 
+    0.0471
+
+   134
+
+   350
+
+time: neqn: step_count 
+    0.0538
+
+   134
+
+   400
+
+time: neqn: step_count 
+    0.0605
+
+   134
+
+   450
+
+time: neqn: step_count 
+    0.0672
+
+   134
+
+   500
+
+time: neqn: step_count 
+    0.0740
+
+   134
+
+   550
+
+time: neqn: step_count 
+    0.0807
+
+   134
+
+   600
+
+time: neqn: step_count 
+    0.0874
+
+   134
+
+   650
+
+time: neqn: step_count 
+    0.0941
+
+   134
+
+   700
+
+time: neqn: step_count 
+    0.1009
+
+   134
+
+   750
+
+time: neqn: step_count 
+    0.1076
+
+   134
+
+   800
+
+time: neqn: step_count 
+    0.1143
+
+   134
+
+   850
+
+time: neqn: step_count 
+    0.1210
+
+   134
+
+   900
+
+time: neqn: step_count 
+    0.1278
+
+   134
+
+   950
+
+time: neqn: step_count 
+    0.1345
+
+   134
+
+        1000
+
+time: neqn: step_count 
+    0.1412
+
+   134
+
+        1050
+
+time: neqn: step_count 
+    0.1479
+
+   134
+
+        1100
+
+time: neqn: step_count 
+    0.1546
+
+   134
+
+        1150
+
+time: neqn: step_count 
+    0.1614
+
+   134
+
+        1200
+
+time: neqn: step_count 
+    0.1681
+
+   134
+
+        1250
+
+time: neqn: step_count 
+    0.1748
+
+   134
+
+        1300
+
+time: neqn: step_count 
+    0.1815
+
+   134
+
+        1350
+
+time: neqn: step_count 
+    0.1883
+
+   134
+
+        1400
+
+time: neqn: step_count 
+    0.1950
+
+   134
+
+        1450
+
+time: neqn: step_count 
+    0.2017
+
+   134
+
+        1500
+
+time: neqn: step_count 
+    0.2084
+
+   134
+
+        1550
+
+time: neqn: step_count 
+    0.2152
+
+   134
+
+        1600
+
+time: neqn: step_count 
+    0.2219
+
+   134
+
+        1650
+
+time: neqn: step_count 
+    0.2286
+
+   134
+
+        1700
+
+time: neqn: step_count 
+    0.2353
+
+   134
+
+        1750
+
+time: neqn: step_count 
+    0.2421
+
+   134
+
+        1800
+
+time: neqn: step_count 
+    0.2488
+
+   134
+
+        1850
+
+time: neqn: step_count 
+    0.2555
+
+   134
+
+        1900
+
+time: neqn: step_count 
+    0.2622
+
+   134
+
+        1950
+
+time: neqn: step_count 
+    0.2690
+
+   134
+
+        2000
+
+time: neqn: step_count 
+    0.2757
+
+   134
+
+        2050
+
+time: neqn: step_count 
+    0.2824
+
+   134
+
+        2100
+
+time: neqn: step_count 
+    0.2891
+
+   134
+
+        2150
+
+time: neqn: step_count 
+    0.2958
+
+   134
+
+        2200
+
+time: neqn: step_count 
+    0.3026
+
+   134
+
+        2250
+
+time: neqn: step_count 
+    0.3093
+
+   134
+
+        2300
+
+time: neqn: step_count 
+    0.3160
+
+   134
+
+        2350
+
+time: neqn: step_count 
+    0.3227
+
+   134
+
+        2400
+
+time: neqn: step_count 
+    0.3295
+
+   134
+
+        2450
+
+time: neqn: step_count 
+    0.3362
+
+   134
+
+        2500
+
+time: neqn: step_count 
+    0.3429
+
+   134
+
+        2550
+
+time: neqn: step_count 
+    0.3496
+
+   134
+
+        2600
+
+time: neqn: step_count 
+    0.3564
+
+   134
+
+        2650
+
+time: neqn: step_count 
+    0.3631
+
+   134
+
+        2700
+
+time: neqn: step_count 
+    0.3698
+
+   134
+
+        2750
+
+time: neqn: step_count 
+    0.3765
+
+   134
+
+        2800
+
+time: neqn: step_count 
+    0.3833
+
+   134
+
+        2850
+
+time: neqn: step_count 
+    0.3900
+
+   134
+
+        2900
+
+time: neqn: step_count 
+    0.3967
+
+   134
+
+        2950
+
+time: neqn: step_count 
+    0.4034
+
+   134
+
+        3000
+
+time: neqn: step_count 
+    0.4102
+
+   134
+
+        3050
+
+time: neqn: step_count 
+    0.4169
+
+   134
+
+        3100
+
+time: neqn: step_count 
+    0.4236
+
+   134
+
+        3150
+
+time: neqn: step_count 
+    0.4303
+
+   134
+
+        3200
+
+time: neqn: step_count 
+    0.4370
+
+   134
+
+        3250
+
+time: neqn: step_count 
+    0.4438
+
+   134
+
+        3300
+
+time: neqn: step_count 
+    0.4505
+
+   134
+
+        3350
+
+time: neqn: step_count 
+    0.4572
+
+   134
+
+        3400
+
+time: neqn: step_count 
+    0.4639
+
+   134
+
+        3450
+
+time: neqn: step_count 
+    0.4707
+
+   134
+
+        3500
+
+time: neqn: step_count 
+    0.4774
+
+   134
+
+        3550
+
+time: neqn: step_count 
+    0.4841
+
+   134
+
+        3600
+
+time: neqn: step_count 
+    0.4908
+
+   134
+
+        3650
+
+time: neqn: step_count 
+    0.4976
+
+   134
+
+        3700
+
+3719 time steps
+CPU-times
+ advection:         585.81s  100%
+plotting:            0.72s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:
