@@ -1,0 +1,359 @@
+Sender: LSF System <lsfadmin@linuxbcsc67>
+Subject: Job 43179475[10]: <MATLAB_ARRAY[10]> in cluster <rcc> Done
+
+Job <MATLAB_ARRAY[10]> was submitted from host <cluster-linux> by user <ns179556> in cluster <rcc> at Sun Jun 17 23:58:05 2018
+Job was executed on host(s) <linuxbcsc67>, in queue <normal>, as user <ns179556> in cluster <rcc> at Sun Jun 17 23:58:13 2018
+</home/ns179556> was used as the home directory.
+</home/ns179556/SBP_1D> was used as the working directory.
+Started at Sun Jun 17 23:58:13 2018
+Terminated at Mon Jun 18 04:10:30 2018
+Results reported at Mon Jun 18 04:10:30 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+ 
+### Job name
+#BSUB -J "MATLAB_ARRAY[10]"
+ 
+### File / path where STDOUT will be written, the %J is the job id
+#BSUB -o log_files/solving_inflow_DVM_%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 5:00
+ 
+### Request memory you need for your job in MB
+#BSUB -M 5000
+ 
+### Change to the work directory
+cd /home/ns179556/SBP_1D/
+ 
+### load modules and execute
+module load MISC
+module load matlab
+ 
+ 
+# start non-interactive batch job
+matlab -singleCompThread -nodisplay -nodesktop -nosplash -logfile log_files/solve_inflow_1x3v_DVM_$LSB_JOBINDEX.log <<EOF
+run solve_Inflow_1x3v_DVM($LSB_JOBINDEX);
+quit();
+EOF
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   14626.11 sec.
+    Max Memory :                                 672 MB
+    Average Memory :                             664.07 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4328.00 MB
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                45
+    Run time :                                   15152 sec.
+    Turnaround time :                            15145 sec.
+
+The output (if any) follows:
+
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LANGUAGE = (unset),
+	LC_ALL = (unset),
+	LC_CTYPE = "UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to the standard locale ("C").
+(OK) Loading MISC environment
+(WW) Matlab affects the shell environment. Other programs may have become unusable.
+(WW) Use another terminal for any program other than matlab!
+(OK) Loading matlab 2018a
+Picked up JAVA_TOOL_OPTIONS: -Xmx2048m
+Opening log file:  /home/ns179556/java.log.1872
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2018 The MathWorks, Inc.
+                   R2018a (9.4.0.813654) 64-bit (glnxa64)
+                             February 23, 2018
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+>> delta t
+   3.3774e-04
+
+time: neqn: step_count: residual: 
+    0.0169
+
+   400
+
+    50
+
+     0
+
+time: neqn: step_count: residual: 
+    0.0338
+
+   400
+
+   100
+
+     0
+
+time: neqn: step_count: residual: 
+    0.0507
+
+   400
+
+   150
+
+     0
+
+time: neqn: step_count: residual: 
+    0.0675
+
+   400
+
+   200
+
+     0
+
+time: neqn: step_count: residual: 
+    0.0844
+
+   400
+
+   250
+
+     0
+
+time: neqn: step_count: residual: 
+    0.1013
+
+   400
+
+   300
+
+     0
+
+time: neqn: step_count: residual: 
+    0.1182
+
+   400
+
+   350
+
+     0
+
+time: neqn: step_count: residual: 
+    0.1351
+
+   400
+
+   400
+
+     0
+
+time: neqn: step_count: residual: 
+    0.1520
+
+   400
+
+   450
+
+     0
+
+time: neqn: step_count: residual: 
+    0.1689
+
+   400
+
+   500
+
+     0
+
+time: neqn: step_count: residual: 
+    0.1858
+
+   400
+
+   550
+
+     0
+
+time: neqn: step_count: residual: 
+    0.2026
+
+   400
+
+   600
+
+     0
+
+time: neqn: step_count: residual: 
+    0.2195
+
+   400
+
+   650
+
+     0
+
+time: neqn: step_count: residual: 
+    0.2364
+
+   400
+
+   700
+
+     0
+
+time: neqn: step_count: residual: 
+    0.2533
+
+   400
+
+   750
+
+     0
+
+time: neqn: step_count: residual: 
+    0.2702
+
+   400
+
+   800
+
+     0
+
+time: neqn: step_count: residual: 
+    0.2871
+
+   400
+
+   850
+
+     0
+
+time: neqn: step_count: residual: 
+    0.3040
+
+   400
+
+   900
+
+     0
+
+time: neqn: step_count: residual: 
+    0.3209
+
+   400
+
+   950
+
+     0
+
+time: neqn: step_count: residual: 
+    0.3377
+
+   400
+
+        1000
+
+     0
+
+time: neqn: step_count: residual: 
+    0.3546
+
+   400
+
+        1050
+
+     0
+
+time: neqn: step_count: residual: 
+    0.3715
+
+   400
+
+        1100
+
+     0
+
+time: neqn: step_count: residual: 
+    0.3884
+
+   400
+
+        1150
+
+     0
+
+time: neqn: step_count: residual: 
+    0.4053
+
+   400
+
+        1200
+
+     0
+
+time: neqn: step_count: residual: 
+    0.4222
+
+   400
+
+        1250
+
+     0
+
+time: neqn: step_count: residual: 
+    0.4391
+
+   400
+
+        1300
+
+     0
+
+time: neqn: step_count: residual: 
+    0.4559
+
+   400
+
+        1350
+
+     0
+
+time: neqn: step_count: residual: 
+    0.4728
+
+   400
+
+        1400
+
+     0
+
+time: neqn: step_count: residual: 
+    0.4897
+
+   400
+
+        1450
+
+     0
+
+1481 time steps
+CPU-times
+ advection:       15067.78s  100%
+plotting:            0.02s    0%
+CPU-times
+ advection:           0.00s    0%
+plotting:>> 
