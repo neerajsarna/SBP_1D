@@ -30,7 +30,7 @@ par.t_plot = false;
 
 par.n = 300;
 
-if (M == 55 || M == 54)
+if (M == 45 || M == 44)
     par.save_during = true;
 end
    
@@ -78,7 +78,7 @@ end
 result = solver_steady_state(par);
 
         
-output_filename = strcat('result_HC2D_new/hc_tend_', ...
+output_filename = strcat('result_HC2D_1x3v_Kn0p1_theta1/hc_tend_', ...
                         num2str(par.t_end),'_points_',num2str(par.n),'_neqn_');
 output_filename = strcat(output_filename,num2str(M),'.txt');
 write_result(result,output_filename);
@@ -201,7 +201,7 @@ int_dt_f = norm_dt_f * (t-t_Old);
 end
 
 function save_norms(int_f,int_dx_f,int_dt_f,n,M)
-filename = strcat('result_HC2D_new/result_Reference/hc_norms', ...
+filename = strcat('result_HC2D_1x3v_Kn0p1_theta1/result_Reference/hc_norms', ...
                 '_points_',num2str(n),'_neqn_',num2str(M),'.txt');
 
 dlmwrite(filename,int_f,'delimiter','\t','precision',10);
